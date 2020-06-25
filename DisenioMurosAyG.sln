@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DisenioMurosAyG", "DisenioM
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entidades", "Entidades\Entidades.csproj", "{CC20FADF-8D13-4024-996C-DB1AFB60A234}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestDisenioAyG", "UnitTestDisenioAyG\UnitTestDisenioAyG.csproj", "{8E731140-6F61-47CE-85A8-D2E633AE6936}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{CC20FADF-8D13-4024-996C-DB1AFB60A234}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CC20FADF-8D13-4024-996C-DB1AFB60A234}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CC20FADF-8D13-4024-996C-DB1AFB60A234}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8E731140-6F61-47CE-85A8-D2E633AE6936}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E731140-6F61-47CE-85A8-D2E633AE6936}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E731140-6F61-47CE-85A8-D2E633AE6936}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E731140-6F61-47CE-85A8-D2E633AE6936}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
