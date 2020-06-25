@@ -9,16 +9,17 @@ namespace Entidades
         public string MuroId { get; set; }
         public string Label { get; set; }
         public GradoDisipacionEnergia GradoDisipacionEnergia { get; set; }
-        public float bw { get; set; }
-        public float lw { get; set; }
-        public float hw { get; set; }
-        public float rhot { get; set; }
-        public float rhol { get; set; }
-        public float Ast { get; set; }
-        public float Ash { get; set; }
+        public float Bw { get; set; }
+        public float Lw { get; set; }
+        public float Hw { get; set; }
+        public float RhoH { get; set; }
+        public float RhoV { get; set; }
+        public float AsH { get; set; }
+        public float AsV { get; set; }
         public float AsAdicional { get; set; }
         public int Capas { get; set; }
-        public float fc { get; set; }
+        public float Fc { get; set; }
+        public float Fy { get; set; }
         public Story Story { get; set; }
         public bool IsMaestro { get; set; }
         public string MuroPadreId { get; set; }
@@ -34,7 +35,24 @@ namespace Entidades
         {
             MuroId = Guid.NewGuid().ToString();
         }
+        public void CalcRhoH()
+        {
+            RhoH = (float)(AsH / (Bw * Math.Pow(100, 2)));
+        }
 
+        public void CalcRhoL()
+        {
+            float Long_Izq = 0;
+            if (EBE_Izq != null)
+                Long_Izq = EBE_Izq.LongEbe;
+
+            float Long_Der = 0;
+            if (EBE_Der != null)
+                Long_Der = EBE_Der.LongEbe;
+
+            float Numerdador = (AsV * (Lw - Long_Izq - Long_Der)) + AsAdicional;
+            RhoV = (float)(Numerdador / (Lw * Bw * Math.Pow(100, 2)));
+        }
         public override string ToString()
         {
             return $"{ Label}-{Story.StoryName}";

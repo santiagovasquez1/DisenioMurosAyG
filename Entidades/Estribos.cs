@@ -6,8 +6,7 @@ namespace Entidades
 {
     public class Estribos : Refuerzo
     {
-        public  override  DiccionariosRefuerzo DiccionarioRefuerzo { get => base.DiccionarioRefuerzo; set => base.DiccionarioRefuerzo = value; }
-        public Estribos(Diametro diametro, int cantidad, float separacion, TipoRefuerzo tipo, Traslapo traslapo, DiccionariosRefuerzo diccionarioRefuerzo)
+        public Estribos(Diametro diametro, int cantidad, float separacion, TipoRefuerzo tipo, Traslapo traslapo)
         {
             RefuerzoId = Guid.NewGuid().ToString();
             Diametro = diametro;
@@ -15,7 +14,6 @@ namespace Entidades
             TipoTraslapo = traslapo;
             Cantidad = cantidad;
             Separacion = separacion;
-            DiccionarioRefuerzo = diccionarioRefuerzo;
             Asi = GetAsi(diametro, cantidad);
         }
         public override float GetAsi(Diametro diametro, int cantidad)

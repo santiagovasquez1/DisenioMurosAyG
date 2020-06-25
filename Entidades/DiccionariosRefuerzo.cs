@@ -4,18 +4,12 @@ using System.Text;
 
 namespace Entidades
 {
-    public class DiccionariosRefuerzo
+    public static class DiccionariosRefuerzo
     {
-        private Dictionary<Diametro, float> AreasRefuerzo { get; set; }
-        private Dictionary<Diametro, float> PesoRefuerzoLong { get; set; }
-
-        public DiccionariosRefuerzo()
-        {
-            AreasRefuerzo = SetAreasRefuerzo();
-            PesoRefuerzoLong = SetPesosRefuerzo();
-        }
+        private static Dictionary<Diametro, float> AreasRefuerzo { get; set; }
+        private static Dictionary<Diametro, float> PesoRefuerzoLong { get; set; }
         
-        public Dictionary<Diametro, float> SetAreasRefuerzo()
+        private static Dictionary<Diametro, float> SetAreasRefuerzo()
         {
             var areasrefuerzo= new Dictionary<Diametro, float>();
             areasrefuerzo.Add(Diametro.Num45mm, 0.16f);
@@ -30,7 +24,7 @@ namespace Entidades
             return areasrefuerzo;
         }
 
-        public Dictionary<Diametro, float> SetPesosRefuerzo()
+        private  static  Dictionary<Diametro, float> SetPesosRefuerzo()
         {
             var pesosrefuerzo = new Dictionary<Diametro, float>();
             pesosrefuerzo.Add(Diametro.Num45mm, 0.16f);
@@ -46,13 +40,15 @@ namespace Entidades
         }
 
 
-        public float ReturnAsi(Diametro diametro)
+        public static float ReturnAsi(Diametro diametro)
         {
+            AreasRefuerzo = SetAreasRefuerzo();
             var Asi = AreasRefuerzo[diametro];
             return Asi;
         }
-        public float ReturnPesoi(Diametro diametro)
+        public static float ReturnPesoi(Diametro diametro)
         {
+            PesoRefuerzoLong = SetPesosRefuerzo();
             var Pesoi = PesoRefuerzoLong[diametro];
             return Pesoi;
         }

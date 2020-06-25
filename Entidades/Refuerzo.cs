@@ -16,7 +16,6 @@ namespace Entidades
         public Traslapo TipoTraslapo { get; set; }
         public TipoRefuerzo TipoRefuerzo { get; set; }
         public float[] Coordenadas { get; set; }
-        public virtual DiccionariosRefuerzo DiccionarioRefuerzo { get; set; }
         public abstract float GetPeso(Diametro diametro, float longitud, int cantidad);
         public abstract float GetAsi(Diametro diametro, int cantidad);
         public abstract float GetLong(float[]Coordenadas);

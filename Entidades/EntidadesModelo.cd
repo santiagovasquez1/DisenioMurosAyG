@@ -10,12 +10,12 @@
   <Class Name="Entidades.RefuerzoLong">
     <Position X="0.5" Y="4.5" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>BAAAAAAAAAAAABAAAAAAAAAAAAAAAAAIAAAAAAAAQAA=</HashCode>
+      <HashCode>BAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAQAA=</HashCode>
       <FileName>RefuerzoLong.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Entidades.DiccionariosRefuerzo" Collapsed="true">
-    <Position X="7" Y="0.5" Width="1.75" />
+    <Position X="6.75" Y="0.5" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAIgEABAAAAAAAABAAAAAAAAQA=</HashCode>
       <FileName>DiccionariosRefuerzo.cs</FileName>
@@ -23,47 +23,41 @@
   </Class>
   <Class Name="Entidades.Refuerzo">
     <Position X="3.5" Y="0.5" Width="2.25" />
-    <AssociationLine Name="DiccionarioRefuerzo" Type="Entidades.DiccionariosRefuerzo">
-      <MemberNameLabel ManuallyPlaced="true">
-        <Position X="0.131" Y="0.096" />
-      </MemberNameLabel>
-    </AssociationLine>
     <TypeIdentifier>
-      <HashCode>BAAAACEAAEBAABAAEAAAAABAAIIAQACIAAAAAAAAQAA=</HashCode>
+      <HashCode>BAAAACEAAEBAABAAEAAAAABAAIIAQACAAAAAAAAAQAA=</HashCode>
       <FileName>Refuerzo.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="Diametro" />
       <Property Name="TipoTraslapo" />
       <Property Name="TipoRefuerzo" />
-      <Property Name="DiccionarioRefuerzo" />
     </ShowAsAssociation>
   </Class>
   <Class Name="Entidades.Estribos">
     <Position X="2.75" Y="4.5" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>BAAAAAAAAAAAABAAAAAAAAAAAAAAAAAIAAAAAAAAQAA=</HashCode>
+      <HashCode>BAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAQAA=</HashCode>
       <FileName>Estribos.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Entidades.ElementoDeBorde">
     <Position X="13" Y="1.25" Width="2.25" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAQAEoAIQAAAAAAgAABAAAIA=</HashCode>
+      <HashCode>AAAAAAAAAIAAAAMAAAAAAAAEoAIQAAAAAAgAABAQAIA=</HashCode>
       <FileName>ElementoDeBorde.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Entidades.ElementoBordeEspecial">
     <Position X="11.75" Y="5.25" Width="2.25" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAABAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAIAAAAAAAAAAAAAAIAAAAAAAAAAAABAAAAA=</HashCode>
       <FileName>ElementoBordeEspecial.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Entidades.ZonaConfinada">
     <Position X="14.75" Y="5.25" Width="2.25" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAABAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAIAAAAAAAAAAAAAAIAAAAAAAAAAAABAAAAA=</HashCode>
       <FileName>ZonaConfinada.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -108,46 +102,38 @@
     </ShowAsCollectionAssociation>
   </Class>
   <Class Name="Entidades.Factorias.StoryFactory">
-    <Position X="6.25" Y="7.25" Width="1.5" />
+    <Position X="6.25" Y="8" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAACAAAAAAAABABAAAAAAAAAAAAAAABAAAAAAAAA=</HashCode>
       <FileName>Factorias\StoryFactory.cs</FileName>
     </TypeIdentifier>
-    <ShowAsAssociation>
-      <Property Name="Story" />
-    </ShowAsAssociation>
     <ShowAsCollectionAssociation>
       <Property Name="Stories" />
     </ShowAsCollectionAssociation>
   </Class>
   <Class Name="Entidades.LecturaExcel.AbrirArchivoExcel">
-    <Position X="9.25" Y="5.5" Width="1.5" />
+    <Position X="17.25" Y="1" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AIBAQIAAAAAAAAACAAAAAAAAACQAAAAoAAAAAAAAAAQ=</HashCode>
       <FileName>LecturaExcel\AbrirArchivoExcel.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Property Name="StoryFactory" />
       <Property Name="MuroFactory" />
+      <Property Name="StoryFactory" />
     </ShowAsAssociation>
   </Class>
   <Class Name="Entidades.Factorias.MuroFactory">
-    <Position X="6.25" Y="9" Width="1.5" />
-    <AssociationLine Name="Muros" Type="Entidades.Muro" ManuallyRouted="true">
+    <Position X="9.5" Y="8" Width="1.5" />
+    <AssociationLine Name="Muros" Type="Entidades.Muro" ManuallyRouted="true" FixedFromPoint="true">
       <Path>
-        <Point X="7.75" Y="9.415" />
-        <Point X="8.511" Y="9.415" />
-        <Point X="8.511" Y="5.387" />
-        <Point X="9.5" Y="5.387" />
+        <Point X="10" Y="8" />
+        <Point X="10" Y="5.747" />
       </Path>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>BAAAAACAAAAAAAAAAAIAAAAAAAAAAAAAAABAAAAIAAA=</HashCode>
+      <HashCode>AAAAAACAAAAAAAAAAAIAAAAAAAAAAAAAAABAAAAIAAA=</HashCode>
       <FileName>Factorias\MuroFactory.cs</FileName>
     </TypeIdentifier>
-    <ShowAsAssociation>
-      <Property Name="Muro" />
-    </ShowAsAssociation>
     <ShowAsCollectionAssociation>
       <Property Name="Muros" />
     </ShowAsCollectionAssociation>

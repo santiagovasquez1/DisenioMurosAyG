@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using Entidades;
 using Entidades.LecturaExcel;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -16,7 +17,7 @@ namespace UnitTestDisenioAyG
 
             if (File.Exists(Ruta))
             {
-                AbrirArchivoExcel AppExcel = new AbrirArchivoExcel(Ruta);
+                ImportarDisenio AppExcel = new ImportarDisenio(Ruta);
                 AppExcel.ExtraerInformacion(Entidades.GradoDisipacionEnergia.DES);
                 AppExcel.CerrarExcel();
             }

@@ -7,16 +7,16 @@ using Microsoft.Office.Interop.Excel;
 
 namespace Entidades.LecturaExcel
 {
-    public class AbrirArchivoExcel
+    public class ImportarDisenio
     {
-        StoryFactory StoryFactory { get; set; }
-        MuroFactory MuroFactory { get; set; }
+        public StoryFactory StoryFactory { get; set; }
+        public MuroFactory MuroFactory { get; set; }
         public Application ExcelApp { get; set; }
         public string RutaArchivo { get; set; }
         private Workbook Workbook { get; set; }
         private object[,] DatosDisenio { get; set; }
 
-        public AbrirArchivoExcel(string ruta)
+        public ImportarDisenio(string ruta)
         {
             RutaArchivo = ruta;
             ExcelApp = new Application();
@@ -42,18 +42,12 @@ namespace Entidades.LecturaExcel
             int Filas = DatosDisenio.GetLength(0);
 
             var pisos = GetColumn(DatosDisenio, 1);
-            //var NombreMuros = GetColumn(DatosDisenio, 2);
             var DatosGeometria = GetColumn(DatosDisenio, 5);
 
             StoryFactory = new StoryFactory();
             StoryFactory.BuildStories(pisos, DatosGeometria);
             MuroFactory = new MuroFactory(StoryFactory.Stories);
-            MuroFactory.BuildMuros(DatosDisenio,disipacionEnergia);
-
-            //foreach (Range celda in DatosDisenio)
-            //{
-            //    var prueba = celda.Value;
-            //}
+            MuroFactory.BuildMuros(DatosDisenio, disipacionEnergia);
 
         }
 
