@@ -1,6 +1,8 @@
 ﻿using System;
 using System.IO;
 using Entidades;
+using Entidades.Factorias;
+using System.Linq;
 using Entidades.LecturaExcel;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -20,8 +22,17 @@ namespace UnitTestDisenioAyG
                 ImportarDisenio AppExcel = new ImportarDisenio(Ruta);
                 AppExcel.ExtraerInformacion(Entidades.GradoDisipacionEnergia.DES);
                 AppExcel.CerrarExcel();
-            }
 
+                var AlzadosBuilder = new AlzadosFactory(AppExcel.MuroFactory.Muros);
+
+                var PierUnicos = AppExcel.MuroFactory.Muros.Select(x => x.Label).Distinct();
+
+                foreach(var Pier in PierUnicos)
+                {
+                    AlzadosBuilder.CrearAlzado(Pier);
+                }
+
+            }
 
         }
     }
