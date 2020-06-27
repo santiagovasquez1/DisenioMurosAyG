@@ -11,19 +11,12 @@ using System.Windows.Forms;
 
 namespace DisenioMurosAyG.Views
 {
-    public partial class InicioProyectoView : Form
+    public partial class InformacionAlzadoView : Form
     {
-        public InicioProyectoView()
+        public InformacionAlzadoView()
         {
-
             InitializeComponent();
-            ContextController contextcontroller = new ContextController(this);
-        }
-
-        private void InicioProyectoView_Load(object sender, EventArgs e)
-        {
-
-
+            AlzadoController alzadoController = new AlzadoController(this);
         }
     }
 }

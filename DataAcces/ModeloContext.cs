@@ -11,7 +11,7 @@ using System.Windows.Forms;
 
 namespace DataAcces
 {
-    public class ModeloContext: ApplicationContext
+    public class ModeloContext : ApplicationContext
     {
         public List<Alzado> Alzados { get; set; }
         public List<Muro> Muros { get; set; }
@@ -22,20 +22,20 @@ namespace DataAcces
         public GradoDisipacionEnergia GradoDisipacionEnergia { get; set; }
         public ModeloContext()
         {
-             
+
         }
-        public ModeloContext(string RutaArchivo1, string RutaArchivo2,GradoDisipacionEnergia disipacionEnergia)
+        public ModeloContext(string RutaArchivo1, string RutaArchivo2, GradoDisipacionEnergia disipacionEnergia)
         {
             RutaArchivoDisenio = RutaArchivo1;
             RutaArchivoDespiece = RutaArchivo2;
             GradoDisipacionEnergia = disipacionEnergia;
         }
 
-        public void LoadDisenioContext(string RutaArchivo1)
+        public void LoadDisenioContext()
         {
-            if (File.Exists(RutaArchivo1))
+            if (File.Exists(RutaArchivoDisenio))
             {
-                ImportarDisenio Modelo = new ImportarDisenio(RutaArchivo1);
+                ImportarDisenio Modelo = new ImportarDisenio(RutaArchivoDisenio);
                 Modelo.ExtraerInformacion(GradoDisipacionEnergia);
                 Modelo.CerrarExcel();
 

@@ -17,5 +17,9 @@ namespace Entidades
             Muros = murosAlzado;
             AlzadoId = Guid.NewGuid().ToString();
         }
+        public override string ToString()
+        {
+            return $"{ AlzadoName}";
+        }
     }
 }

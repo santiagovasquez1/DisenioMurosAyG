@@ -28,34 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.alzadoBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.muroBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.modeloContextBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.programBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.label1 = new System.Windows.Forms.Label();
             this.cbGDE = new System.Windows.Forms.ComboBox();
-            ((System.ComponentModel.ISupportInitialize)(this.alzadoBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.muroBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.modeloContextBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.programBindingSource)).BeginInit();
+            this.bAceptar = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.tbArchivoDiseno = new System.Windows.Forms.TextBox();
+            this.bCargar = new System.Windows.Forms.Button();
             this.SuspendLayout();
-            // 
-            // alzadoBindingSource
-            // 
-            this.alzadoBindingSource.DataSource = typeof(Entidades.Alzado);
-            // 
-            // muroBindingSource
-            // 
-            this.muroBindingSource.DataSource = typeof(Entidades.Muro);
-            // 
-            // modeloContextBindingSource
-            // 
-            this.modeloContextBindingSource.DataSource = typeof(DataAcces.ModeloContext);
-            // 
-            // programBindingSource
-            // 
-            this.programBindingSource.DataSource = typeof(DisenioMurosAyG.Program);
             // 
             // label1
             // 
@@ -74,32 +53,65 @@
             this.cbGDE.Size = new System.Drawing.Size(121, 21);
             this.cbGDE.TabIndex = 2;
             // 
+            // bAceptar
+            // 
+            this.bAceptar.Location = new System.Drawing.Point(155, 141);
+            this.bAceptar.Name = "bAceptar";
+            this.bAceptar.Size = new System.Drawing.Size(114, 31);
+            this.bAceptar.TabIndex = 3;
+            this.bAceptar.Text = "Nuevo Proyecto";
+            this.bAceptar.UseVisualStyleBackColor = true;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(26, 85);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(108, 13);
+            this.label2.TabIndex = 4;
+            this.label2.Text = "Archivo Excel Diseño";
+            // 
+            // tbArchivoDiseno
+            // 
+            this.tbArchivoDiseno.Location = new System.Drawing.Point(155, 78);
+            this.tbArchivoDiseno.Name = "tbArchivoDiseno";
+            this.tbArchivoDiseno.Size = new System.Drawing.Size(121, 20);
+            this.tbArchivoDiseno.TabIndex = 5;
+            // 
+            // bCargar
+            // 
+            this.bCargar.Location = new System.Drawing.Point(29, 141);
+            this.bCargar.Name = "bCargar";
+            this.bCargar.Size = new System.Drawing.Size(114, 31);
+            this.bCargar.TabIndex = 6;
+            this.bCargar.Text = "Cargar Archivos";
+            this.bCargar.UseVisualStyleBackColor = true;
+            // 
             // InicioProyectoView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(377, 193);
+            this.ClientSize = new System.Drawing.Size(299, 193);
+            this.Controls.Add(this.bCargar);
+            this.Controls.Add(this.tbArchivoDiseno);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.bAceptar);
             this.Controls.Add(this.cbGDE);
             this.Controls.Add(this.label1);
             this.Name = "InicioProyectoView";
             this.Text = "InicioProyectoView";
             this.Load += new System.EventHandler(this.InicioProyectoView_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.alzadoBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.muroBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.modeloContextBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.programBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.BindingSource alzadoBindingSource;
-        private System.Windows.Forms.BindingSource muroBindingSource;
-        private System.Windows.Forms.BindingSource modeloContextBindingSource;
-        private System.Windows.Forms.BindingSource programBindingSource;
         private System.Windows.Forms.Label label1;
         public System.Windows.Forms.ComboBox cbGDE;
+        public System.Windows.Forms.Button bAceptar;
+        private System.Windows.Forms.Label label2;
+        public System.Windows.Forms.TextBox tbArchivoDiseno;
+        public System.Windows.Forms.Button bCargar;
     }
 }
