@@ -30,12 +30,7 @@ namespace DisenioMurosAyG.Controller
                 InformacionAlzadoView.cbAlzados.DataSource = _contex.Alzados;
                 InformacionAlzadoView.cbAlzados.SelectedIndexChanged += new EventHandler(SeleccionarAlzadoCommand);
                 informacionAlzadoView.dgAlzado.CellEndEdit += new DataGridViewCellEventHandler(EditMuroCommand);
-                //DataGridViewComboBoxColumn ColumnEstribos = new DataGridViewComboBoxColumn();
-                //ColumnEstribos.Name = "Estribos";
-                //ColumnEstribos.HeaderText = "Estribos";
-                //ColumnEstribos.DisplayIndex = 8;
-                //ColumnEstribos.DataSource = new List<string>() { " ", "#3", "#4", "#5" };
-                //InformacionAlzadoView.dgAlzado.Columns.Add(ColumnEstribos);
+
                 Set_Columns_Data_Alzado();
             }
 
@@ -124,12 +119,29 @@ namespace DisenioMurosAyG.Controller
 
         private void Cargar_DataGrid()
         {
+            DataGridViewComboBoxColumn ColumnEstribos = new DataGridViewComboBoxColumn();
+            ColumnEstribos.Name = "Estribos";
+            ColumnEstribos.HeaderText = "Estribos";
+            ColumnEstribos.DisplayIndex = 8;
+            ColumnEstribos.DataSource = new List<string>() { " ", "#3", "#4", "#5" };
+
             InformacionAlzadoView.dgAlzado.DataSource = DT_AlzadoSeleccionado;
             InformacionAlzadoView.dgAlzado.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             InformacionAlzadoView.dgAlzado.ReadOnly = false;
             InformacionAlzadoView.dgAlzado.AllowUserToOrderColumns = false;
             InformacionAlzadoView.dgAlzado.AllowUserToAddRows = false;
-            //SetEstribosCells();
+
+            try
+            {
+                InformacionAlzadoView.dgAlzado.Columns.Remove(InformacionAlzadoView.dgAlzado.Columns[ColumnEstribos.Name]);
+                InformacionAlzadoView.dgAlzado.Columns.Add(ColumnEstribos);
+            }
+            catch (Exception)
+            {
+                InformacionAlzadoView.dgAlzado.Columns.Add(ColumnEstribos);
+            }
+
+            SetEstribosCells();
 
         }
 
@@ -181,6 +193,7 @@ namespace DisenioMurosAyG.Controller
             int column = e.ColumnIndex;
             var ColumnName = InformacionAlzadoView.dgAlzado.Rows[indice].Cells[column].OwningColumn.Name;
             float LongEbe = 0;
+
             MuroSeleccionado = AlzadoSeleccionado.Muros[indice];
 
             switch (ColumnName)
@@ -202,6 +215,11 @@ namespace DisenioMurosAyG.Controller
                     LongEbe = float.Parse(InformacionAlzadoView.dgAlzado.Rows[indice].Cells[ColumnName].Value.ToString());
                     UploadEbe(indice, LongEbe, MuroSeleccionado.EBE_Der, "Ramas Der");
                     break;
+                case "Estribos":
+                    string Diametro = InformacionAlzadoView.dgAlzado.Rows[indice].Cells[ColumnName].Value.ToString();
+                    UploadEbe(indice, Diametro, MuroSeleccionado.EBE_Izq, "Ramas Izq");
+                    UploadEbe(indice, Diametro, MuroSeleccionado.EBE_Der, "Ramas Der");
+                    break;
             }
 
         }
@@ -215,13 +233,13 @@ namespace DisenioMurosAyG.Controller
                     elementoBorde = new ElementoBordeEspecial(MuroSeleccionado.Bw, LongEbe, MuroSeleccionado.Fc, MuroSeleccionado.Fy, _contex.GradoDisipacionEnergia);
                     elementoBorde.DiametroEstribo = Diametro.Num3;
                     elementoBorde.CalculoSeparacionminima();
+                    DT_AlzadoSeleccionado.Rows[indice]["Separacion (m)"] = elementoBorde.SepEstribo;
                 }
                 else
                     elementoBorde.LongEbe = LongEbe;
 
                 elementoBorde.CalculoCuantiaVolumetrica(elementoBorde.SepEstribo, elementoBorde.DiametroEstribo);
 
-                DT_AlzadoSeleccionado.Rows[indice]["Separacion (m)"] = elementoBorde.SepEstribo;
                 DT_AlzadoSeleccionado.Columns[ColumnName].ReadOnly = false;
                 DT_AlzadoSeleccionado.Rows[indice][ColumnName] = elementoBorde.RamasX;
                 DT_AlzadoSeleccionado.Columns[ColumnName].ReadOnly = true;
@@ -231,6 +249,30 @@ namespace DisenioMurosAyG.Controller
                 elementoBorde = null;
                 DT_AlzadoSeleccionado.Columns[ColumnName].ReadOnly = false;
                 DT_AlzadoSeleccionado.Rows[indice][ColumnName] = 0f;
+                DT_AlzadoSeleccionado.Columns[ColumnName].ReadOnly = true;
+            }
+        }
+
+        private void UploadEbe(int indice, string DiametroEstribo, ElementoDeBorde elementoBorde, string ColumnName)
+        {
+            if (elementoBorde != null)
+            {
+                switch (DiametroEstribo)
+                {
+                    case "#3":
+                        elementoBorde.DiametroEstribo = Diametro.Num3;
+                        break;
+                    case "#4":
+                        elementoBorde.DiametroEstribo = Diametro.Num4;
+                        break;
+                    case "#5":
+                        elementoBorde.DiametroEstribo = Diametro.Num5;
+                        break;
+                }
+
+                elementoBorde.CalculoCuantiaVolumetrica(elementoBorde.SepEstribo, elementoBorde.DiametroEstribo);
+                DT_AlzadoSeleccionado.Columns[ColumnName].ReadOnly = false;
+                DT_AlzadoSeleccionado.Rows[indice][ColumnName] = elementoBorde.RamasX;
                 DT_AlzadoSeleccionado.Columns[ColumnName].ReadOnly = true;
             }
         }
