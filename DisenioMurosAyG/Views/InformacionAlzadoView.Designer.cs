@@ -37,7 +37,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 22);
+            this.label1.Location = new System.Drawing.Point(19, 34);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(86, 13);
             this.label1.TabIndex = 0;
@@ -46,7 +46,7 @@
             // cbAlzados
             // 
             this.cbAlzados.FormattingEnabled = true;
-            this.cbAlzados.Location = new System.Drawing.Point(104, 19);
+            this.cbAlzados.Location = new System.Drawing.Point(111, 31);
             this.cbAlzados.Name = "cbAlzados";
             this.cbAlzados.Size = new System.Drawing.Size(125, 21);
             this.cbAlzados.TabIndex = 1;
