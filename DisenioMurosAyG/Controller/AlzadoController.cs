@@ -65,6 +65,8 @@ namespace DisenioMurosAyG.Controller
                 DataGridController.CrearColumna("Ramas Der",typeof(int),true),
                 DataGridController.CrearColumna("F'c (MPa)",typeof(float),true),
                 DataGridController.CrearColumna("Fy (MPa)",typeof(float),true),
+                DataGridController.CrearColumna("RhoH",typeof(float),true),
+                DataGridController.CrearColumna("RhoV",typeof(float),true),
                 DataGridController.CrearColumna("RefHoriz (cm²/m)",typeof(float),true),
                 DataGridController.CrearColumna("RefVert (cm²/m)",typeof(float),true),
                 DataGridController.CrearColumna("RefAdicional (cm²)",typeof(float),true),
@@ -108,9 +110,11 @@ namespace DisenioMurosAyG.Controller
 
                 dataRow[11] = muro.Fc;
                 dataRow[12] = muro.Fy;
-                dataRow[13] = muro.AsH;
-                dataRow[14] = muro.AsV;
-                dataRow[15] = muro.AsAdicional;
+                dataRow[13] = muro.RhoH;
+                dataRow[14] = muro.RhoV;
+                dataRow[15] = muro.AsH;
+                dataRow[16] = muro.AsV;
+                dataRow[17] = muro.AsAdicional;
 
                 DT_AlzadoSeleccionado.Rows.Add(dataRow);
             }
@@ -130,6 +134,14 @@ namespace DisenioMurosAyG.Controller
             InformacionAlzadoView.dgAlzado.ReadOnly = false;
             InformacionAlzadoView.dgAlzado.AllowUserToOrderColumns = false;
             InformacionAlzadoView.dgAlzado.AllowUserToAddRows = false;
+            InformacionAlzadoView.dgAlzado.Columns["Zc_Izq (m)"].DefaultCellStyle.Format = "F3";
+            InformacionAlzadoView.dgAlzado.Columns["Zc_Der (m)"].DefaultCellStyle.Format = "F3";
+            InformacionAlzadoView.dgAlzado.Columns["Separacion (m)"].DefaultCellStyle.Format = "F3";
+            InformacionAlzadoView.dgAlzado.Columns["RhoH"].DefaultCellStyle.Format = "F4";
+            InformacionAlzadoView.dgAlzado.Columns["RhoV"].DefaultCellStyle.Format = "F4";
+            InformacionAlzadoView.dgAlzado.Columns["RefHoriz (cm²/m)"].DefaultCellStyle.Format = "F2";
+            InformacionAlzadoView.dgAlzado.Columns["RefVert (cm²/m)"].DefaultCellStyle.Format = "F2";
+            InformacionAlzadoView.dgAlzado.Columns["RefAdicional (cm²)"].DefaultCellStyle.Format = "F2";
 
             try
             {
@@ -148,7 +160,7 @@ namespace DisenioMurosAyG.Controller
         private void SetEstribosCells()
         {
             int x = 0;
-            var Estribos = new List<string>() { " ", "#3", "#4", "#5" };
+            var Estribos = new List<string>() {"#3", "#4", "#5" };
 
             foreach (var muro in AlzadoSeleccionado.Muros)
             {
@@ -174,13 +186,13 @@ namespace DisenioMurosAyG.Controller
             switch (diametroEbe)
             {
                 case Diametro.Num3:
-                    Estribo = Estribos[1];
+                    Estribo = Estribos[0];
                     break;
                 case Diametro.Num4:
-                    Estribo = Estribos[2];
+                    Estribo = Estribos[1];
                     break;
                 case Diametro.Num5:
-                    Estribo = Estribos[3];
+                    Estribo = Estribos[2];
                     break;
             }
 
@@ -200,9 +212,11 @@ namespace DisenioMurosAyG.Controller
             {
                 case "L (m)":
                     MuroSeleccionado.Lw = float.Parse(InformacionAlzadoView.dgAlzado.Rows[indice].Cells[ColumnName].Value.ToString());
+                    UploadAsLongMuroSeleccionado(indice, "RefAdicional (cm²)");
                     break;
                 case "t (m)":
                     MuroSeleccionado.Bw = float.Parse(InformacionAlzadoView.dgAlzado.Rows[indice].Cells[ColumnName].Value.ToString());
+                    UploadAsLongMuroSeleccionado(indice, "RefAdicional (cm²)");
                     break;
                 case "h (m)":
                     MuroSeleccionado.Hw = float.Parse(InformacionAlzadoView.dgAlzado.Rows[indice].Cells[ColumnName].Value.ToString());
@@ -210,10 +224,12 @@ namespace DisenioMurosAyG.Controller
                 case "Zc_Izq (m)":
                     LongEbe = float.Parse(InformacionAlzadoView.dgAlzado.Rows[indice].Cells[ColumnName].Value.ToString());
                     UploadEbe(indice, LongEbe, MuroSeleccionado.EBE_Izq, "Ramas Izq");
+                    UploadAsLongMuroSeleccionado(indice, "RefAdicional (cm²)");
                     break;
                 case "Zc_Der (m)":
                     LongEbe = float.Parse(InformacionAlzadoView.dgAlzado.Rows[indice].Cells[ColumnName].Value.ToString());
                     UploadEbe(indice, LongEbe, MuroSeleccionado.EBE_Der, "Ramas Der");
+                    UploadAsLongMuroSeleccionado(indice, "RefAdicional (cm²)");
                     break;
                 case "Estribos":
                     string Diametro = InformacionAlzadoView.dgAlzado.Rows[indice].Cells[ColumnName].Value.ToString();
@@ -232,13 +248,10 @@ namespace DisenioMurosAyG.Controller
                 {
                     elementoBorde = new ElementoBordeEspecial(MuroSeleccionado.Bw, LongEbe, MuroSeleccionado.Fc, MuroSeleccionado.Fy, _contex.GradoDisipacionEnergia);
                     elementoBorde.DiametroEstribo = Diametro.Num3;
-                    elementoBorde.CalculoSeparacionminima();
                     DT_AlzadoSeleccionado.Rows[indice]["Separacion (m)"] = elementoBorde.SepEstribo;
                 }
                 else
                     elementoBorde.LongEbe = LongEbe;
-
-                elementoBorde.CalculoCuantiaVolumetrica(elementoBorde.SepEstribo, elementoBorde.DiametroEstribo);
 
                 DT_AlzadoSeleccionado.Columns[ColumnName].ReadOnly = false;
                 DT_AlzadoSeleccionado.Rows[indice][ColumnName] = elementoBorde.RamasX;
@@ -270,11 +283,18 @@ namespace DisenioMurosAyG.Controller
                         break;
                 }
 
-                elementoBorde.CalculoCuantiaVolumetrica(elementoBorde.SepEstribo, elementoBorde.DiametroEstribo);
                 DT_AlzadoSeleccionado.Columns[ColumnName].ReadOnly = false;
                 DT_AlzadoSeleccionado.Rows[indice][ColumnName] = elementoBorde.RamasX;
                 DT_AlzadoSeleccionado.Columns[ColumnName].ReadOnly = true;
             }
+        }
+
+        private void UploadAsLongMuroSeleccionado(int Indice,string ColumnName)
+        {
+            MuroSeleccionado.UploadAsLong();
+            DT_AlzadoSeleccionado.Columns[ColumnName].ReadOnly = false;
+            DT_AlzadoSeleccionado.Rows[Indice][ColumnName] = MuroSeleccionado.AsAdicional;
+            DT_AlzadoSeleccionado.Columns[ColumnName].ReadOnly = true;
         }
     }
 }

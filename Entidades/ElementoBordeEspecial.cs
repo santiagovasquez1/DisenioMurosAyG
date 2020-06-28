@@ -16,9 +16,12 @@ namespace Entidades
         }
         public override void CalculoCuantiaVolumetrica(float separacion, Diametro diametroestribo)
         {
-            var as_estribo = DiccionariosRefuerzo.ReturnAsi(diametroestribo);
-            RamasX = Cuantia_Volumetrica(LongEbe, recubrimiento: 0f, separacion, as_estribo);
-            RamasY = Cuantia_Volumetrica(Tw, recubrimiento: 0f, separacion, as_estribo);
+            if (separacion != 0)
+            {
+                var as_estribo = DiccionariosRefuerzo.ReturnAsi(diametroestribo);
+                RamasX = Cuantia_Volumetrica(LongEbe, recubrimiento: 0f, separacion, as_estribo);
+                RamasY = Cuantia_Volumetrica(Tw, recubrimiento: 0f, separacion, as_estribo);
+            }
         }
 
         public override int Cuantia_Volumetrica(float espesor, float recubrimiento, float separacion, float as_estribo)

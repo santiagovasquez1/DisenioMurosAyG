@@ -53,6 +53,24 @@ namespace Entidades
             float Numerdador = (AsV * (Lw - Long_Izq - Long_Der)) + AsAdicional;
             RhoV = (float)(Numerdador / (Lw * Bw * Math.Pow(100, 2)));
         }
+
+        public void UploadAsLong()
+        {
+            float Long_Izq = 0;
+            if (EBE_Izq != null)
+                Long_Izq = EBE_Izq.LongEbe;
+
+            float Long_Der = 0;
+            if (EBE_Der != null)
+                Long_Der = EBE_Der.LongEbe;
+
+            var AsTotal = RhoV * Bw * Lw * Math.Pow(100, 2);
+            var AsMalla = AsV * (Lw - Long_Izq - Long_Der);
+            var asAdicional = AsTotal - AsMalla;
+            AsAdicional = (float)asAdicional;
+        }
+
+
         public override string ToString()
         {
             return $"{ Label}-{Story.StoryName}";
