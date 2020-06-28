@@ -236,6 +236,11 @@ namespace DisenioMurosAyG.Controller
                     UploadEbe(indice, Diametro, MuroSeleccionado.EBE_Izq, "Ramas Izq");
                     UploadEbe(indice, Diametro, MuroSeleccionado.EBE_Der, "Ramas Der");
                     break;
+                case "Separacion (m)":
+                    float separacion = float.Parse(InformacionAlzadoView.dgAlzado.Rows[indice].Cells[ColumnName].Value.ToString());
+                    UploadEbe(indice, MuroSeleccionado.EBE_Izq, separacion,"Ramas Izq");
+                    UploadEbe(indice, MuroSeleccionado.EBE_Izq, separacion,"Ramas Der");
+                    break;
             }
 
         }
@@ -287,6 +292,18 @@ namespace DisenioMurosAyG.Controller
                 DT_AlzadoSeleccionado.Rows[indice][ColumnName] = elementoBorde.RamasX;
                 DT_AlzadoSeleccionado.Columns[ColumnName].ReadOnly = true;
             }
+        }
+
+        private void UploadEbe(int indice, ElementoDeBorde elementoDeBorde,float separacion, string ColumnName)
+        {
+            if (elementoDeBorde != null)
+            {
+                elementoDeBorde.SepEstribo = separacion;
+                DT_AlzadoSeleccionado.Columns[ColumnName].ReadOnly = false;
+                DT_AlzadoSeleccionado.Rows[indice][ColumnName] = elementoDeBorde.RamasX;
+                DT_AlzadoSeleccionado.Columns[ColumnName].ReadOnly = true;
+            }
+
         }
 
         private void UploadAsLongMuroSeleccionado(int Indice,string ColumnName)

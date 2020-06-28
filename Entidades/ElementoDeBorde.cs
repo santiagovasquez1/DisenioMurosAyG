@@ -5,10 +5,10 @@ namespace Entidades
     public delegate void Notify();
     public abstract class ElementoDeBorde
     {
-        public float longEbe;
-        public float tw;
-        public float sepEstribo;
-        public Diametro diametroEstribo;
+        private float longEbe;
+        private float tw;
+        private float sepEstribo;
+        private Diametro diametroEstribo;
 
         public float LongEbe
         {
@@ -23,8 +23,22 @@ namespace Entidades
         public float Fc { get; set; }
         public float Fy { get; set; }
         public GradoDisipacionEnergia GradoDisipacionEnergia { get; set; }
-        public float SepEstribo { get => sepEstribo; set { sepEstribo = value; CalculoCuantiaVolumetrica(SepEstribo, DiametroEstribo); } }
-        public Diametro DiametroEstribo { get => diametroEstribo; set { diametroEstribo = value; CalculoCuantiaVolumetrica(SepEstribo, DiametroEstribo); } }
+        public float SepEstribo
+        {
+            get => sepEstribo; set
+            {
+                sepEstribo = value;
+                CalculoCuantiaVolumetrica(SepEstribo, DiametroEstribo);
+            }
+        }
+        public Diametro DiametroEstribo
+        {
+            get => diametroEstribo; set
+            {
+                diametroEstribo = value;
+                CalculoCuantiaVolumetrica(SepEstribo, DiametroEstribo);
+            }
+        }
         /// <summary>
         /// /Ramas a los largo de la longitud del elemento de borde especial
         /// </summary>
