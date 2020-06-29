@@ -1,5 +1,6 @@
 ﻿using Entidades;
 using Entidades.Factorias;
+using Entidades.ImportarInformacion;
 using Entidades.LecturaExcel;
 using System;
 using System.Collections.Generic;
@@ -35,7 +36,7 @@ namespace DataAcces
         {
             if (File.Exists(RutaArchivoDisenio))
             {
-                ImportarDisenio Modelo = new ImportarDisenio(RutaArchivoDisenio);
+                ImportarExcel Modelo = new ImportarDisenio(RutaArchivoDisenio);
                 Modelo.ExtraerInformacion(GradoDisipacionEnergia);
                 Modelo.CerrarExcel();
 
@@ -47,7 +48,25 @@ namespace DataAcces
                 foreach (var Pier in PierUnicos)
                 {
                     AlzadosBuilder.CrearAlzado(Pier);
-                    Alzados.Add(AlzadosBuilder.Alzado);
+                    var alzadoi = AlzadosBuilder.Alzado;
+
+                    if (Alzados.Count > 0)
+                    {
+                        var padre = (from alzado in Alzados
+                                     where alzado.NombreDef == alzadoi.NombreDef
+                                     select alzado).FirstOrDefault();
+                        if (padre != null)
+                        {
+                            alzadoi.PadreId = padre.AlzadoId;
+                            alzadoi.Padre = padre;
+                        }
+                        else
+                            alzadoi.IsMaestro = true;
+                    }
+                    else
+                        alzadoi.IsMaestro = true;
+
+                    Alzados.Add(alzadoi);
                 }
                 Muros = Modelo.MuroFactory.Muros;
             }

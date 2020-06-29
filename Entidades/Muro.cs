@@ -8,6 +8,7 @@ namespace Entidades
     {
         public string MuroId { get; set; }
         public string Label { get; set; }
+        public string LabelDef { get; set; }
         public GradoDisipacionEnergia GradoDisipacionEnergia { get; set; }
         public float Bw { get; set; }
         public float Lw { get; set; }
@@ -21,9 +22,6 @@ namespace Entidades
         public float Fc { get; set; }
         public float Fy { get; set; }
         public Story Story { get; set; }
-        public bool IsMaestro { get; set; }
-        public string MuroPadreId { get; set; }
-        public Muro MuroPadre { get; set; }
         public Refuerzo Malla { get; set; }
         public List<Refuerzo> RefuerzosLongitudinales { get; set; }
         public List<Refuerzo> Estribos { get; set; }

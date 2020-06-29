@@ -55,6 +55,7 @@ namespace DisenioMurosAyG.Controller
                 DataGridController.CrearColumna("Piso",typeof(string),true),
                 DataGridController.CrearColumna("Nivel (m)",typeof(string),true),
                 DataGridController.CrearColumna("Muro",typeof(string),true),
+                DataGridController.CrearColumna("Nombre Definitivo",typeof(string),true),
                 DataGridController.CrearColumna("L (m)",typeof(float),false),
                 DataGridController.CrearColumna("t (m)",typeof(float),false),
                 DataGridController.CrearColumna("h (m)",typeof(float),false),
@@ -89,32 +90,33 @@ namespace DisenioMurosAyG.Controller
                 dataRow[0] = muro.Story.StoryName;
                 dataRow[1] = muro.Story.StoryElevation;
                 dataRow[2] = muro.Label;
-                dataRow[3] = muro.Lw;
-                dataRow[4] = muro.Bw;
-                dataRow[5] = muro.Hw;
-                dataRow[6] = muro.EBE_Izq != null ? muro.EBE_Izq.LongEbe : (object)0f;
-                dataRow[7] = muro.EBE_Der != null ? muro.EBE_Der.LongEbe : (object)0f;
+                dataRow[3] = muro.LabelDef;
+                dataRow[4] = muro.Lw;
+                dataRow[5] = muro.Bw;
+                dataRow[6] = muro.Hw;
+                dataRow[7] = muro.EBE_Izq != null ? muro.EBE_Izq.LongEbe : (object)0f;
+                dataRow[8] = muro.EBE_Der != null ? muro.EBE_Der.LongEbe : (object)0f;
 
                 if (muro.EBE_Izq != null | muro.EBE_Der != null)
                 {
                     if (muro.EBE_Izq != null)
-                        dataRow[8] = muro.EBE_Izq.SepEstribo;
+                        dataRow[9] = muro.EBE_Izq.SepEstribo;
                     else if (muro.EBE_Der != null)
-                        dataRow[8] = muro.EBE_Der.SepEstribo;
+                        dataRow[9] = muro.EBE_Der.SepEstribo;
                 }
                 else
-                    dataRow[8] = 0f;
+                    dataRow[9] = 0f;
 
-                dataRow[9] = muro.EBE_Izq != null ? muro.EBE_Izq.RamasX : (object)0f;
-                dataRow[10] = muro.EBE_Der != null ? muro.EBE_Der.RamasX : (object)0f;
+                dataRow[10] = muro.EBE_Izq != null ? muro.EBE_Izq.RamasX : (object)0f;
+                dataRow[11] = muro.EBE_Der != null ? muro.EBE_Der.RamasX : (object)0f;
 
-                dataRow[11] = muro.Fc;
-                dataRow[12] = muro.Fy;
-                dataRow[13] = muro.RhoH;
-                dataRow[14] = muro.RhoV;
-                dataRow[15] = muro.AsH;
-                dataRow[16] = muro.AsV;
-                dataRow[17] = muro.AsAdicional;
+                dataRow[12] = muro.Fc;
+                dataRow[13] = muro.Fy;
+                dataRow[14] = muro.RhoH;
+                dataRow[15] = muro.RhoV;
+                dataRow[16] = muro.AsH;
+                dataRow[17] = muro.AsV;
+                dataRow[18] = muro.AsAdicional;
 
                 DT_AlzadoSeleccionado.Rows.Add(dataRow);
             }
@@ -126,8 +128,8 @@ namespace DisenioMurosAyG.Controller
             DataGridViewComboBoxColumn ColumnEstribos = new DataGridViewComboBoxColumn();
             ColumnEstribos.Name = "Estribos";
             ColumnEstribos.HeaderText = "Estribos";
-            ColumnEstribos.DisplayIndex = 8;
-            ColumnEstribos.DataSource = new List<string>() { " ", "#3", "#4", "#5" };
+            ColumnEstribos.DisplayIndex = 9;
+            ColumnEstribos.DataSource = new List<string>() {"#3", "#4", "#5" };
 
             InformacionAlzadoView.dgAlzado.DataSource = DT_AlzadoSeleccionado;
             InformacionAlzadoView.dgAlzado.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
@@ -160,7 +162,7 @@ namespace DisenioMurosAyG.Controller
         private void SetEstribosCells()
         {
             int x = 0;
-            var Estribos = new List<string>() {"#3", "#4", "#5" };
+            var Estribos = new List<string>() { "#3", "#4", "#5" };
 
             foreach (var muro in AlzadoSeleccionado.Muros)
             {
@@ -238,8 +240,8 @@ namespace DisenioMurosAyG.Controller
                     break;
                 case "Separacion (m)":
                     float separacion = float.Parse(InformacionAlzadoView.dgAlzado.Rows[indice].Cells[ColumnName].Value.ToString());
-                    UploadEbe(indice, MuroSeleccionado.EBE_Izq, separacion,"Ramas Izq");
-                    UploadEbe(indice, MuroSeleccionado.EBE_Izq, separacion,"Ramas Der");
+                    UploadEbe(indice, MuroSeleccionado.EBE_Izq, separacion, "Ramas Izq");
+                    UploadEbe(indice, MuroSeleccionado.EBE_Izq, separacion, "Ramas Der");
                     break;
             }
 
@@ -264,6 +266,7 @@ namespace DisenioMurosAyG.Controller
             }
             else
             {
+                elementoBorde.LongEbe = 0;
                 elementoBorde = null;
                 DT_AlzadoSeleccionado.Columns[ColumnName].ReadOnly = false;
                 DT_AlzadoSeleccionado.Rows[indice][ColumnName] = 0f;
@@ -294,7 +297,7 @@ namespace DisenioMurosAyG.Controller
             }
         }
 
-        private void UploadEbe(int indice, ElementoDeBorde elementoDeBorde,float separacion, string ColumnName)
+        private void UploadEbe(int indice, ElementoDeBorde elementoDeBorde, float separacion, string ColumnName)
         {
             if (elementoDeBorde != null)
             {
@@ -306,7 +309,7 @@ namespace DisenioMurosAyG.Controller
 
         }
 
-        private void UploadAsLongMuroSeleccionado(int Indice,string ColumnName)
+        private void UploadAsLongMuroSeleccionado(int Indice, string ColumnName)
         {
             MuroSeleccionado.UploadAsLong();
             DT_AlzadoSeleccionado.Columns[ColumnName].ReadOnly = false;

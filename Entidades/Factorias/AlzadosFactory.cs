@@ -20,7 +20,7 @@ namespace Entidades.Factorias
                               where muro.Label == PierName
                               select muro).ToList();
 
-            Alzado = new Alzado(PierName,MurosAlzado);
+            Alzado = new Alzado(PierName,MurosAlzado.FirstOrDefault().LabelDef,MurosAlzado);
 
         }
 

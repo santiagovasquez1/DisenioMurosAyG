@@ -37,10 +37,12 @@ namespace Entidades.Factorias
                 var AsH = (float)(double)DatosDisenio[i, 17];
                 var AsV = (float)(double)DatosDisenio[i + 1, 17];
                 var AsAdicional = (float)(double)DatosDisenio[i + 2, 17];
+                var labelDef = Convert.ToString(DatosDisenio[i, 22]);
 
                 Muro = new Muro()
                 {
                     Label = NombreMuro,
+                    LabelDef = labelDef,
                     Story = Story,
                     GradoDisipacionEnergia = gradoDisipacionEnergia,
                     Lw = Lw,
@@ -76,6 +78,7 @@ namespace Entidades.Factorias
 
                 Muro.CalcRhoH();
                 Muro.CalcRhoL();
+
                 Muros.Add(Muro);
             }
 
