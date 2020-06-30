@@ -1,4 +1,5 @@
 ﻿using DataAcces;
+using DisenioMurosAyG.Controller;
 using DisenioMurosAyG.Views;
 using System;
 using System.Collections.Generic;
@@ -11,16 +12,19 @@ namespace DisenioMurosAyG
     static class Program
     {
         public static ModeloContext _context{ get; set; }
+        public static ContextController ContextController { get; set; }
         /// <summary>
         /// Punto de entrada principal para la aplicación.
         /// </summary>
         [STAThread]
         static void Main()
         {
-            _context = new ModeloContext();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new InicioProyectoView());
+            _context = new ModeloContext();
+            var contextView = new ContextView();
+            ContextController = new ContextController(contextView);
+            Application.Run(contextView);
         }
     }
 }

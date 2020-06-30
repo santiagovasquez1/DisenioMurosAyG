@@ -4,25 +4,28 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using Telerik.WinControls;
 
 namespace DisenioMurosAyG.Views
 {
-    public partial class InicioProyectoView : Form
+    public partial class InicioProyectoView : Telerik.WinControls.UI.RadForm
     {
         public InicioProyectoView()
         {
-
             InitializeComponent();
-            ContextController contextcontroller = new ContextController(this);
+            var contextcontroller = Program.ContextController;
+            InicioController inicioController = new InicioController(this,contextcontroller);
         }
 
-        private void InicioProyectoView_Load(object sender, EventArgs e)
+        private void bAceptar_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void cbGDE_SelectedIndexChanged(object sender, Telerik.WinControls.UI.Data.PositionChangedEventArgs e)
+        {
 
         }
     }

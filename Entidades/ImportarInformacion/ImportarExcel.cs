@@ -32,6 +32,7 @@ namespace Entidades.ImportarInformacion
         }
 
         public abstract void ExtraerInformacion(GradoDisipacionEnergia disipacionEnergia);
+        public abstract void ExtraerInformacion(int NumPisos);
 
         public void CerrarExcel()
         {
@@ -46,6 +47,14 @@ namespace Entidades.ImportarInformacion
                 Select(x => matrix[x + 1, columnNumber]).ToList();
 
             return prueba;
+        }
+
+        public List<object>GetRow(object[,] matrix, int RowNumber,int StartColumn,int EndColumn)
+        {
+            var prueba = Enumerable.Range(StartColumn, EndColumn-StartColumn).
+                Select(x => matrix[RowNumber, x]).ToList();
+
+            return prueba.FindAll(x=>x!=null).ToList();
         }
     }
 }

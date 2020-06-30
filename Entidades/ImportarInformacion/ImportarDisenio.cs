@@ -33,7 +33,10 @@ namespace Entidades.LecturaExcel
         }
 
 
+        public override void ExtraerInformacion(int a)
+        {
 
+        }
 
 
     }

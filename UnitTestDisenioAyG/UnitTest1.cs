@@ -5,6 +5,7 @@ using Entidades.Factorias;
 using System.Linq;
 using Entidades.LecturaExcel;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Entidades.ImportarInformacion;
 
 namespace UnitTestDisenioAyG
 {
@@ -15,22 +16,13 @@ namespace UnitTestDisenioAyG
         public void TestMethod1()
         {
 
-            string Ruta = "D:\\Desarrollo_Software\\Programa Dibujo Muros ETAPA 1\\Programa Dibujo Muros ETAPA 1\\Muros.xlsx";
+            string Ruta = "F:\\Proyectos Visual Studio\\Desarrollo_Software\\Programa Dibujo Muros ETAPA 1\\Programa Dibujo Muros ETAPA 1\\Refuerzo.xlsx";
 
             if (File.Exists(Ruta))
             {
-                ImportarDisenio AppExcel = new ImportarDisenio(Ruta);
-                AppExcel.ExtraerInformacion(Entidades.GradoDisipacionEnergia.DES);
+                ImportarExcel AppExcel = new ImportarDespiece(Ruta);
+                AppExcel.ExtraerInformacion(28);
                 AppExcel.CerrarExcel();
-
-                var AlzadosBuilder = new AlzadosFactory(AppExcel.MuroFactory.Muros);
-
-                var PierUnicos = AppExcel.MuroFactory.Muros.Select(x => x.Label).Distinct();
-
-                foreach(var Pier in PierUnicos)
-                {
-                    AlzadosBuilder.CrearAlzado(Pier);
-                }
 
             }
 

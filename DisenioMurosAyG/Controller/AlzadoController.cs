@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Telerik.WinControls.UI;
 using static System.Windows.Forms.DataGridViewComboBoxCell;
 
 namespace DisenioMurosAyG.Controller
@@ -16,22 +17,22 @@ namespace DisenioMurosAyG.Controller
     {
         public ModeloContext _contex { get; set; }
         public InformacionAlzadoView InformacionAlzadoView { get; set; }
+        public InformacionAlzadoView1 InformacionAlzadoView1 { get; set; }
         public Alzado AlzadoSeleccionado { get; set; }
         public Muro MuroSeleccionado { get; set; }
         public DataTable DT_AlzadoSeleccionado { get; set; }
-        public AlzadoController(InformacionAlzadoView informacionAlzadoView)
+        public AlzadoController(InformacionAlzadoView1 informacionAlzadoView, Alzado alzadoi)
         {
             _contex = Program._context;
-            InformacionAlzadoView = informacionAlzadoView;
-            InformacionAlzadoView.cbAlzados.DropDownStyle = ComboBoxStyle.DropDownList;
+            InformacionAlzadoView1 = informacionAlzadoView;
+            AlzadoSeleccionado = alzadoi;
 
-            if (_contex.Alzados != null)
+            if (AlzadoSeleccionado != null)
             {
-                InformacionAlzadoView.cbAlzados.DataSource = _contex.Alzados;
-                InformacionAlzadoView.cbAlzados.SelectedIndexChanged += new EventHandler(SeleccionarAlzadoCommand);
-                informacionAlzadoView.dgAlzado.CellEndEdit += new DataGridViewCellEventHandler(EditMuroCommand);
-
+                informacionAlzadoView.dgAlzado.CellEndEdit += new GridViewCellEventHandler(EditMuroCommand);
                 Set_Columns_Data_Alzado();
+                LoadAlzadoData();
+                Cargar_DataGrid();
             }
 
         }
@@ -125,37 +126,40 @@ namespace DisenioMurosAyG.Controller
 
         private void Cargar_DataGrid()
         {
-            DataGridViewComboBoxColumn ColumnEstribos = new DataGridViewComboBoxColumn();
+            GridViewComboBoxColumn ColumnEstribos = new GridViewComboBoxColumn();
             ColumnEstribos.Name = "Estribos";
             ColumnEstribos.HeaderText = "Estribos";
-            ColumnEstribos.DisplayIndex = 9;
-            ColumnEstribos.DataSource = new List<string>() {"#3", "#4", "#5" };
+            ColumnEstribos.TextAlignment = System.Drawing.ContentAlignment.MiddleRight;
+            ColumnEstribos.DataSource = new List<string>() { "#3", "#4", "#5" };
 
-            InformacionAlzadoView.dgAlzado.DataSource = DT_AlzadoSeleccionado;
-            InformacionAlzadoView.dgAlzado.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-            InformacionAlzadoView.dgAlzado.ReadOnly = false;
-            InformacionAlzadoView.dgAlzado.AllowUserToOrderColumns = false;
-            InformacionAlzadoView.dgAlzado.AllowUserToAddRows = false;
-            InformacionAlzadoView.dgAlzado.Columns["Zc_Izq (m)"].DefaultCellStyle.Format = "F3";
-            InformacionAlzadoView.dgAlzado.Columns["Zc_Der (m)"].DefaultCellStyle.Format = "F3";
-            InformacionAlzadoView.dgAlzado.Columns["Separacion (m)"].DefaultCellStyle.Format = "F3";
-            InformacionAlzadoView.dgAlzado.Columns["RhoH"].DefaultCellStyle.Format = "F4";
-            InformacionAlzadoView.dgAlzado.Columns["RhoV"].DefaultCellStyle.Format = "F4";
-            InformacionAlzadoView.dgAlzado.Columns["RefHoriz (cm²/m)"].DefaultCellStyle.Format = "F2";
-            InformacionAlzadoView.dgAlzado.Columns["RefVert (cm²/m)"].DefaultCellStyle.Format = "F2";
-            InformacionAlzadoView.dgAlzado.Columns["RefAdicional (cm²)"].DefaultCellStyle.Format = "F2";
+            InformacionAlzadoView1.dgAlzado.DataSource = DT_AlzadoSeleccionado;
+            InformacionAlzadoView1.dgAlzado.Columns["Zc_Izq (m)"].FormatString = "{0:F3}";
+            InformacionAlzadoView1.dgAlzado.Columns["Zc_Der (m)"].FormatString = "{0:F3}";
+            InformacionAlzadoView1.dgAlzado.Columns["Separacion (m)"].FormatString = "{0:F3}";
+            InformacionAlzadoView1.dgAlzado.Columns["RhoH"].FormatString = "{0:F4}";
+            InformacionAlzadoView1.dgAlzado.Columns["RhoV"].FormatString = "{0:F4}";
+            InformacionAlzadoView1.dgAlzado.Columns["RefHoriz (cm²/m)"].FormatString = "{0:F2}";
+            InformacionAlzadoView1.dgAlzado.Columns["RefVert (cm²/m)"].FormatString = "{0:F2}";
+            InformacionAlzadoView1.dgAlzado.Columns["RefAdicional (cm²)"].FormatString = "{0:F2}";
 
             try
             {
-                InformacionAlzadoView.dgAlzado.Columns.Remove(InformacionAlzadoView.dgAlzado.Columns[ColumnEstribos.Name]);
-                InformacionAlzadoView.dgAlzado.Columns.Add(ColumnEstribos);
+                InformacionAlzadoView1.dgAlzado.Columns.Remove(InformacionAlzadoView1.dgAlzado.Columns[ColumnEstribos.Name]);
+                InformacionAlzadoView1.dgAlzado.Columns.Add(ColumnEstribos);
             }
             catch (Exception)
             {
-                InformacionAlzadoView.dgAlzado.Columns.Add(ColumnEstribos);
+                InformacionAlzadoView1.dgAlzado.Columns.Add(ColumnEstribos);
             }
-
+            var index = InformacionAlzadoView1.dgAlzado.Columns["Estribos"].Index;
+            InformacionAlzadoView1.dgAlzado.Columns.Move(index, 9);
             SetEstribosCells();
+
+            InformacionAlzadoView1.dgAlzado.AutoSizeColumnsMode = GridViewAutoSizeColumnsMode.Fill;
+            InformacionAlzadoView1.dgAlzado.ReadOnly = false;
+            InformacionAlzadoView1.dgAlzado.AllowColumnReorder = false;
+            InformacionAlzadoView1.dgAlzado.AllowAddNewRow = false;
+            InformacionAlzadoView1.dgAlzado.AllowDragToGroup = false;
 
         }
 
@@ -168,14 +172,14 @@ namespace DisenioMurosAyG.Controller
             {
                 if (muro.EBE_Der != null | muro.EBE_Izq != null)
                 {
-                    InformacionAlzadoView.dgAlzado.Rows[x].Cells["Estribos"].ReadOnly = false;
+                    InformacionAlzadoView1.dgAlzado.Rows[x].Cells["Estribos"].ReadOnly = false;
                     if (muro.EBE_Der != null)
-                        InformacionAlzadoView.dgAlzado.Rows[x].Cells["Estribos"].Value = GetEstribo(x, Estribos, muro.EBE_Der.DiametroEstribo);
+                        InformacionAlzadoView1.dgAlzado.Rows[x].Cells["Estribos"].Value = GetEstribo(x, Estribos, muro.EBE_Der.DiametroEstribo);
                     if (muro.EBE_Izq != null)
-                        InformacionAlzadoView.dgAlzado.Rows[x].Cells["Estribos"].Value = GetEstribo(x, Estribos, muro.EBE_Izq.DiametroEstribo);
+                        InformacionAlzadoView1.dgAlzado.Rows[x].Cells["Estribos"].Value = GetEstribo(x, Estribos, muro.EBE_Izq.DiametroEstribo);
                 }
                 else
-                    InformacionAlzadoView.dgAlzado.Rows[x].Cells["Estribos"].ReadOnly = true;
+                    InformacionAlzadoView1.dgAlzado.Rows[x].Cells["Estribos"].ReadOnly = true;
 
                 x++;
             }
@@ -201,11 +205,11 @@ namespace DisenioMurosAyG.Controller
             return Estribo;
         }
 
-        private void EditMuroCommand(object sender, DataGridViewCellEventArgs e)
+        private void EditMuroCommand(object sender, GridViewCellEventArgs e)
         {
             int indice = e.RowIndex;
             int column = e.ColumnIndex;
-            var ColumnName = InformacionAlzadoView.dgAlzado.Rows[indice].Cells[column].OwningColumn.Name;
+            var ColumnName = InformacionAlzadoView1.dgAlzado.Rows[indice].Cells[column].ColumnInfo.Name;
             float LongEbe = 0;
 
             MuroSeleccionado = AlzadoSeleccionado.Muros[indice];
@@ -213,33 +217,33 @@ namespace DisenioMurosAyG.Controller
             switch (ColumnName)
             {
                 case "L (m)":
-                    MuroSeleccionado.Lw = float.Parse(InformacionAlzadoView.dgAlzado.Rows[indice].Cells[ColumnName].Value.ToString());
+                    MuroSeleccionado.Lw = float.Parse(InformacionAlzadoView1.dgAlzado.Rows[indice].Cells[ColumnName].Value.ToString());
                     UploadAsLongMuroSeleccionado(indice, "RefAdicional (cm²)");
                     break;
                 case "t (m)":
-                    MuroSeleccionado.Bw = float.Parse(InformacionAlzadoView.dgAlzado.Rows[indice].Cells[ColumnName].Value.ToString());
+                    MuroSeleccionado.Bw = float.Parse(InformacionAlzadoView1.dgAlzado.Rows[indice].Cells[ColumnName].Value.ToString());
                     UploadAsLongMuroSeleccionado(indice, "RefAdicional (cm²)");
                     break;
                 case "h (m)":
-                    MuroSeleccionado.Hw = float.Parse(InformacionAlzadoView.dgAlzado.Rows[indice].Cells[ColumnName].Value.ToString());
+                    MuroSeleccionado.Hw = float.Parse(InformacionAlzadoView1.dgAlzado.Rows[indice].Cells[ColumnName].Value.ToString());
                     break;
                 case "Zc_Izq (m)":
-                    LongEbe = float.Parse(InformacionAlzadoView.dgAlzado.Rows[indice].Cells[ColumnName].Value.ToString());
+                    LongEbe = float.Parse(InformacionAlzadoView1.dgAlzado.Rows[indice].Cells[ColumnName].Value.ToString());
                     UploadEbe(indice, LongEbe, MuroSeleccionado.EBE_Izq, "Ramas Izq");
                     UploadAsLongMuroSeleccionado(indice, "RefAdicional (cm²)");
                     break;
                 case "Zc_Der (m)":
-                    LongEbe = float.Parse(InformacionAlzadoView.dgAlzado.Rows[indice].Cells[ColumnName].Value.ToString());
+                    LongEbe = float.Parse(InformacionAlzadoView1.dgAlzado.Rows[indice].Cells[ColumnName].Value.ToString());
                     UploadEbe(indice, LongEbe, MuroSeleccionado.EBE_Der, "Ramas Der");
                     UploadAsLongMuroSeleccionado(indice, "RefAdicional (cm²)");
                     break;
                 case "Estribos":
-                    string Diametro = InformacionAlzadoView.dgAlzado.Rows[indice].Cells[ColumnName].Value.ToString();
+                    string Diametro = InformacionAlzadoView1.dgAlzado.Rows[indice].Cells[ColumnName].Value.ToString();
                     UploadEbe(indice, Diametro, MuroSeleccionado.EBE_Izq, "Ramas Izq");
                     UploadEbe(indice, Diametro, MuroSeleccionado.EBE_Der, "Ramas Der");
                     break;
                 case "Separacion (m)":
-                    float separacion = float.Parse(InformacionAlzadoView.dgAlzado.Rows[indice].Cells[ColumnName].Value.ToString());
+                    float separacion = float.Parse(InformacionAlzadoView1.dgAlzado.Rows[indice].Cells[ColumnName].Value.ToString());
                     UploadEbe(indice, MuroSeleccionado.EBE_Izq, separacion, "Ramas Izq");
                     UploadEbe(indice, MuroSeleccionado.EBE_Izq, separacion, "Ramas Der");
                     break;

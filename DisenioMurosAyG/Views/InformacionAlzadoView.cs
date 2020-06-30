@@ -16,7 +16,7 @@ namespace DisenioMurosAyG.Views
         public InformacionAlzadoView()
         {
             InitializeComponent();
-            AlzadoController alzadoController = new AlzadoController(this);
+            //AlzadoController alzadoController = new AlzadoController(this);
         }
     }
 }

@@ -24,7 +24,7 @@ namespace Entidades
         }
         public override string ToString()
         {
-            return $"{ AlzadoName}";
+            return $"{ AlzadoName}-Nombre Def: {NombreDef}";
         }
     }
 }

@@ -28,90 +28,151 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
-            this.cbGDE = new System.Windows.Forms.ComboBox();
-            this.bAceptar = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
-            this.tbArchivoDiseno = new System.Windows.Forms.TextBox();
-            this.bCargar = new System.Windows.Forms.Button();
+            Telerik.WinControls.ThemeSource themeSource2 = new Telerik.WinControls.ThemeSource();
+            this.radLabel1 = new Telerik.WinControls.UI.RadLabel();
+            this.radThemeManager1 = new Telerik.WinControls.RadThemeManager();
+            this.materialBlueGreyTheme1 = new Telerik.WinControls.Themes.MaterialBlueGreyTheme();
+            this.radLabel2 = new Telerik.WinControls.UI.RadLabel();
+            this.tbArchivoDiseno = new Telerik.WinControls.UI.RadTextBox();
+            this.bCargar = new Telerik.WinControls.UI.RadButton();
+            this.bAceptar = new Telerik.WinControls.UI.RadButton();
+            this.cbGDE = new Telerik.WinControls.UI.RadDropDownList();
+            this.tbArchivoDespiece = new Telerik.WinControls.UI.RadTextBox();
+            this.radLabel3 = new Telerik.WinControls.UI.RadLabel();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tbArchivoDiseno)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bCargar)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bAceptar)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cbGDE)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tbArchivoDespiece)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
-            // label1
+            // radLabel1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(26, 33);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(101, 13);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Grado de disipacion";
+            this.radLabel1.Location = new System.Drawing.Point(12, 23);
+            this.radLabel1.Name = "radLabel1";
+            this.radLabel1.Size = new System.Drawing.Size(207, 21);
+            this.radLabel1.TabIndex = 0;
+            this.radLabel1.Text = "Grado de disipacion de energia";
+            this.radLabel1.ThemeName = "MaterialBlueGrey";
             // 
-            // cbGDE
+            // radThemeManager1
             // 
-            this.cbGDE.FormattingEnabled = true;
-            this.cbGDE.Location = new System.Drawing.Point(155, 25);
-            this.cbGDE.Name = "cbGDE";
-            this.cbGDE.Size = new System.Drawing.Size(121, 21);
-            this.cbGDE.TabIndex = 2;
+            themeSource2.StorageType = Telerik.WinControls.ThemeStorageType.Resource;
+            themeSource2.ThemeLocation = "ss";
+            this.radThemeManager1.LoadedThemes.AddRange(new Telerik.WinControls.ThemeSource[] {
+            themeSource2});
             // 
-            // bAceptar
+            // radLabel2
             // 
-            this.bAceptar.Location = new System.Drawing.Point(155, 141);
-            this.bAceptar.Name = "bAceptar";
-            this.bAceptar.Size = new System.Drawing.Size(114, 31);
-            this.bAceptar.TabIndex = 3;
-            this.bAceptar.Text = "Nuevo Proyecto";
-            this.bAceptar.UseVisualStyleBackColor = true;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(26, 85);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(108, 13);
-            this.label2.TabIndex = 4;
-            this.label2.Text = "Archivo Excel Diseño";
+            this.radLabel2.Location = new System.Drawing.Point(12, 83);
+            this.radLabel2.Name = "radLabel2";
+            this.radLabel2.Size = new System.Drawing.Size(180, 21);
+            this.radLabel2.TabIndex = 3;
+            this.radLabel2.Text = "Archivo de excel de diseño";
+            this.radLabel2.ThemeName = "MaterialBlueGrey";
             // 
             // tbArchivoDiseno
             // 
-            this.tbArchivoDiseno.Location = new System.Drawing.Point(155, 78);
+            this.tbArchivoDiseno.Location = new System.Drawing.Point(267, 68);
             this.tbArchivoDiseno.Name = "tbArchivoDiseno";
-            this.tbArchivoDiseno.Size = new System.Drawing.Size(121, 20);
-            this.tbArchivoDiseno.TabIndex = 5;
+            this.tbArchivoDiseno.Size = new System.Drawing.Size(176, 36);
+            this.tbArchivoDiseno.TabIndex = 4;
+            this.tbArchivoDiseno.ThemeName = "MaterialBlueGrey";
             // 
             // bCargar
             // 
-            this.bCargar.Location = new System.Drawing.Point(29, 141);
+            this.bCargar.Location = new System.Drawing.Point(12, 182);
             this.bCargar.Name = "bCargar";
-            this.bCargar.Size = new System.Drawing.Size(114, 31);
-            this.bCargar.TabIndex = 6;
+            this.bCargar.Size = new System.Drawing.Size(195, 36);
+            this.bCargar.TabIndex = 5;
             this.bCargar.Text = "Cargar Archivos";
-            this.bCargar.UseVisualStyleBackColor = true;
+            this.bCargar.ThemeName = "MaterialBlueGrey";
+            // 
+            // bAceptar
+            // 
+            this.bAceptar.Location = new System.Drawing.Point(252, 182);
+            this.bAceptar.Name = "bAceptar";
+            this.bAceptar.Size = new System.Drawing.Size(191, 36);
+            this.bAceptar.TabIndex = 6;
+            this.bAceptar.Text = "Nuevo Proyecto";
+            this.bAceptar.ThemeName = "MaterialBlueGrey";
+            this.bAceptar.Click += new System.EventHandler(this.bAceptar_Click);
+            // 
+            // cbGDE
+            // 
+            this.cbGDE.Location = new System.Drawing.Point(267, 17);
+            this.cbGDE.Name = "cbGDE";
+            this.cbGDE.Size = new System.Drawing.Size(176, 36);
+            this.cbGDE.TabIndex = 7;
+            this.cbGDE.Text = "radDropDownList1";
+            this.cbGDE.ThemeName = "MaterialBlueGrey";
+            // 
+            // tbArchivoDespiece
+            // 
+            this.tbArchivoDespiece.Location = new System.Drawing.Point(267, 122);
+            this.tbArchivoDespiece.Name = "tbArchivoDespiece";
+            this.tbArchivoDespiece.Size = new System.Drawing.Size(176, 36);
+            this.tbArchivoDespiece.TabIndex = 6;
+            this.tbArchivoDespiece.ThemeName = "MaterialBlueGrey";
+            // 
+            // radLabel3
+            // 
+            this.radLabel3.Location = new System.Drawing.Point(12, 137);
+            this.radLabel3.Name = "radLabel3";
+            this.radLabel3.Size = new System.Drawing.Size(195, 21);
+            this.radLabel3.TabIndex = 5;
+            this.radLabel3.Text = "Archivo de excel de despiece";
+            this.radLabel3.ThemeName = "MaterialBlueGrey";
             // 
             // InicioProyectoView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(299, 193);
+            this.ClientSize = new System.Drawing.Size(504, 258);
+            this.Controls.Add(this.tbArchivoDespiece);
+            this.Controls.Add(this.radLabel3);
+            this.Controls.Add(this.cbGDE);
+            this.Controls.Add(this.bAceptar);
             this.Controls.Add(this.bCargar);
             this.Controls.Add(this.tbArchivoDiseno);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.bAceptar);
-            this.Controls.Add(this.cbGDE);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.radLabel2);
+            this.Controls.Add(this.radLabel1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "InicioProyectoView";
-            this.Text = "InicioProyectoView";
-            this.Load += new System.EventHandler(this.InicioProyectoView_Load);
+            // 
+            // 
+            // 
+            this.RootElement.ApplyShapeToControl = true;
+            this.Text = "InicioPryecto2View";
+            this.ThemeName = "MaterialBlueGrey";
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tbArchivoDiseno)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bCargar)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bAceptar)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cbGDE)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tbArchivoDespiece)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-        private System.Windows.Forms.Label label1;
-        public System.Windows.Forms.ComboBox cbGDE;
-        public System.Windows.Forms.Button bAceptar;
-        private System.Windows.Forms.Label label2;
-        public System.Windows.Forms.TextBox tbArchivoDiseno;
-        public System.Windows.Forms.Button bCargar;
+        private Telerik.WinControls.RadThemeManager radThemeManager1;
+        private Telerik.WinControls.Themes.MaterialBlueGreyTheme materialBlueGreyTheme1;
+        public Telerik.WinControls.UI.RadLabel radLabel1;
+        public Telerik.WinControls.UI.RadLabel radLabel2;
+        public Telerik.WinControls.UI.RadTextBox tbArchivoDiseno;
+        public Telerik.WinControls.UI.RadButton bCargar;
+        public Telerik.WinControls.UI.RadButton bAceptar;
+        public Telerik.WinControls.UI.RadDropDownList cbGDE;
+        public Telerik.WinControls.UI.RadTextBox tbArchivoDespiece;
+        public Telerik.WinControls.UI.RadLabel radLabel3;
     }
 }
