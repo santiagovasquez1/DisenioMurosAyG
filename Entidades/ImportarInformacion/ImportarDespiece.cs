@@ -19,19 +19,27 @@ namespace Entidades.ImportarInformacion
             Datos = LeerDatos();
         }
 
-        public override void ExtraerInformacion(int NumPisos)
+        public override void ExtraerInformacion()
         {
             int columns = Datos.GetLength(1);
+            int filas = Datos.GetLength(0);
 
-            for (int i = 1; i < columns; i += 28)
+            if (MurosModelo != null)
             {
-                var MuroName = Datos.GetValue(new int[] { 1, i });
-                var Barra = GetRow(Datos, 2, i + 1, i + 27);
-                var Cantidad = GetRow(Datos, 3, i + 1, i + 27);
 
-                for (int j = 5; j < NumPisos + 5; j++)
+                var barrasfactory = new BarraMuroFactory(MurosModelo);
+
+                for (int i = 1; i < columns; i += 28)
                 {
-                    var BarrasPiso = GetRow(Datos, j, i, i + 27);
+                    var MuroName = Datos.GetValue(new int[] { 1, i }).ToString();
+                    var Barra = GetRow(Datos, 2, i, i + 26);
+                    var Cantidad = GetRow(Datos, 3, i, i + 26);
+
+                    for (int j = 5; j < filas; j++)
+                    {
+                        var BarrasPiso = GetRow(Datos, j, i, i + 26);
+                        barrasfactory.BuildBarras(MuroName.ToLower(), Barra, Cantidad, BarrasPiso);
+                    }
                 }
             }
 

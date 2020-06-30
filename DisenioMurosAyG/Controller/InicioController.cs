@@ -18,7 +18,7 @@ namespace DisenioMurosAyG.Controller
         public ToolTip ToolTipTb { get; set; }
         ContextController ContextController { get; set; }
 
-        public InicioController(InicioProyectoView proyectoView,ContextController contextController)
+        public InicioController(InicioProyectoView proyectoView, ContextController contextController)
         {
             InicioView = proyectoView;
             ContextController = contextController;
@@ -29,6 +29,8 @@ namespace DisenioMurosAyG.Controller
             InicioView.cbGDE.SelectedIndexChanged += new PositionChangedEventHandler(SetGDEProyecto);
 
             InicioView.tbArchivoDiseno.Enabled = false;
+            InicioView.tbArchivoDespiece.Enabled = false;
+
             InicioView.tbArchivoDiseno.MouseHover += new EventHandler(tbArchivoMouseHover);
             InicioView.tbArchivoDiseno.MouseLeave += new EventHandler(tbArchivoMouseLeave);
 
@@ -38,8 +40,10 @@ namespace DisenioMurosAyG.Controller
 
         private void NuevoProyectoClick(object sender, EventArgs e)
         {
-            if (_contex.RutaArchivoDisenio != null)            {
+            if (_contex.RutaArchivoDisenio != null && _contex.RutaArchivoDespiece!=null)
+            {
                 _contex.LoadDisenioContext();
+                _contex.LoadDespieceContext();
 
                 ContextController.ContextView.ListViewAlzados.DataSource = _contex.Alzados;
                 var DefaultItemSelect = ContextController.ContextView.ListViewAlzados.Items[0];
@@ -50,19 +54,30 @@ namespace DisenioMurosAyG.Controller
 
         private void CargarArchivosClick(object sender, EventArgs e)
         {
+            OpenFileMethod("Archivo con información de diseño", InicioView.tbArchivoDiseno, 1);
+            OpenFileMethod("Archivo con el despiece de los muros", InicioView.tbArchivoDespiece, 2);
+        }
+
+        private void OpenFileMethod(string titulo, Telerik.WinControls.UI.RadTextBox textBox, int tipo)
+        {
             using (OpenFileDialog File = new OpenFileDialog())
             {
+                File.Title = titulo;
                 File.Filter = "Excel files (*.xlsx)|*.xlsx|All files (*.*)|*.*";
                 File.FilterIndex = 1;
                 File.RestoreDirectory = true;
 
                 if (File.ShowDialog() == DialogResult.OK)
                 {
-                    _contex.RutaArchivoDisenio = File.FileName;
-                    InicioView.tbArchivoDiseno.Text = _contex.RutaArchivoDisenio;
+                    if (tipo == 1)
+                        _contex.RutaArchivoDisenio = File.FileName;
+                    if (tipo == 2)
+                        _contex.RutaArchivoDespiece = File.FileName;
+
+                    textBox.Text = _contex.RutaArchivoDisenio;
 
                     ToolTipTb = new ToolTip();
-                    ToolTipTb.SetToolTip(InicioView.tbArchivoDiseno, _contex.RutaArchivoDisenio);
+                    ToolTipTb.SetToolTip(textBox, textBox.Text);
                 }
             }
         }

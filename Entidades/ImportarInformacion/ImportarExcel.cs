@@ -9,8 +9,12 @@ namespace Entidades.ImportarInformacion
 {
     public abstract class ImportarExcel
     {
+        public bool disposed = false;
+        public List<Muro> MurosModelo { get; set; }
+        public List<Story> StoriesModelo { get; set; }
         public StoryFactory StoryFactory { get; set; }
         public MuroFactory MuroFactory { get; set; }
+        public BarraMuroFactory BarraMuroFactory { get; set; }
         public Application ExcelApp { get; set; }
          public string RutaArchivo { get; set; }
          public Workbook Workbook { get; set; }
@@ -32,7 +36,7 @@ namespace Entidades.ImportarInformacion
         }
 
         public abstract void ExtraerInformacion(GradoDisipacionEnergia disipacionEnergia);
-        public abstract void ExtraerInformacion(int NumPisos);
+        public abstract void ExtraerInformacion();
 
         public void CerrarExcel()
         {
@@ -56,5 +60,7 @@ namespace Entidades.ImportarInformacion
 
             return prueba.FindAll(x=>x!=null).ToList();
         }
+
+
     }
 }

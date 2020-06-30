@@ -69,6 +69,18 @@ namespace DataAcces
                     Alzados.Add(alzadoi);
                 }
                 Muros = Modelo.MuroFactory.Muros;
+
+            }
+        }
+
+        public  void LoadDespieceContext()
+        {
+            if (File.Exists(RutaArchivoDespiece))
+            {
+                ImportarExcel Modelo = new ImportarDespiece(RutaArchivoDespiece);
+                Modelo.MurosModelo = this.Muros;
+                Modelo.ExtraerInformacion();
+                Modelo.CerrarExcel();
             }
         }
     }

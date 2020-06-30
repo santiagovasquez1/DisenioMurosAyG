@@ -8,7 +8,6 @@ namespace Entidades
     public class BarraMuro
     {
         public string BarraId { get; set; }
-        public Story Story { get; set; }
         public string MuroName { get; set; }
         public string BarraDenom { get; set; }
         public int Cantidad { get; set; }
@@ -22,16 +21,9 @@ namespace Entidades
             Diametro = diametro;
             Cantidad = cantidad;
         }
-
-
-        public Story GetBarraStory(string StoryName, List<Story> stories)
+        public override string ToString()
         {
-            var story = (from storytemp in stories
-                         where storytemp.StoryName == StoryName
-                         select storytemp).FirstOrDefault();
-
-            return story;
+            return $"Capa {BarraDenom}-{Cantidad}#{DiccionariosRefuerzo.ReturnNombreDiametro(this.Diametro)}";
         }
-
     }
 }

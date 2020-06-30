@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Entidades
@@ -8,6 +9,7 @@ namespace Entidades
     {
         private static Dictionary<Diametro, float> AreasRefuerzo { get; set; }
         private static Dictionary<Diametro, float> PesoRefuerzoLong { get; set; }
+        private static Dictionary<string, Diametro> NombreRefuerzo { get; set; }
         
         private static Dictionary<Diametro, float> SetAreasRefuerzo()
         {
@@ -39,6 +41,19 @@ namespace Entidades
             return pesosrefuerzo;
         }
 
+        private static Dictionary<string, Diametro> SetNombreRefuerzo()
+        {
+            var nombrerefuerzo=new Dictionary<string,Diametro>();
+            nombrerefuerzo.Add("4.5mm", Diametro.Num45mm);
+            nombrerefuerzo.Add("2", Diametro.Num2);
+            nombrerefuerzo.Add("3", Diametro.Num3);
+            nombrerefuerzo.Add("4", Diametro.Num4);
+            nombrerefuerzo.Add("5", Diametro.Num5);
+            nombrerefuerzo.Add("6", Diametro.Num6);
+            nombrerefuerzo.Add("7", Diametro.Num7);
+            nombrerefuerzo.Add("8", Diametro.Num8);
+            return nombrerefuerzo;
+        }
 
         public static float ReturnAsi(Diametro diametro)
         {
@@ -51,6 +66,20 @@ namespace Entidades
             PesoRefuerzoLong = SetPesosRefuerzo();
             var Pesoi = PesoRefuerzoLong[diametro];
             return Pesoi;
+        }
+
+        public static Diametro ReturnDiametro(string nombrediametro)
+        {
+            NombreRefuerzo = SetNombreRefuerzo();
+            var diametro = NombreRefuerzo[nombrediametro];
+            return diametro;
+        }
+
+        public static string ReturnNombreDiametro(Diametro diametro)
+        {
+            NombreRefuerzo = SetNombreRefuerzo();
+            var diametronombre = NombreRefuerzo.FirstOrDefault(x => x.Value == diametro).Key;
+            return diametronombre;
         }
     }
 }

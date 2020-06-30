@@ -43,6 +43,7 @@
             this.radGroupBox1 = new Telerik.WinControls.UI.RadGroupBox();
             this.ListViewAlzados = new Telerik.WinControls.UI.RadListView();
             this.radPanel1 = new Telerik.WinControls.UI.RadPanel();
+            this.cbMAlla = new Telerik.WinControls.UI.RadButtonElement();
             ((System.ComponentModel.ISupportInitialize)(this.radRibbonBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PanelAlzados)).BeginInit();
             this.PanelAlzados.PanelContainer.SuspendLayout();
@@ -74,6 +75,8 @@
             // 
             // radRibbonBarGroup1
             // 
+            this.radRibbonBarGroup1.Items.AddRange(new Telerik.WinControls.RadItem[] {
+            this.cbMAlla});
             this.radRibbonBarGroup1.MaxSize = new System.Drawing.Size(0, 144);
             this.radRibbonBarGroup1.MinSize = new System.Drawing.Size(70, 144);
             this.radRibbonBarGroup1.Name = "radRibbonBarGroup1";
@@ -202,6 +205,11 @@
             this.radPanel1.TabIndex = 2;
             this.radPanel1.ThemeName = "MaterialBlueGrey";
             // 
+            // cbMAlla
+            // 
+            this.cbMAlla.Name = "cbMAlla";
+            this.cbMAlla.Text = "Crear Malla";
+            // 
             // ContextView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -248,5 +256,6 @@
         private Telerik.WinControls.UI.RadGroupBox radGroupBox1;
         public Telerik.WinControls.UI.RadListView ListViewAlzados;
         public Telerik.WinControls.UI.RadPanel radPanel1;
+        public Telerik.WinControls.UI.RadButtonElement cbMAlla;
     }
 }
