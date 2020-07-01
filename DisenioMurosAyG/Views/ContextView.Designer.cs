@@ -34,6 +34,7 @@
             this.radMenuHeaderItem1 = new Telerik.WinControls.UI.RadMenuHeaderItem();
             this.ribbonTab2 = new Telerik.WinControls.UI.RibbonTab();
             this.radRibbonBarGroup1 = new Telerik.WinControls.UI.RadRibbonBarGroup();
+            this.cbMAlla = new Telerik.WinControls.UI.RadButtonElement();
             this.ribbonTab3 = new Telerik.WinControls.UI.RibbonTab();
             this.cbNuevo = new Telerik.WinControls.UI.RadMenuItem();
             this.cbCargar = new Telerik.WinControls.UI.RadMenuItem();
@@ -43,7 +44,6 @@
             this.radGroupBox1 = new Telerik.WinControls.UI.RadGroupBox();
             this.ListViewAlzados = new Telerik.WinControls.UI.RadListView();
             this.radPanel1 = new Telerik.WinControls.UI.RadPanel();
-            this.cbMAlla = new Telerik.WinControls.UI.RadButtonElement();
             ((System.ComponentModel.ISupportInitialize)(this.radRibbonBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PanelAlzados)).BeginInit();
             this.PanelAlzados.PanelContainer.SuspendLayout();
@@ -82,6 +82,11 @@
             this.radRibbonBarGroup1.Name = "radRibbonBarGroup1";
             this.radRibbonBarGroup1.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.radRibbonBarGroup1.Text = "Modelo";
+            // 
+            // cbMAlla
+            // 
+            this.cbMAlla.Name = "cbMAlla";
+            this.cbMAlla.Text = "Crear Malla";
             // 
             // ribbonTab3
             // 
@@ -204,11 +209,6 @@
             this.radPanel1.Size = new System.Drawing.Size(876, 361);
             this.radPanel1.TabIndex = 2;
             this.radPanel1.ThemeName = "MaterialBlueGrey";
-            // 
-            // cbMAlla
-            // 
-            this.cbMAlla.Name = "cbMAlla";
-            this.cbMAlla.Text = "Crear Malla";
             // 
             // ContextView
             // 
