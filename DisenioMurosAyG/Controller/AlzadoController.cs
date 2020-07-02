@@ -16,7 +16,6 @@ namespace DisenioMurosAyG.Controller
     public class AlzadoController
     {
         public ModeloContext _contex { get; set; }
-        public InformacionAlzadoView InformacionAlzadoView { get; set; }
         public InformacionAlzadoView1 InformacionAlzadoView1 { get; set; }
         public Alzado AlzadoSeleccionado { get; set; }
         public Muro MuroSeleccionado { get; set; }
@@ -29,20 +28,12 @@ namespace DisenioMurosAyG.Controller
 
             if (AlzadoSeleccionado != null)
             {
-                informacionAlzadoView.dgAlzado.CellEndEdit += new GridViewCellEventHandler(EditMuroCommand);
+                InformacionAlzadoView1.dgAlzado.CellEndEdit += new GridViewCellEventHandler(EditMuroCommand);
                 Set_Columns_Data_Alzado();
                 LoadAlzadoData();
                 Cargar_DataGrid();
             }
 
-        }
-
-
-        private void SeleccionarAlzadoCommand(object sender, EventArgs e)
-        {
-            AlzadoSeleccionado = (Alzado)InformacionAlzadoView.cbAlzados.SelectedItem;
-            LoadAlzadoData();
-            Cargar_DataGrid();
         }
 
         private void Set_Columns_Data_Alzado()
@@ -82,7 +73,6 @@ namespace DisenioMurosAyG.Controller
             if (DT_AlzadoSeleccionado.Rows.Count > 0)
                 DT_AlzadoSeleccionado.Rows.Clear();
 
-            var Estribos = new List<string>() { "#3", "#4", "#5" };
 
             foreach (var muro in AlzadoSeleccionado.Muros)
             {
@@ -141,6 +131,7 @@ namespace DisenioMurosAyG.Controller
             InformacionAlzadoView1.dgAlzado.Columns["RefHoriz (cm²/m)"].FormatString = "{0:F2}";
             InformacionAlzadoView1.dgAlzado.Columns["RefVert (cm²/m)"].FormatString = "{0:F2}";
             InformacionAlzadoView1.dgAlzado.Columns["RefAdicional (cm²)"].FormatString = "{0:F2}";
+            
 
             try
             {
@@ -160,6 +151,7 @@ namespace DisenioMurosAyG.Controller
             InformacionAlzadoView1.dgAlzado.AllowColumnReorder = false;
             InformacionAlzadoView1.dgAlzado.AllowAddNewRow = false;
             InformacionAlzadoView1.dgAlzado.AllowDragToGroup = false;
+            InformacionAlzadoView1.dgAlzado.SelectionMode = GridViewSelectionMode.CellSelect;
 
         }
 
@@ -268,7 +260,7 @@ namespace DisenioMurosAyG.Controller
                 DT_AlzadoSeleccionado.Rows[indice][ColumnName] = elementoBorde.RamasX;
                 DT_AlzadoSeleccionado.Columns[ColumnName].ReadOnly = true;
             }
-            else
+            else if(elementoBorde!=null)
             {
                 elementoBorde.LongEbe = 0;
                 elementoBorde = null;

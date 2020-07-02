@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Telerik.WinControls;
 
 namespace DisenioMurosAyG
 {
@@ -21,6 +22,8 @@ namespace DisenioMurosAyG
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            ThemeResolutionService.LoadPackageFile("Resources\\Prueba1.tssp", true);
+            RadMessageBox.SetThemeName("Prueba1.tssp");
             _context = new ModeloContext();
             var contextView = new ContextView();
             ContextController = new ContextController(contextView);

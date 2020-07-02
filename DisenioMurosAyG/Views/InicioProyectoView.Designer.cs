@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            Telerik.WinControls.ThemeSource themeSource1 = new Telerik.WinControls.ThemeSource();
+            Telerik.WinControls.ThemeSource themeSource2 = new Telerik.WinControls.ThemeSource();
             this.radLabel1 = new Telerik.WinControls.UI.RadLabel();
             this.radThemeManager1 = new Telerik.WinControls.RadThemeManager();
             this.materialBlueGreyTheme1 = new Telerik.WinControls.Themes.MaterialBlueGreyTheme();
@@ -61,10 +61,10 @@
             // 
             // radThemeManager1
             // 
-            themeSource1.StorageType = Telerik.WinControls.ThemeStorageType.Resource;
-            themeSource1.ThemeLocation = "ss";
+            themeSource2.StorageType = Telerik.WinControls.ThemeStorageType.Resource;
+            themeSource2.ThemeLocation = "ss";
             this.radThemeManager1.LoadedThemes.AddRange(new Telerik.WinControls.ThemeSource[] {
-            themeSource1});
+            themeSource2});
             // 
             // radLabel2
             // 

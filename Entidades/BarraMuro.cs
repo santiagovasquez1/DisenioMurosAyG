@@ -13,6 +13,11 @@ namespace Entidades
         public int Cantidad { get; set; }
         public Diametro Diametro { get; set; }
 
+        public BarraMuro(string barradenom)
+        {
+            BarraId = Guid.NewGuid().ToString();
+            BarraDenom = barradenom;
+        }
         public BarraMuro(string nombremuro, string barradenom, int cantidad, Diametro diametro)
         {
             BarraId = Guid.NewGuid().ToString();

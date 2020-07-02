@@ -32,10 +32,10 @@
             this.radThemeManager1 = new Telerik.WinControls.RadThemeManager();
             this.materialBlueGreyTheme1 = new Telerik.WinControls.Themes.MaterialBlueGreyTheme();
             this.radMenuHeaderItem1 = new Telerik.WinControls.UI.RadMenuHeaderItem();
-            this.ribbonTab2 = new Telerik.WinControls.UI.RibbonTab();
+            this.Infogeneraltab = new Telerik.WinControls.UI.RibbonTab();
             this.radRibbonBarGroup1 = new Telerik.WinControls.UI.RadRibbonBarGroup();
             this.cbMAlla = new Telerik.WinControls.UI.RadButtonElement();
-            this.ribbonTab3 = new Telerik.WinControls.UI.RibbonTab();
+            this.DespieceTab = new Telerik.WinControls.UI.RibbonTab();
             this.cbNuevo = new Telerik.WinControls.UI.RadMenuItem();
             this.cbCargar = new Telerik.WinControls.UI.RadMenuItem();
             this.cbGuardar = new Telerik.WinControls.UI.RadMenuItem();
@@ -60,18 +60,18 @@
             this.radMenuHeaderItem1.Name = "radMenuHeaderItem1";
             this.radMenuHeaderItem1.Text = "radMenuHeaderItem1";
             // 
-            // ribbonTab2
+            // Infogeneraltab
             // 
-            this.ribbonTab2.AutoEllipsis = false;
-            this.ribbonTab2.DisabledTextRenderingHint = System.Drawing.Text.TextRenderingHint.SystemDefault;
-            this.ribbonTab2.IsSelected = true;
-            this.ribbonTab2.Items.AddRange(new Telerik.WinControls.RadItem[] {
+            this.Infogeneraltab.AutoEllipsis = false;
+            this.Infogeneraltab.DisabledTextRenderingHint = System.Drawing.Text.TextRenderingHint.SystemDefault;
+            this.Infogeneraltab.IsSelected = false;
+            this.Infogeneraltab.Items.AddRange(new Telerik.WinControls.RadItem[] {
             this.radRibbonBarGroup1});
-            this.ribbonTab2.Name = "ribbonTab2";
-            this.ribbonTab2.Text = "Información General";
-            this.ribbonTab2.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SystemDefault;
-            this.ribbonTab2.UseCompatibleTextRendering = false;
-            this.ribbonTab2.UseMnemonic = false;
+            this.Infogeneraltab.Name = "Infogeneraltab";
+            this.Infogeneraltab.Text = "Información General";
+            this.Infogeneraltab.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SystemDefault;
+            this.Infogeneraltab.UseCompatibleTextRendering = false;
+            this.Infogeneraltab.UseMnemonic = false;
             // 
             // radRibbonBarGroup1
             // 
@@ -88,15 +88,16 @@
             this.cbMAlla.Name = "cbMAlla";
             this.cbMAlla.Text = "Crear Malla";
             // 
-            // ribbonTab3
+            // DespieceTab
             // 
-            this.ribbonTab3.AutoEllipsis = false;
-            this.ribbonTab3.DisabledTextRenderingHint = System.Drawing.Text.TextRenderingHint.SystemDefault;
-            this.ribbonTab3.Name = "ribbonTab3";
-            this.ribbonTab3.Text = "Despiece muros concreto";
-            this.ribbonTab3.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SystemDefault;
-            this.ribbonTab3.UseCompatibleTextRendering = false;
-            this.ribbonTab3.UseMnemonic = false;
+            this.DespieceTab.AutoEllipsis = false;
+            this.DespieceTab.DisabledTextRenderingHint = System.Drawing.Text.TextRenderingHint.SystemDefault;
+            this.DespieceTab.IsSelected = true;
+            this.DespieceTab.Name = "DespieceTab";
+            this.DespieceTab.Text = "Despiece muros concreto";
+            this.DespieceTab.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SystemDefault;
+            this.DespieceTab.UseCompatibleTextRendering = false;
+            this.DespieceTab.UseMnemonic = false;
             // 
             // cbNuevo
             // 
@@ -119,8 +120,8 @@
             // radRibbonBar1
             // 
             this.radRibbonBar1.CommandTabs.AddRange(new Telerik.WinControls.RadItem[] {
-            this.ribbonTab2,
-            this.ribbonTab3});
+            this.Infogeneraltab,
+            this.DespieceTab});
             // 
             // 
             // 
@@ -242,8 +243,8 @@
 
         #endregion
 
-        public Telerik.WinControls.UI.RibbonTab ribbonTab2;
-        public Telerik.WinControls.UI.RibbonTab ribbonTab3;
+        public Telerik.WinControls.UI.RibbonTab Infogeneraltab;
+        public Telerik.WinControls.UI.RibbonTab DespieceTab;
         public Telerik.WinControls.UI.RadMenuItem cbNuevo;
         public Telerik.WinControls.UI.RadMenuItem cbCargar;
         public Telerik.WinControls.UI.RadMenuItem cbGuardar;

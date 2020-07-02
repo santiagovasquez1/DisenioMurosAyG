@@ -31,14 +31,15 @@ namespace Entidades.ImportarInformacion
 
                 for (int i = 1; i < columns; i += 28)
                 {
-                    var MuroName = Datos.GetValue(new int[] { 1, i }).ToString();
+                    var MuroName = Datos.GetValue(new int[] { 1, i }).ToString().Replace(" ", String.Empty).ToLower();
+
                     var Barra = GetRow(Datos, 2, i, i + 26);
                     var Cantidad = GetRow(Datos, 3, i, i + 26);
 
                     for (int j = 5; j < filas; j++)
                     {
                         var BarrasPiso = GetRow(Datos, j, i, i + 26);
-                        barrasfactory.BuildBarras(MuroName.ToLower(), Barra, Cantidad, BarrasPiso);
+                        barrasfactory.BuildBarras(MuroName, Barra, Cantidad, BarrasPiso);
                     }
                 }
             }

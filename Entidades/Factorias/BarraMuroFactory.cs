@@ -26,11 +26,11 @@ namespace Entidades.Factorias
         {
             if (BarrasPiso.Count > 0)
             {
-                var StoryName = $"piso{int.Parse(BarrasPiso[0].ToString()) + 1}";
+                var StoryName = $"piso{int.Parse(BarrasPiso[0].ToString()) + 1}".Replace(" ", string.Empty).ToLower();
 
-                var muros = (from muro in Muros
-                             where $"muro {muro.LabelDef}" == muroName
-                             where muro.Story.StoryName.ToLower().Replace(" ", String.Empty) == StoryName
+                var muros = (from muro  in Muros 
+                             where ($"muro{muro.LabelDef}").ToLower() == muroName
+                             where muro.Story.StoryName.ToLower().Replace(" ", string.Empty) == StoryName
                              select muro).ToList();
 
                 foreach (Muro muro in muros)
