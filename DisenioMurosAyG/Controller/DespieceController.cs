@@ -31,6 +31,7 @@ namespace DisenioMurosAyG.Controller
             DespieceView.cbAgregarCapa.Click += new EventHandler(AddCapaDespiece);
             DespieceView.gvDespieceMuro.CellEndEdit += new GridViewCellEventHandler(EditMuroCommand);
 
+
             Set_Columns_Data_Alzado();
             LoadAlzadoData();
             Cargar_DataGrid();
@@ -118,6 +119,7 @@ namespace DisenioMurosAyG.Controller
             DespieceView.gvDespieceMuro.DataSource = DT_AlzadoSeleccionado;
             AddColumns(DespieceView.gvDespieceMuro);
 
+
             DespieceView.gvDespieceMuro.AutoSizeColumnsMode = GridViewAutoSizeColumnsMode.Fill;
             DespieceView.gvDespieceMuro.ReadOnly = false;
             DespieceView.gvDespieceMuro.AllowColumnReorder = false;
@@ -129,19 +131,19 @@ namespace DisenioMurosAyG.Controller
 
         private void AddColumns(RadGridView gridView)
         {
-            DataGridController.AddGridViewColumn(gridView, typeof(GridViewTextBoxColumn), typeof(string), "Piso", "Piso", "Piso", true);
-            DataGridController.AddGridViewColumn(gridView, typeof(GridViewTextBoxColumn), typeof(string), "Nivel (m)", "Nivel (m)", "Nivel (m)", true);
-            DataGridController.AddGridViewColumn(gridView, typeof(GridViewTextBoxColumn), typeof(string), "Muro", "Muro", "Muro", true);
-            DataGridController.AddGridViewColumn(gridView, typeof(GridViewTextBoxColumn), typeof(string), "Nombre Definitivo", "Nombre Definitivo", "Nombre Definitivo", true);
-            DataGridController.AddGridViewColumn(gridView, typeof(GridViewTextBoxColumn), typeof(string), "AsReq", "AsReq", "AsReq", true);
-            DataGridController.AddGridViewColumn(gridView, typeof(GridViewTextBoxColumn), typeof(string), "AsTotal", "AsTotal", "AsTotal", true);
+            DataGridController.AddGridViewColumn<GridViewColumn>(gridView, typeof(GridViewTextBoxColumn), typeof(string), "Piso", "Piso", "Piso", true,null);
+            DataGridController.AddGridViewColumn<GridViewColumn>(gridView, typeof(GridViewTextBoxColumn), typeof(string), "Nivel (m)", "Nivel (m)", "Nivel (m)", true,null);
+            DataGridController.AddGridViewColumn<GridViewColumn>(gridView, typeof(GridViewTextBoxColumn), typeof(string), "Muro", "Muro", "Muro", true,null);
+            DataGridController.AddGridViewColumn<GridViewColumn>(gridView, typeof(GridViewTextBoxColumn), typeof(string), "Nombre Definitivo", "Nombre Definitivo", "Nombre Definitivo", true,null);
+            DataGridController.AddGridViewColumn<GridViewColumn>(gridView, typeof(GridViewTextBoxColumn), typeof(string), "AsReq", "AsReq", "AsReq", true,null);
+            DataGridController.AddGridViewColumn<GridViewColumn>(gridView, typeof(GridViewTextBoxColumn), typeof(string), "AsTotal", "AsTotal", "AsTotal", true,null);
 
             if (ExisteDespiece == true)
             {
                 List<BarraMuro> Alzados = ExtraerAlzados();
 
                 foreach (var alzadoi in Alzados)
-                    DataGridController.AddGridViewColumn(gridView, typeof(GridViewTextBoxColumn), typeof(string), alzadoi.BarraId, alzadoi.BarraDenom, alzadoi.BarraId, false);
+                    DataGridController.AddGridViewColumn< GridViewColumn>(gridView, typeof(GridViewTextBoxColumn), typeof(string), alzadoi.BarraId, alzadoi.BarraDenom, alzadoi.BarraId, false,null);
             }
         }
 
@@ -158,7 +160,7 @@ namespace DisenioMurosAyG.Controller
                 DataGridController.CrearColumna(NuevaCapa.BarraId, typeof(string), false)
             };
             DataGridController.Set_Columns_Data(DT_AlzadoSeleccionado, Columnas);
-            DataGridController.AddGridViewColumn(DespieceView.gvDespieceMuro, typeof(GridViewTextBoxColumn), typeof(string), NuevaCapa.BarraId, NuevaCapa.BarraDenom, NuevaCapa.BarraId, false);
+            DataGridController.AddGridViewColumn<GridViewColumn>(DespieceView.gvDespieceMuro, typeof(GridViewTextBoxColumn), typeof(string), NuevaCapa.BarraId, NuevaCapa.BarraDenom, NuevaCapa.BarraId, false,null);
         }
 
         private void EditMuroCommand(object sender, GridViewCellEventArgs e)
@@ -166,38 +168,51 @@ namespace DisenioMurosAyG.Controller
             int indice = e.RowIndex;
             int column = e.ColumnIndex;
             var ColumnHeader = DespieceView.gvDespieceMuro.Rows[indice].Cells[column].ColumnInfo.HeaderText;
+            List<Muro> MurosSeleccionados = new List<Muro>();
 
             MuroSeleccionado = AlzadoSeleccionado.Muros[indice];
             var CapaRef = DespieceView.gvDespieceMuro.Rows[indice].Cells[column].Value.ToString();
+
+            if (AlzadoSeleccionado.IsMaestro)
+            {
+                MurosSeleccionados = (from Alzado in _contex.Alzados
+                                      where Alzado.PadreId == AlzadoSeleccionado.AlzadoId | Alzado.AlzadoId==AlzadoSeleccionado.AlzadoId
+                                      select Alzado.Muros[indice]).ToList();
+            }
+            else
+                MurosSeleccionados.Add(MuroSeleccionado);
 
             if (CapaRef != "" | CapaRef.Contains("#"))
             {
                 var infoRef = CapaRef.Split('#');
                 var Cantidad = int.Parse(infoRef[0]);
                 var diametro = infoRef[1];
-
-                if (MuroSeleccionado.BarrasMuros != null)
+                foreach (var muro in MurosSeleccionados)
                 {
-                    var indiceBarra = MuroSeleccionado.BarrasMuros.FindIndex(x => x.BarraDenom == ColumnHeader);
-
-                    if (indiceBarra >= 0)
+                    if (muro.BarrasMuros != null)
                     {
-                        var Barra = MuroSeleccionado.BarrasMuros[indiceBarra];
-                        Barra.Cantidad = Cantidad;
-                        Barra.Diametro = DiccionariosRefuerzo.ReturnDiametro(diametro);
+                        var indiceBarra = muro.BarrasMuros.FindIndex(x => x.BarraDenom == ColumnHeader);
+
+                        if (indiceBarra >= 0)
+                        {
+                            var Barra = muro.BarrasMuros[indiceBarra];
+                            Barra.Cantidad = Cantidad;
+                            Barra.Diametro = DiccionariosRefuerzo.ReturnDiametro(diametro);
+                        }
+                        else
+                        {
+                            var Barra = new BarraMuro(muro.Label, ColumnHeader, Cantidad, DiccionariosRefuerzo.ReturnDiametro(diametro));
+                            muro.BarrasMuros.Add(Barra);
+                        }
                     }
                     else
                     {
-                        var Barra = new BarraMuro(MuroSeleccionado.Label, ColumnHeader, Cantidad, DiccionariosRefuerzo.ReturnDiametro(diametro));
-                        MuroSeleccionado.BarrasMuros.Add(Barra);
+                        var Barra = new BarraMuro(muro.Label, ColumnHeader, Cantidad, DiccionariosRefuerzo.ReturnDiametro(diametro));
+                        muro.BarrasMuros = new List<BarraMuro>();
+                        muro.BarrasMuros.Add(Barra);
                     }
                 }
-                else
-                {
-                    var Barra = new BarraMuro(MuroSeleccionado.Label, ColumnHeader, Cantidad, DiccionariosRefuerzo.ReturnDiametro(diametro));
-                    MuroSeleccionado.BarrasMuros = new List<BarraMuro>();
-                    MuroSeleccionado.BarrasMuros.Add(Barra);
-                }
+
             }
         }
     }

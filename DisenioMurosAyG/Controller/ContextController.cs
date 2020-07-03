@@ -14,22 +14,33 @@ namespace DisenioMurosAyG.Controller
 {
     public class ContextController
     {
-        public ModeloContext _contex { get; set; }
+        public ModeloContext _context { get; set; }
         public ContextView ContextView { get; set; }
         public DespieceController DespieceController { get; set; }
         public AlzadoController AlzadoController { get; set; }
+        public MurosViewController MurosViewController { get; set; }
         public Alzado AlzadoSeleccionado { get; set; }
         public RadForm ControlActivo { get; set; }
         public ContextController(ContextView contextView)
         {
-            _contex = Program._context;
-            ContextView = contextView;            
+            _context = Program._context;
+            ContextView = contextView;
+
             contextView.radRibbonBar1.OptionsButton.Visibility = Telerik.WinControls.ElementVisibility.Hidden;
             contextView.cbNuevo.Click += new EventHandler(NuevoCommand);
             contextView.ListViewAlzados.MultiSelect = false;
             contextView.ListViewAlzados.SelectedIndexChanged += new EventHandler(SeleccionAlzadoCommand);
             contextView.Infogeneraltab.Click += new EventHandler(InfoGeneralClick);
             contextView.DespieceTab.Click += new EventHandler(DespieceClick);
+            contextView.cbListMuros.Click += new EventHandler(OpenListMurosClick);
+        }
+
+        private void OpenListMurosClick(object sender, EventArgs e)
+        {
+
+            var listaMurosView = new MurosView();
+            MurosViewController = new MurosViewController(listaMurosView);
+            listaMurosView.ShowDialog();
         }
 
         private void DespieceClick(object sender, EventArgs e)
@@ -104,6 +115,7 @@ namespace DisenioMurosAyG.Controller
             }
 
         }
+
 
         private void NuevoCommand(object sender, EventArgs e)
         {

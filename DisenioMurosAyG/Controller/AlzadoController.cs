@@ -40,8 +40,6 @@ namespace DisenioMurosAyG.Controller
         {
             DT_AlzadoSeleccionado = new DataTable();
 
-            DataColumn dataColumn = new DataColumn();
-
             var Columnas = new List<DataColumn>()
             {
                 DataGridController.CrearColumna("Piso",typeof(string),true),
@@ -131,7 +129,7 @@ namespace DisenioMurosAyG.Controller
             InformacionAlzadoView1.dgAlzado.Columns["RefHoriz (cm²/m)"].FormatString = "{0:F2}";
             InformacionAlzadoView1.dgAlzado.Columns["RefVert (cm²/m)"].FormatString = "{0:F2}";
             InformacionAlzadoView1.dgAlzado.Columns["RefAdicional (cm²)"].FormatString = "{0:F2}";
-            
+
 
             try
             {
@@ -202,32 +200,55 @@ namespace DisenioMurosAyG.Controller
             int indice = e.RowIndex;
             int column = e.ColumnIndex;
             var ColumnName = InformacionAlzadoView1.dgAlzado.Rows[indice].Cells[column].ColumnInfo.Name;
+            List<Muro> MurosSeleccionados = new List<Muro>();
             float LongEbe = 0;
 
             MuroSeleccionado = AlzadoSeleccionado.Muros[indice];
 
+            if (AlzadoSeleccionado.IsMaestro)
+            {
+                MurosSeleccionados = (from Alzado in _contex.Alzados
+                                      where Alzado.PadreId == AlzadoSeleccionado.AlzadoId | Alzado.AlzadoId == AlzadoSeleccionado.AlzadoId
+                                      select Alzado.Muros[indice]).ToList();
+            }
+            else
+                MurosSeleccionados.Add(MuroSeleccionado);
+
             switch (ColumnName)
             {
                 case "L (m)":
-                    MuroSeleccionado.Lw = float.Parse(InformacionAlzadoView1.dgAlzado.Rows[indice].Cells[ColumnName].Value.ToString());
-                    UploadAsLongMuroSeleccionado(indice, "RefAdicional (cm²)");
+                    foreach (var muro in MurosSeleccionados)
+                    {
+                        muro.Lw = float.Parse(InformacionAlzadoView1.dgAlzado.Rows[indice].Cells[ColumnName].Value.ToString());
+                        UploadAsLongMuroSeleccionado(muro, indice, "RefAdicional (cm²)");
+                    }
                     break;
                 case "t (m)":
-                    MuroSeleccionado.Bw = float.Parse(InformacionAlzadoView1.dgAlzado.Rows[indice].Cells[ColumnName].Value.ToString());
-                    UploadAsLongMuroSeleccionado(indice, "RefAdicional (cm²)");
+                    foreach (var muro in MurosSeleccionados)
+                    {
+                        muro.Bw = float.Parse(InformacionAlzadoView1.dgAlzado.Rows[indice].Cells[ColumnName].Value.ToString());
+                        UploadAsLongMuroSeleccionado(muro, indice, "RefAdicional (cm²)");
+                    }
                     break;
                 case "h (m)":
-                    MuroSeleccionado.Hw = float.Parse(InformacionAlzadoView1.dgAlzado.Rows[indice].Cells[ColumnName].Value.ToString());
+                    foreach (var muro in MurosSeleccionados)
+                        muro.Hw = float.Parse(InformacionAlzadoView1.dgAlzado.Rows[indice].Cells[ColumnName].Value.ToString());
                     break;
                 case "Zc_Izq (m)":
                     LongEbe = float.Parse(InformacionAlzadoView1.dgAlzado.Rows[indice].Cells[ColumnName].Value.ToString());
-                    UploadEbe(indice, LongEbe, MuroSeleccionado.EBE_Izq, "Ramas Izq");
-                    UploadAsLongMuroSeleccionado(indice, "RefAdicional (cm²)");
+                    foreach (var muro in MurosSeleccionados)
+                    {
+                        UploadEbe(indice, LongEbe, muro.EBE_Izq, "Ramas Izq");
+                        UploadAsLongMuroSeleccionado(muro,indice, "RefAdicional (cm²)");
+                    }
                     break;
                 case "Zc_Der (m)":
                     LongEbe = float.Parse(InformacionAlzadoView1.dgAlzado.Rows[indice].Cells[ColumnName].Value.ToString());
-                    UploadEbe(indice, LongEbe, MuroSeleccionado.EBE_Der, "Ramas Der");
-                    UploadAsLongMuroSeleccionado(indice, "RefAdicional (cm²)");
+                    foreach (var muro in MurosSeleccionados)
+                    {
+                        UploadEbe(indice, LongEbe, muro.EBE_Der, "Ramas Der");
+                        UploadAsLongMuroSeleccionado(muro,indice, "RefAdicional (cm²)");
+                    }
                     break;
                 case "Estribos":
                     string Diametro = InformacionAlzadoView1.dgAlzado.Rows[indice].Cells[ColumnName].Value.ToString();
@@ -260,7 +281,7 @@ namespace DisenioMurosAyG.Controller
                 DT_AlzadoSeleccionado.Rows[indice][ColumnName] = elementoBorde.RamasX;
                 DT_AlzadoSeleccionado.Columns[ColumnName].ReadOnly = true;
             }
-            else if(elementoBorde!=null)
+            else if (elementoBorde != null)
             {
                 elementoBorde.LongEbe = 0;
                 elementoBorde = null;
@@ -305,11 +326,11 @@ namespace DisenioMurosAyG.Controller
 
         }
 
-        private void UploadAsLongMuroSeleccionado(int Indice, string ColumnName)
+        private void UploadAsLongMuroSeleccionado(Muro muroseleccionado, int Indice, string ColumnName)
         {
-            MuroSeleccionado.UploadAsLong();
+            muroseleccionado.UploadAsLong();
             DT_AlzadoSeleccionado.Columns[ColumnName].ReadOnly = false;
-            DT_AlzadoSeleccionado.Rows[Indice][ColumnName] = MuroSeleccionado.AsAdicional;
+            DT_AlzadoSeleccionado.Rows[Indice][ColumnName] = muroseleccionado.AsAdicional;
             DT_AlzadoSeleccionado.Columns[ColumnName].ReadOnly = true;
         }
     }

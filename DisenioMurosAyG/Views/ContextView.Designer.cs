@@ -44,6 +44,7 @@
             this.radGroupBox1 = new Telerik.WinControls.UI.RadGroupBox();
             this.ListViewAlzados = new Telerik.WinControls.UI.RadListView();
             this.radPanel1 = new Telerik.WinControls.UI.RadPanel();
+            this.cbListMuros = new Telerik.WinControls.UI.RadButtonElement();
             ((System.ComponentModel.ISupportInitialize)(this.radRibbonBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PanelAlzados)).BeginInit();
             this.PanelAlzados.PanelContainer.SuspendLayout();
@@ -64,7 +65,7 @@
             // 
             this.Infogeneraltab.AutoEllipsis = false;
             this.Infogeneraltab.DisabledTextRenderingHint = System.Drawing.Text.TextRenderingHint.SystemDefault;
-            this.Infogeneraltab.IsSelected = false;
+            this.Infogeneraltab.IsSelected = true;
             this.Infogeneraltab.Items.AddRange(new Telerik.WinControls.RadItem[] {
             this.radRibbonBarGroup1});
             this.Infogeneraltab.Name = "Infogeneraltab";
@@ -76,7 +77,8 @@
             // radRibbonBarGroup1
             // 
             this.radRibbonBarGroup1.Items.AddRange(new Telerik.WinControls.RadItem[] {
-            this.cbMAlla});
+            this.cbMAlla,
+            this.cbListMuros});
             this.radRibbonBarGroup1.MaxSize = new System.Drawing.Size(0, 144);
             this.radRibbonBarGroup1.MinSize = new System.Drawing.Size(70, 144);
             this.radRibbonBarGroup1.Name = "radRibbonBarGroup1";
@@ -92,7 +94,7 @@
             // 
             this.DespieceTab.AutoEllipsis = false;
             this.DespieceTab.DisabledTextRenderingHint = System.Drawing.Text.TextRenderingHint.SystemDefault;
-            this.DespieceTab.IsSelected = true;
+            this.DespieceTab.IsSelected = false;
             this.DespieceTab.Name = "DespieceTab";
             this.DespieceTab.Text = "Despiece muros concreto";
             this.DespieceTab.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SystemDefault;
@@ -211,6 +213,11 @@
             this.radPanel1.TabIndex = 2;
             this.radPanel1.ThemeName = "MaterialBlueGrey";
             // 
+            // cbListMuros
+            // 
+            this.cbListMuros.Name = "cbListMuros";
+            this.cbListMuros.Text = "Lista Muros";
+            // 
             // ContextView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -258,5 +265,6 @@
         public Telerik.WinControls.UI.RadListView ListViewAlzados;
         public Telerik.WinControls.UI.RadPanel radPanel1;
         public Telerik.WinControls.UI.RadButtonElement cbMAlla;
+        public Telerik.WinControls.UI.RadButtonElement cbListMuros;
     }
 }

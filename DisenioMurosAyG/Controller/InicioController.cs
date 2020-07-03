@@ -48,6 +48,7 @@ namespace DisenioMurosAyG.Controller
                 ContextController.ContextView.ListViewAlzados.DataSource = _contex.Alzados;
                 var DefaultItemSelect = ContextController.ContextView.ListViewAlzados.Items[0];
                 ContextController.ContextView.ListViewAlzados.SelectedItem = DefaultItemSelect;
+
                 InicioView.Close();
             }
         }

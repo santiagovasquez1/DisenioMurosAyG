@@ -22,7 +22,6 @@ namespace Entidades.ImportarInformacion
 
         public object[,] LeerDatos()
         {
-
             Worksheet Sheet = Workbook.Worksheets[1] as Worksheet;
 
             var Filas = Sheet.Range["D10000"].End[XlDirection.xlUp].Row;

@@ -16,20 +16,6 @@ namespace DisenioMurosAyG.Views
  
             InitializeComponent();
             SetTheme();
-            //SetContextMenu();
-        }
-
-        private void SetContextMenu()
-        {
-            //var contextMenu = this.dgAlzado.ContextMenu ;
-            //if (contextMenu != null)
-            //{
-            //    var items = contextMenu.MenuItems;
-
-            //    RadMenuItem menuItem = new RadMenuItem();
-            //    menuItem.Text = "Copiar";
-            //}
-
         }
 
         private void SetTheme()

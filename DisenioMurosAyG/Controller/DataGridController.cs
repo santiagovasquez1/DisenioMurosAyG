@@ -21,35 +21,79 @@ namespace DisenioMurosAyG.Controller
         }
         public static DataColumn CrearColumna(string Name, Type type, bool IsReadOnly)
         {
-            var columna = new DataColumn(Name, type);            
+            var columna = new DataColumn(Name, type);
             columna.ReadOnly = IsReadOnly;
             return columna;
         }
 
-        public static void AddGridViewColumn(RadGridView gridView,Type typecolumn,Type typevalue,string columnName,string headerText,string fieldName,bool isreadonly)
+        public static void AddGridViewColumn<T>(RadGridView gridView, Type typecolumn, Type typevalue, string columnName, string headerText, string fieldName, bool isreadonly, List<T> dataSource)
         {
-            GridViewColumn viewColumn = null;
+            GridViewDataColumn viewColumn = null;
 
             switch (typecolumn.Name)
             {
                 case "GridViewTextBoxColumn":
-                    viewColumn = TextBoxColumn(typevalue, columnName, headerText, fieldName,isreadonly);
-                    gridView.MasterTemplate.Columns.Add((GridViewDataColumn)viewColumn);
+                    viewColumn = TextBoxColumn(typevalue, columnName, headerText, fieldName, isreadonly);
+                    gridView.MasterTemplate.Columns.Add(viewColumn);
                     break;
-
-            }   
+                case "GridViewComboBoxColumn":
+                    viewColumn = ComboBoxColumn(typevalue, columnName, headerText, fieldName, isreadonly, dataSource);
+                    gridView.MasterTemplate.Columns.Add(viewColumn);
+                    break;
+            }
+        }
+        /// <summary>
+        /// Adicion de columnas del tipo checkbox
+        /// </summary>
+        /// <param name="gridView"></param>
+        /// <param name="columnName"></param>
+        /// <param name="headerText"></param>
+        /// <param name="fieldName"></param>
+        /// <param name="isreadonly"></param>
+        public static void AddGridViewColumn(RadGridView gridView, Type typevalue, string columnName, string headerText, string fieldName, bool isreadonly)
+        {
+            GridViewCheckBoxColumn viewColumn = CheckBoxColumn(typevalue, columnName, headerText, fieldName, isreadonly);
+            viewColumn.EnableHeaderCheckBox = true;
+            viewColumn.EditMode = EditMode.OnValueChange;
+            SetPropertiesColumn(typevalue, columnName, headerText, fieldName, isreadonly, viewColumn);
+            gridView.MasterTemplate.Columns.Add(viewColumn);
         }
 
-        private static GridViewTextBoxColumn TextBoxColumn(Type typevalue, string columnName,string headerText, string fieldName, bool isreadonly)
+
+        private static GridViewTextBoxColumn TextBoxColumn(Type typevalue, string columnName, string headerText, string fieldName, bool isreadonly)
         {
             GridViewTextBoxColumn textBoxColumn = new GridViewTextBoxColumn();
-            textBoxColumn.Name = columnName;
-            textBoxColumn.HeaderText = headerText;
-            textBoxColumn.FieldName = fieldName;
+            SetPropertiesColumn(typevalue, columnName, headerText, fieldName, isreadonly, textBoxColumn);
             textBoxColumn.DataType = typevalue;
-            textBoxColumn.ReadOnly = isreadonly;
-            textBoxColumn.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
+            textBoxColumn.DataSourceNullValue = "Error";
             return textBoxColumn;
+        }
+
+        private static GridViewCheckBoxColumn CheckBoxColumn(Type typevalue, string columnName, string headerText, string fieldName, bool isreadonly)
+        {
+            GridViewCheckBoxColumn checkBoxColumn = new GridViewCheckBoxColumn();
+            SetPropertiesColumn(typevalue, columnName, headerText, fieldName, isreadonly, checkBoxColumn);
+            checkBoxColumn.FieldName = "";
+            checkBoxColumn.EditMode = EditMode.OnValueChange;
+            return checkBoxColumn;
+        }
+
+        private static GridViewComboBoxColumn ComboBoxColumn<T>(Type typevalue, string columnName, string headerText, string fieldName, bool isreadonly, List<T> dataSource)
+        {
+            GridViewComboBoxColumn gridViewComboBox = new GridViewComboBoxColumn();
+            SetPropertiesColumn(typevalue, columnName, headerText, fieldName, isreadonly, gridViewComboBox);
+            gridViewComboBox.DataSource = dataSource;
+            return gridViewComboBox;
+        }
+
+        private static void SetPropertiesColumn(Type typevalue, string columnName, string headerText, string fieldName, bool isreadonly, GridViewDataColumn  boxColumn)
+        {
+            boxColumn.Name = columnName;
+            boxColumn.HeaderText = headerText;
+            boxColumn.FieldName = fieldName;
+            boxColumn.ReadOnly = isreadonly;
+            boxColumn.DataType = typevalue;
+            boxColumn.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
         }
     }
 }
