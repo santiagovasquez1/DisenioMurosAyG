@@ -35,6 +35,7 @@
             this.Infogeneraltab = new Telerik.WinControls.UI.RibbonTab();
             this.radRibbonBarGroup1 = new Telerik.WinControls.UI.RadRibbonBarGroup();
             this.cbMAlla = new Telerik.WinControls.UI.RadButtonElement();
+            this.cbListMuros = new Telerik.WinControls.UI.RadButtonElement();
             this.DespieceTab = new Telerik.WinControls.UI.RibbonTab();
             this.cbNuevo = new Telerik.WinControls.UI.RadMenuItem();
             this.cbCargar = new Telerik.WinControls.UI.RadMenuItem();
@@ -44,7 +45,9 @@
             this.radGroupBox1 = new Telerik.WinControls.UI.RadGroupBox();
             this.ListViewAlzados = new Telerik.WinControls.UI.RadListView();
             this.radPanel1 = new Telerik.WinControls.UI.RadPanel();
-            this.cbListMuros = new Telerik.WinControls.UI.RadButtonElement();
+            this.radRibbonBarGroup2 = new Telerik.WinControls.UI.RadRibbonBarGroup();
+            this.cbVariablesDibujo = new Telerik.WinControls.UI.RadButtonElement();
+            this.cbDibujo = new Telerik.WinControls.UI.RadButtonElement();
             ((System.ComponentModel.ISupportInitialize)(this.radRibbonBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PanelAlzados)).BeginInit();
             this.PanelAlzados.PanelContainer.SuspendLayout();
@@ -67,7 +70,8 @@
             this.Infogeneraltab.DisabledTextRenderingHint = System.Drawing.Text.TextRenderingHint.SystemDefault;
             this.Infogeneraltab.IsSelected = true;
             this.Infogeneraltab.Items.AddRange(new Telerik.WinControls.RadItem[] {
-            this.radRibbonBarGroup1});
+            this.radRibbonBarGroup1,
+            this.radRibbonBarGroup2});
             this.Infogeneraltab.Name = "Infogeneraltab";
             this.Infogeneraltab.Text = "Información General";
             this.Infogeneraltab.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SystemDefault;
@@ -89,6 +93,11 @@
             // 
             this.cbMAlla.Name = "cbMAlla";
             this.cbMAlla.Text = "Crear Malla";
+            // 
+            // cbListMuros
+            // 
+            this.cbListMuros.Name = "cbListMuros";
+            this.cbListMuros.Text = "Lista Muros";
             // 
             // DespieceTab
             // 
@@ -213,10 +222,26 @@
             this.radPanel1.TabIndex = 2;
             this.radPanel1.ThemeName = "MaterialBlueGrey";
             // 
-            // cbListMuros
+            // radRibbonBarGroup2
             // 
-            this.cbListMuros.Name = "cbListMuros";
-            this.cbListMuros.Text = "Lista Muros";
+            this.radRibbonBarGroup2.Items.AddRange(new Telerik.WinControls.RadItem[] {
+            this.cbVariablesDibujo,
+            this.cbDibujo});
+            this.radRibbonBarGroup2.MaxSize = new System.Drawing.Size(0, 144);
+            this.radRibbonBarGroup2.MinSize = new System.Drawing.Size(70, 144);
+            this.radRibbonBarGroup2.Name = "radRibbonBarGroup2";
+            this.radRibbonBarGroup2.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.radRibbonBarGroup2.Text = "Dibujo Autocad";
+            // 
+            // cbVariablesDibujo
+            // 
+            this.cbVariablesDibujo.Name = "cbVariablesDibujo";
+            this.cbVariablesDibujo.Text = "Varibales Dibujo";
+            // 
+            // cbDibujo
+            // 
+            this.cbDibujo.Name = "cbDibujo";
+            this.cbDibujo.Text = "Dibujar Alzado";
             // 
             // ContextView
             // 
@@ -261,10 +286,13 @@
         public Telerik.WinControls.Themes.MaterialBlueGreyTheme materialBlueGreyTheme1;
         public Telerik.WinControls.UI.RadMenuHeaderItem radMenuHeaderItem1;
         public Telerik.WinControls.UI.RadScrollablePanel PanelAlzados;
-        private Telerik.WinControls.UI.RadGroupBox radGroupBox1;
         public Telerik.WinControls.UI.RadListView ListViewAlzados;
         public Telerik.WinControls.UI.RadPanel radPanel1;
         public Telerik.WinControls.UI.RadButtonElement cbMAlla;
         public Telerik.WinControls.UI.RadButtonElement cbListMuros;
+        public Telerik.WinControls.UI.RadRibbonBarGroup radRibbonBarGroup2;
+        public Telerik.WinControls.UI.RadButtonElement cbVariablesDibujo;
+        public Telerik.WinControls.UI.RadButtonElement cbDibujo;
+        public Telerik.WinControls.UI.RadGroupBox radGroupBox1;
     }
 }

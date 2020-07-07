@@ -44,25 +44,27 @@ namespace UnitTestDisenioAyG
             FunctionsAutoCAD.FunctionsAutoCAD.OpenAutoCAD();
             FunctionsAutoCAD.FunctionsAutoCAD.GetPoint(ref InsertionPoint);
 
-            var Alzado = ModeloContext.Alzados.FirstOrDefault();
-            var Prueba = new DibujoAlzado(Alzado, InsertionPoint, "SUBRAYADO1", "SUBRAYADO2");
-            Prueba.DibujarNombreMuro();
-            Prueba.DibujarMuros();
-            Prueba.DibujoCambioEspesor();
-            Prueba.DibujoCambioResistencia();
+            //var Alzado = ModeloContext.Alzados.FirstOrDefault();
+            //var Prueba = new DibujoAlzado(Alzado, InsertionPoint, "SUBRAYADO1", "SUBRAYADO2");
+            //Prueba.DibujarNombreMuro();
+            //Prueba.CotaLongitudMuro();
+            //Prueba.DibujarMuros();
+            //Prueba.DibujoCambioEspesor();
+            //Prueba.DibujoCambioResistencia();
 
-            //foreach (Alzado alzadoi in ModeloContext.Alzados)
-            //{
-            //    if (alzadoi.IsMaestro)
-            //    {
-            //        var DibujoAlzado = new DibujoAlzado(alzadoi, InsertionPoint, "SUBRAYADO1", "SUBRAYADO2");
-            //        DibujoAlzado.DibujarNombreMuro();
-            //        DibujoAlzado.DibujarMuros();
-            //        DibujoAlzado.DibujoCambioEspesor();
-            //        DibujoAlzado.DibujoCambioResistencia();
-            //        InsertionPoint[0] += alzadoi.Muros.FirstOrDefault().Lw + 4.50f;
-            //    }
-            //}
+            foreach (Alzado alzadoi in ModeloContext.Alzados)
+            {
+                if (alzadoi.IsMaestro)
+                {
+                    var DibujoAlzado = new DibujoAlzado(alzadoi, InsertionPoint, "SUBRAYADO1", "SUBRAYADO2");
+                    DibujoAlzado.DibujarNombreMuro();
+                    DibujoAlzado.CotaLongitudMuro();
+                    DibujoAlzado.DibujarMuros();
+                    DibujoAlzado.DibujoCambioEspesor();
+                    DibujoAlzado.DibujoCambioResistencia();
+                    InsertionPoint[0] += alzadoi.Muros.FirstOrDefault().Lw + 4.50f;
+                }
+            }
 
         }
     }

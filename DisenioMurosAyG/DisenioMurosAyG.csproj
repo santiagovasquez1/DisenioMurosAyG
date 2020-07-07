@@ -33,6 +33,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FunctionsAutoCAD, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\FunctionsAutoCAD\bin\Debug\FunctionsAutoCAD.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Management" />
@@ -70,6 +74,7 @@
     <Compile Include="Controller\InicioController.cs" />
     <Compile Include="Controller\DataGridController.cs" />
     <Compile Include="Controller\MurosViewController.cs" />
+    <Compile Include="Controller\VariablesDibujoController.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -120,6 +125,12 @@
     <Compile Include="Views\InformacionAlzadoView1.Designer.cs">
       <DependentUpon>InformacionAlzadoView1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\VariablesDibujoView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\VariablesDibujoView.Designer.cs">
+      <DependentUpon>VariablesDibujoView.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -155,7 +166,11 @@
     <EmbeddedResource Include="Views\InformacionAlzadoView1.resx">
       <DependentUpon>InformacionAlzadoView1.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\VariablesDibujoView.resx">
+      <DependentUpon>VariablesDibujoView.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\DataSources\DataAcces.ModeloContext.datasource" />
+    <None Include="Properties\DataSources\DisenioMurosAyG.Controller.VariablesDibujoController.datasource" />
     <None Include="Properties\DataSources\Entidades.Alzado.datasource" />
     <None Include="Properties\DataSources\Entidades.Muro.datasource" />
     <None Include="Properties\DataSources\Program.datasource" />
@@ -179,6 +194,10 @@
     <ProjectReference Include="..\DataAcces\DataAcces.csproj">
       <Project>{88207F88-9200-499D-9E0B-B2BC617C508A}</Project>
       <Name>DataAcces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DibujoAutomatico\DibujoAutomatico.csproj">
+      <Project>{5613d467-fde9-4418-bcc2-943c5dcc7315}</Project>
+      <Name>DibujoAutomatico</Name>
     </ProjectReference>
     <ProjectReference Include="..\Entidades\Entidades.csproj">
       <Project>{cc20fadf-8d13-4024-996c-db1afb60a234}</Project>

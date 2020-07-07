@@ -14,6 +14,7 @@ namespace DisenioMurosAyG
     {
         public static ModeloContext _context{ get; set; }
         public static ContextController ContextController { get; set; }
+        public static List<string> LayersModelo { get; set; }
         /// <summary>
         /// Punto de entrada principal para la aplicación.
         /// </summary>

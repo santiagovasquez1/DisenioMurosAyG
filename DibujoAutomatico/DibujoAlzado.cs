@@ -13,12 +13,21 @@ namespace DibujoAutomatico
         public double[] InsertionPointNombreMuro { get; set; }
         public string Subrayado1 { get; set; }
         public string Subrayado2 { get; set; }
-        public DibujoAlzado(Alzado alzado, double[] insertionpoint, string subrayado1, string subrayado2)
+        public string LayerCoco { get; set; }
+        public string LayerHatchEBE { get; set; }
+        public string LayerTexto { get; set; }
+        public string LayerCota { get; set; }
+        public float HLosa { get; set; }
+        public DibujoAlzado(Alzado alzado, double[] insertionpoint, string subrayado1, string subrayado2, float hlosa, string layercoco, string layerebe, string layertexto)
         {
             Alzado = alzado;
             InsertionPoint = insertionpoint;
             Subrayado1 = subrayado1;
             Subrayado2 = subrayado2;
+            HLosa = hlosa;
+            LayerCoco = layercoco;
+            LayerHatchEBE = layerebe;
+            LayerTexto = layertexto;
             InsertionPointNombreMuro = new double[] { InsertionPoint[0], InsertionPoint[1] - 1.90f, 0 };
         }
         public double[] SetCoorPoligono(float DeltaX, float longitud, float altitud, float nivel)
@@ -38,10 +47,10 @@ namespace DibujoAutomatico
             for (int i = Alzado.Muros.Count - 1; i >= 0; i--)
             {
                 var muro = Alzado.Muros[i];
-                var dibujomuroi = new DibujoMuro(muro, InsertionPoint, 0.1f, "MUROS-ELEV", "SOLIDO-ZCON", "R80");
+                var dibujomuroi = new DibujoMuro(muro, InsertionPoint, HLosa, LayerCoco,LayerHatchEBE, LayerTexto);
                 dibujomuroi.DibujarCoco();
                 dibujomuroi.DibujarCotasMuro(muro.Hw, muro.Story.StoryElevation);
-                dibujomuroi.DibujarCotasViga(0.1f, muro.Story.StoryElevation);
+                dibujomuroi.DibujarCotasViga(HLosa, muro.Story.StoryElevation);
 
                 if (muro.EBE_Izq != null)
                 {
@@ -65,6 +74,14 @@ namespace DibujoAutomatico
             FunctionsAutoCAD.FunctionsAutoCAD.AddText($"Muro {Alzado.NombreDef}", InsertionPointNombreMuro, 0.46f, 0.46f, "R180", "ROMANS", 0, Width2: 2.60f);
             FunctionsAutoCAD.FunctionsAutoCAD.AddPolyline2D(Coord1, Subrayado1);
             FunctionsAutoCAD.FunctionsAutoCAD.AddPolyline2D(Coord2, Subrayado2);
+        }
+
+        public void CotaLongitudMuro()
+        {
+            var NivelIni = Alzado.Muros.LastOrDefault().Story.StoryElevation - Alzado.Muros.LastOrDefault().Hw;
+            var P1 = new double[] { InsertionPoint[0], InsertionPoint[1] + NivelIni, 0f };
+            var P2 = new double[] { InsertionPoint[0] + Alzado.Muros.LastOrDefault().Lw, InsertionPoint[1] + NivelIni, 0f };
+            FunctionsAutoCAD.FunctionsAutoCAD.AddCota(P1, P2, "COTA", "ROMANS", -0.50f, TextHeight: 1.50, ArrowheadSize: 0.85f);
         }
 
         public void DibujoCambioEspesor()
@@ -105,7 +122,6 @@ namespace DibujoAutomatico
                 FunctionsAutoCAD.FunctionsAutoCAD.AddPolyline2D(Coord2, "LINEA-CORTE");
                 FunctionsAutoCAD.FunctionsAutoCAD.AddText($"f'c={resistencia} MPa", InsertionPointText, 0.19f, 0.19f, "R80", "ROMANS", 90f, Width2: 2.0f);
             }
-
         }
 
     }

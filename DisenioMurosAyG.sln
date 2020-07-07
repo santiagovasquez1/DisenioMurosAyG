@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestDisenioAyG", "UnitT
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAcces", "DataAcces\DataAcces.csproj", "{88207F88-9200-499D-9E0B-B2BC617C508A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DibujoAutomatico", "DibujoAutomatico\DibujoAutomatico.csproj", "{5613D467-FDE9-4418-BCC2-943C5DCC7315}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DibujoAutomatico", "DibujoAutomatico\DibujoAutomatico.csproj", "{5613D467-FDE9-4418-BCC2-943C5DCC7315}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
