@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestDisenioAyG", "UnitT
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAcces", "DataAcces\DataAcces.csproj", "{88207F88-9200-499D-9E0B-B2BC617C508A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DibujoAutomatico", "DibujoAutomatico\DibujoAutomatico.csproj", "{5613D467-FDE9-4418-BCC2-943C5DCC7315}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{88207F88-9200-499D-9E0B-B2BC617C508A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{88207F88-9200-499D-9E0B-B2BC617C508A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{88207F88-9200-499D-9E0B-B2BC617C508A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5613D467-FDE9-4418-BCC2-943C5DCC7315}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5613D467-FDE9-4418-BCC2-943C5DCC7315}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5613D467-FDE9-4418-BCC2-943C5DCC7315}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5613D467-FDE9-4418-BCC2-943C5DCC7315}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

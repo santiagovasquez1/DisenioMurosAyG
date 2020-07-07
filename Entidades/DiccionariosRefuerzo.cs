@@ -19,8 +19,8 @@ namespace Entidades
             areasrefuerzo.Add(Diametro.Num3, 0.71f);
             areasrefuerzo.Add(Diametro.Num4, 1.29f);
             areasrefuerzo.Add(Diametro.Num5, 1.99f);
-            areasrefuerzo.Add(Diametro.Num6, 1.99f);
-            areasrefuerzo.Add(Diametro.Num7, 1.99f);
+            areasrefuerzo.Add(Diametro.Num6, 2.84f);
+            areasrefuerzo.Add(Diametro.Num7, 3.87f);
             areasrefuerzo.Add(Diametro.Num8, 5.10f);
 
             return areasrefuerzo;

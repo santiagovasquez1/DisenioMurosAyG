@@ -32,14 +32,6 @@ namespace DataAcces
             GradoDisipacionEnergia = disipacionEnergia;
         }
 
-        public void LoadDisenioContext(string prueba)
-        {
-            if (File.Exists(RutaArchivoDisenio))
-            {
-
-            }
-        }
-
         public void LoadDisenioContext()
         {
             if (File.Exists(RutaArchivoDisenio))

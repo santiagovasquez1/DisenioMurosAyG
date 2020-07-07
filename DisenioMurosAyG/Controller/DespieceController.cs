@@ -31,7 +31,6 @@ namespace DisenioMurosAyG.Controller
             DespieceView.cbAgregarCapa.Click += new EventHandler(AddCapaDespiece);
             DespieceView.gvDespieceMuro.CellEndEdit += new GridViewCellEventHandler(EditMuroCommand);
 
-
             Set_Columns_Data_Alzado();
             LoadAlzadoData();
             Cargar_DataGrid();
@@ -39,7 +38,8 @@ namespace DisenioMurosAyG.Controller
 
         private void AceptarCapaClick(object sender, EventArgs e)
         {
-            AgregarCapaView.Close();
+            if (AgregarCapaView.tbNombreCapa.Text != "")
+                AgregarCapaView.Close();
         }
 
         private void Set_Columns_Data_Alzado()
@@ -53,7 +53,7 @@ namespace DisenioMurosAyG.Controller
                 DataGridController.CrearColumna("Muro",typeof(string),true),
                 DataGridController.CrearColumna("Nombre Definitivo",typeof(string),true),
                 DataGridController.CrearColumna("AsReq",typeof(float),true),
-                DataGridController.CrearColumna("AsTotal",typeof(float),true),
+                DataGridController.CrearColumna("AsTotal",typeof(float),false),
             };
 
             ExisteDespiece = AlzadoSeleccionado.Muros.Exists(x => x.BarrasMuros != null);
@@ -96,6 +96,7 @@ namespace DisenioMurosAyG.Controller
                 dataRow[2] = muro.Label;
                 dataRow[3] = muro.LabelDef;
                 dataRow[4] = muro.AsAdicional;
+                dataRow[5] = muro.AsTotalAdicional;
 
                 if (ExisteDespiece == true)
                 {
@@ -119,7 +120,8 @@ namespace DisenioMurosAyG.Controller
             DespieceView.gvDespieceMuro.DataSource = DT_AlzadoSeleccionado;
             AddColumns(DespieceView.gvDespieceMuro);
 
-
+            DespieceView.gvDespieceMuro.Columns["AsReq"].FormatString = "{0:F3}";
+            DespieceView.gvDespieceMuro.Columns["AsTotal"].FormatString = "{0:F3}";
             DespieceView.gvDespieceMuro.AutoSizeColumnsMode = GridViewAutoSizeColumnsMode.Fill;
             DespieceView.gvDespieceMuro.ReadOnly = false;
             DespieceView.gvDespieceMuro.AllowColumnReorder = false;
@@ -131,36 +133,41 @@ namespace DisenioMurosAyG.Controller
 
         private void AddColumns(RadGridView gridView)
         {
-            DataGridController.AddGridViewColumn<GridViewColumn>(gridView, typeof(GridViewTextBoxColumn), typeof(string), "Piso", "Piso", "Piso", true,null);
-            DataGridController.AddGridViewColumn<GridViewColumn>(gridView, typeof(GridViewTextBoxColumn), typeof(string), "Nivel (m)", "Nivel (m)", "Nivel (m)", true,null);
-            DataGridController.AddGridViewColumn<GridViewColumn>(gridView, typeof(GridViewTextBoxColumn), typeof(string), "Muro", "Muro", "Muro", true,null);
-            DataGridController.AddGridViewColumn<GridViewColumn>(gridView, typeof(GridViewTextBoxColumn), typeof(string), "Nombre Definitivo", "Nombre Definitivo", "Nombre Definitivo", true,null);
-            DataGridController.AddGridViewColumn<GridViewColumn>(gridView, typeof(GridViewTextBoxColumn), typeof(string), "AsReq", "AsReq", "AsReq", true,null);
-            DataGridController.AddGridViewColumn<GridViewColumn>(gridView, typeof(GridViewTextBoxColumn), typeof(string), "AsTotal", "AsTotal", "AsTotal", true,null);
+            DataGridController.AddGridViewColumn<GridViewColumn>(gridView, typeof(GridViewTextBoxColumn), typeof(string), "Piso", "Piso", "Piso", true, null);
+            DataGridController.AddGridViewColumn<GridViewColumn>(gridView, typeof(GridViewTextBoxColumn), typeof(string), "Nivel (m)", "Nivel (m)", "Nivel (m)", true, null);
+            DataGridController.AddGridViewColumn<GridViewColumn>(gridView, typeof(GridViewTextBoxColumn), typeof(string), "Muro", "Muro", "Muro", true, null);
+            DataGridController.AddGridViewColumn<GridViewColumn>(gridView, typeof(GridViewTextBoxColumn), typeof(string), "Nombre Definitivo", "Nombre Definitivo", "Nombre Definitivo", true, null);
+            DataGridController.AddGridViewColumn<GridViewColumn>(gridView, typeof(GridViewTextBoxColumn), typeof(string), "AsReq", "AsReq", "AsReq", true, null);
+            DataGridController.AddGridViewColumn<GridViewColumn>(gridView, typeof(GridViewTextBoxColumn), typeof(string), "AsTotal", "AsTotal", "AsTotal", true, null);
 
             if (ExisteDespiece == true)
             {
                 List<BarraMuro> Alzados = ExtraerAlzados();
 
                 foreach (var alzadoi in Alzados)
-                    DataGridController.AddGridViewColumn< GridViewColumn>(gridView, typeof(GridViewTextBoxColumn), typeof(string), alzadoi.BarraId, alzadoi.BarraDenom, alzadoi.BarraId, false,null);
+                    DataGridController.AddGridViewColumn<GridViewColumn>(gridView, typeof(GridViewTextBoxColumn), typeof(string), alzadoi.BarraId, alzadoi.BarraDenom, alzadoi.BarraId, false, null);
             }
         }
 
         private void AddCapaDespiece(object sender, EventArgs e)
         {
+            BarraMuro NuevaCapa = null;
             AgregarCapaView = new AgregarCapaView();
+            AgregarCapaView.ListTraslapo.DataSource = Enum.GetValues(typeof(Traslapo));
             AgregarCapaView.cbAceptar.Click += new EventHandler(AceptarCapaClick);
             AgregarCapaView.ShowDialog();
 
             string barraDenom = AgregarCapaView.tbNombreCapa.Text;
-            var NuevaCapa = new BarraMuro(barraDenom);
+            if (barraDenom != "")
+                NuevaCapa = new BarraMuro(barraDenom);
 
-            var Columnas = new List<DataColumn>(){
-                DataGridController.CrearColumna(NuevaCapa.BarraId, typeof(string), false)
-            };
-            DataGridController.Set_Columns_Data(DT_AlzadoSeleccionado, Columnas);
-            DataGridController.AddGridViewColumn<GridViewColumn>(DespieceView.gvDespieceMuro, typeof(GridViewTextBoxColumn), typeof(string), NuevaCapa.BarraId, NuevaCapa.BarraDenom, NuevaCapa.BarraId, false,null);
+            if (NuevaCapa != null)
+            {
+                var Columnas = new List<DataColumn>(){
+                DataGridController.CrearColumna(NuevaCapa.BarraId, typeof(string), false)};
+                DataGridController.Set_Columns_Data(DT_AlzadoSeleccionado, Columnas);
+                DataGridController.AddGridViewColumn<GridViewColumn>(DespieceView.gvDespieceMuro, typeof(GridViewTextBoxColumn), typeof(string), NuevaCapa.BarraId, NuevaCapa.BarraDenom, NuevaCapa.BarraId, false, null);
+            }
         }
 
         private void EditMuroCommand(object sender, GridViewCellEventArgs e)
@@ -176,7 +183,7 @@ namespace DisenioMurosAyG.Controller
             if (AlzadoSeleccionado.IsMaestro)
             {
                 MurosSeleccionados = (from Alzado in _contex.Alzados
-                                      where Alzado.PadreId == AlzadoSeleccionado.AlzadoId | Alzado.AlzadoId==AlzadoSeleccionado.AlzadoId
+                                      where Alzado.PadreId == AlzadoSeleccionado.AlzadoId | Alzado.AlzadoId == AlzadoSeleccionado.AlzadoId
                                       select Alzado.Muros[indice]).ToList();
             }
             else
@@ -204,12 +211,20 @@ namespace DisenioMurosAyG.Controller
                             var Barra = new BarraMuro(muro.Label, ColumnHeader, Cantidad, DiccionariosRefuerzo.ReturnDiametro(diametro));
                             muro.BarrasMuros.Add(Barra);
                         }
+                        muro.CalcAsTotal();
+                        DespieceView.gvDespieceMuro.Columns["AsTotal"].ReadOnly = false;
+                        DespieceView.gvDespieceMuro.Rows[indice].Cells["AsTotal"].Value = muro.AsTotalAdicional;
+                        DespieceView.gvDespieceMuro.Columns["AsTotal"].ReadOnly = true;
                     }
                     else
                     {
                         var Barra = new BarraMuro(muro.Label, ColumnHeader, Cantidad, DiccionariosRefuerzo.ReturnDiametro(diametro));
                         muro.BarrasMuros = new List<BarraMuro>();
                         muro.BarrasMuros.Add(Barra);
+                        muro.CalcAsTotal();
+                        DespieceView.gvDespieceMuro.Columns["AsTotal"].ReadOnly = false;
+                        DespieceView.gvDespieceMuro.Rows[indice].Cells["AsTotal"].Value = muro.AsTotalAdicional;
+                        DespieceView.gvDespieceMuro.Columns["AsTotal"].ReadOnly = true;
                     }
                 }
 

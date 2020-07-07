@@ -44,9 +44,9 @@ namespace Entidades.Factorias
 
                         var barra = new BarraMuro(muro.Label, barradenom, cant, diametro);
                         barras.Add(barra);
-                    }
+                    }              
                     muro.BarrasMuros = barras;
-
+                    muro.CalcAsTotal();
                 }
 
             }

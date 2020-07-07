@@ -39,6 +39,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FunctionsAutoCAD">
+      <HintPath>..\..\FunctionsAutoCAD\bin\Debug\FunctionsAutoCAD.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.VisualStudio.TestPlatform.TestFramework, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\MSTest.TestFramework.1.3.2\lib\net45\Microsoft.VisualStudio.TestPlatform.TestFramework.dll</HintPath>
     </Reference>
@@ -47,6 +50,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="UnitTest1.cs" />
@@ -56,6 +60,14 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DataAcces\DataAcces.csproj">
+      <Project>{88207F88-9200-499D-9E0B-B2BC617C508A}</Project>
+      <Name>DataAcces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DibujoAutomatico\DibujoAutomatico.csproj">
+      <Project>{5613D467-FDE9-4418-BCC2-943C5DCC7315}</Project>
+      <Name>DibujoAutomatico</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Entidades\Entidades.csproj">
       <Project>{cc20fadf-8d13-4024-996c-db1afb60a234}</Project>
       <Name>Entidades</Name>

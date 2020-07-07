@@ -18,6 +18,7 @@ namespace Entidades
         public float AsH { get; set; }
         public float AsV { get; set; }
         public float AsAdicional { get; set; }
+        public float AsTotalAdicional { get; set; }
         public int Capas { get; set; }
         public float Fc { get; set; }
         public float Fy { get; set; }
@@ -67,7 +68,20 @@ namespace Entidades
             AsAdicional = (float)asAdicional;
         }
 
+        public void CalcAsTotal()
+        {
+            var astotal = 0f;
 
+            if (BarrasMuros != null)
+            {
+                foreach (var barra in BarrasMuros)
+                {
+                    var asi = barra.Cantidad * DiccionariosRefuerzo.ReturnAsi(barra.Diametro);
+                    astotal += asi;
+                }
+            }
+            AsTotalAdicional = astotal;
+        }
         public override string ToString()
         {
             return $"{ Label}-{Story.StoryName}";
