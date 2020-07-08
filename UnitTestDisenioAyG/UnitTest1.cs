@@ -35,7 +35,15 @@ namespace UnitTestDisenioAyG
                 ModeloContext.LoadDespieceContext();
             }
 
-            AutocadController();
+            ProbarDespiece(ModeloContext.Alzados.FirstOrDefault());
+            //AutocadController();
+        }
+
+        public void ProbarDespiece(Alzado alzado)
+        {
+            var RefuerzoFactory = new RefuerzoLongFactory(alzado);
+            RefuerzoFactory.SetRefuerzo();
+
         }
 
         public void AutocadController()
@@ -56,7 +64,7 @@ namespace UnitTestDisenioAyG
             {
                 if (alzadoi.IsMaestro)
                 {
-                    var DibujoAlzado = new DibujoAlzado(alzadoi, InsertionPoint, "SUBRAYADO1", "SUBRAYADO2");
+                    var DibujoAlzado = new DibujoAlzado(alzadoi, InsertionPoint, "SUBRAYADO1", "SUBRAYADO2",0.1f,"","","");
                     DibujoAlzado.DibujarNombreMuro();
                     DibujoAlzado.CotaLongitudMuro();
                     DibujoAlzado.DibujarMuros();
