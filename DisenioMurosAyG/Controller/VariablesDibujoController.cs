@@ -11,6 +11,7 @@ using DataAcces;
 using DibujoAutomatico;
 using Entidades;
 using Telerik.WinControls;
+using System.ComponentModel;
 
 namespace DisenioMurosAyG.Controller
 {
@@ -18,7 +19,7 @@ namespace DisenioMurosAyG.Controller
     { 
         public VariablesDibujoView VariablesDibujoView { get; set; }
         public List<string> LayersModelo { get; set; }
-        public List<Alzado> Alzados { get; set; }
+        public BindingList<Alzado> Alzados { get; set; }
         public ModeloContext _context { get; set; }
         public string LayerCoco { get; set; }
         public string LayerHatchEBE { get; set; }

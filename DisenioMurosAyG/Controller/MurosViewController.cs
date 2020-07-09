@@ -3,6 +3,7 @@ using DisenioMurosAyG.Views;
 using Entidades;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
 using System.Linq;
 using System.Runtime.Remoting.Messaging;
@@ -19,7 +20,7 @@ namespace DisenioMurosAyG.Controller
         public MurosView MurosView { get; set; }
         public ModeloContext _context { get; set; }
         public DataTable DT_MurosModelo { get; set; }
-        public List<Alzado> Alzados { get; set; }
+        public BindingList<Alzado> Alzados { get; set; }
         public Alzado AlzadoSeleccionado { get; set; }
         public MurosViewController(MurosView murosView)
         {
@@ -96,8 +97,8 @@ namespace DisenioMurosAyG.Controller
 
         private void AddColumns(RadGridView gridView)
         {
-            DataGridController.AddGridViewColumn<GridViewColumn>(gridView, typeof(GridViewTextBoxColumn), typeof(string), "Muro", "Muro", "Muro", true, null);
-            DataGridController.AddGridViewColumn<GridViewColumn>(gridView, typeof(GridViewTextBoxColumn), typeof(string), "NombreDef", "Nombre Def", "NombreDef", false, null);
+            DataGridController.AddGridViewColumn(gridView, typeof(GridViewTextBoxColumn), typeof(string), "Muro", "Muro", "Muro", true);
+            DataGridController.AddGridViewColumn(gridView, typeof(GridViewTextBoxColumn), typeof(string), "NombreDef", "Nombre Def", "NombreDef", false);
             DataGridController.AddGridViewColumn(gridView, typeof(bool), "IsMaestro", "Muro maestro", "IsMaestro", false);
 
             var DataSource = (from alzado in Alzados where alzado.IsMaestro select alzado.AlzadoName).ToList();

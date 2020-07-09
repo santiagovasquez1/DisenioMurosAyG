@@ -25,22 +25,41 @@ namespace DisenioMurosAyG.Controller
             columna.ReadOnly = IsReadOnly;
             return columna;
         }
+        /// <summary>
+        ///  Adicion de columnas del tipo TextBox
+        /// </summary>
+        /// <param name="gridView"></param>
+        /// <param name="typecolumn"></param>
+        /// <param name="typevalue"></param>
+        /// <param name="columnName"></param>
+        /// <param name="headerText"></param>
+        /// <param name="fieldName"></param>
+        /// <param name="isreadonly"></param>
+        public static void AddGridViewColumn(RadGridView gridView, Type typecolumn, Type typevalue, string columnName, string headerText, string fieldName, bool isreadonly)
+        {
+            GridViewTextBoxColumn viewColumn = null;
+            viewColumn = TextBoxColumn(typevalue, columnName, headerText, fieldName, isreadonly);
+            gridView.MasterTemplate.Columns.Add(viewColumn);
 
+        }
+
+        /// <summary>
+        /// Adicion de columnas del tipo combobox
+        /// </summary>
+        /// <typeparam name="T">Tipo de clase de los datos</typeparam>
+        /// <param name="gridView"></param>
+        /// <param name="typecolumn"></param>
+        /// <param name="typevalue"></param>
+        /// <param name="columnName"></param>
+        /// <param name="headerText"></param>
+        /// <param name="fieldName"></param>
+        /// <param name="isreadonly"></param>
+        /// <param name="dataSource"></param>
         public static void AddGridViewColumn<T>(RadGridView gridView, Type typecolumn, Type typevalue, string columnName, string headerText, string fieldName, bool isreadonly, List<T> dataSource)
         {
-            GridViewDataColumn viewColumn = null;
-
-            switch (typecolumn.Name)
-            {
-                case "GridViewTextBoxColumn":
-                    viewColumn = TextBoxColumn(typevalue, columnName, headerText, fieldName, isreadonly);
-                    gridView.MasterTemplate.Columns.Add(viewColumn);
-                    break;
-                case "GridViewComboBoxColumn":
-                    viewColumn = ComboBoxColumn(typevalue, columnName, headerText, fieldName, isreadonly, dataSource);
-                    gridView.MasterTemplate.Columns.Add(viewColumn);
-                    break;
-            }
+            GridViewComboBoxColumn viewColumn = null;
+            viewColumn = ComboBoxColumn(typevalue, columnName, headerText, fieldName, isreadonly, dataSource);
+            gridView.MasterTemplate.Columns.Add(viewColumn);
         }
         /// <summary>
         /// Adicion de columnas del tipo checkbox
@@ -86,7 +105,7 @@ namespace DisenioMurosAyG.Controller
             return gridViewComboBox;
         }
 
-        private static void SetPropertiesColumn(Type typevalue, string columnName, string headerText, string fieldName, bool isreadonly, GridViewDataColumn  boxColumn)
+        private static void SetPropertiesColumn(Type typevalue, string columnName, string headerText, string fieldName, bool isreadonly, GridViewDataColumn boxColumn)
         {
             boxColumn.Name = columnName;
             boxColumn.HeaderText = headerText;

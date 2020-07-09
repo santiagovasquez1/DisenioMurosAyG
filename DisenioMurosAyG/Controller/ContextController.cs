@@ -18,6 +18,7 @@ namespace DisenioMurosAyG.Controller
         public ContextView ContextView { get; set; }
         public DespieceController DespieceController { get; set; }
         public AlzadoController AlzadoController { get; set; }
+        public MallaController MallaController { get; set; }
         public MurosViewController MurosViewController { get; set; }
         public VariablesDibujoController VariablesDibujoController { get; set; }
         public Alzado AlzadoSeleccionado { get; set; }
@@ -35,6 +36,14 @@ namespace DisenioMurosAyG.Controller
             contextView.DespieceTab.Click += new EventHandler(DespieceClick);
             contextView.cbListMuros.Click += new EventHandler(OpenListMurosClick);
             contextView.cbVariablesDibujo.Click += new EventHandler(VariablesDibujoClick);
+            contextView.cbMAlla.Click += new EventHandler(MallaClick);
+        }
+
+        private void MallaClick(object sender, EventArgs e)
+        {
+            var MallaView = new MallaViews();
+            MallaController = new MallaController(MallaView);
+            MallaView.ShowDialog();
         }
 
         private void VariablesDibujoClick(object sender, EventArgs e)

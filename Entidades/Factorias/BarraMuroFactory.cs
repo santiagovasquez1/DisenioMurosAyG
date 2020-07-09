@@ -42,7 +42,7 @@ namespace Entidades.Factorias
                         var cant = int.Parse(CantidadesBarras[i].ToString());
                         var diametro = DiccionariosRefuerzo.ReturnDiametro(BarrasPiso[i].ToString());
 
-                        var barra = new BarraMuro(muro.Label,muro, barradenom, cant, diametro,Traslapo.T);
+                        var barra = new BarraMuro(muro.Label,muro, barradenom, cant, diametro,Traslapo.Par);
                         barras.Add(barra);
                     }              
                     muro.BarrasMuros = barras;

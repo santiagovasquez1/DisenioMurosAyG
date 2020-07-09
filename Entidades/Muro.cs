@@ -23,7 +23,7 @@ namespace Entidades
         public float Fc { get; set; }
         public float Fy { get; set; }
         public Story Story { get; set; }
-        public Refuerzo Malla { get; set; }
+        public Malla Malla { get; set; }
         public List<BarraMuro> BarrasMuros { get; set; }
         public ElementoDeBorde EBE_Izq { get; set; }
         public ElementoDeBorde EBE_Der { get; set; }

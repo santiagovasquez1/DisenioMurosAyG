@@ -51,6 +51,7 @@ namespace DisenioMurosAyG.Controller
                 DataGridController.CrearColumna("h (m)",typeof(float),false),
                 DataGridController.CrearColumna("Zc_Izq (m)",typeof(float),false),
                 DataGridController.CrearColumna("Zc_Der (m)",typeof(float),false),
+                DataGridController.CrearColumna("Estribo",typeof(string),false),
                 DataGridController.CrearColumna("Separacion (m)",typeof(float),false),
                 DataGridController.CrearColumna("Ramas Izq",typeof(int),true),
                 DataGridController.CrearColumna("Ramas Der",typeof(int),true),
@@ -61,6 +62,7 @@ namespace DisenioMurosAyG.Controller
                 DataGridController.CrearColumna("RefHoriz (cm²/m)",typeof(float),true),
                 DataGridController.CrearColumna("RefVert (cm²/m)",typeof(float),true),
                 DataGridController.CrearColumna("RefAdicional (cm²)",typeof(float),true),
+                DataGridController.CrearColumna("Malla",typeof(Malla),true),
             };
 
             DataGridController.Set_Columns_Data(DT_AlzadoSeleccionado, Columnas);
@@ -89,23 +91,34 @@ namespace DisenioMurosAyG.Controller
                 if (muro.EBE_Izq != null | muro.EBE_Der != null)
                 {
                     if (muro.EBE_Izq != null)
-                        dataRow[9] = muro.EBE_Izq.SepEstribo;
+                    {
+                        dataRow[9] = $"#{DiccionariosRefuerzo.ReturnNombreDiametro(muro.EBE_Izq.DiametroEstribo)}";
+                        dataRow[10] = muro.EBE_Izq.SepEstribo;
+                    }
+
                     else if (muro.EBE_Der != null)
-                        dataRow[9] = muro.EBE_Der.SepEstribo;
+                    {
+                        dataRow[9] = $"#{DiccionariosRefuerzo.ReturnNombreDiametro(muro.EBE_Der.DiametroEstribo)}";
+                        dataRow[10] = muro.EBE_Der.SepEstribo;
+                    }
+
                 }
                 else
-                    dataRow[9] = 0f;
+                {
+                    dataRow[9] = string.Empty;
+                    dataRow[10] = 0f;
+                }
 
-                dataRow[10] = muro.EBE_Izq != null ? muro.EBE_Izq.RamasX : (object)0f;
-                dataRow[11] = muro.EBE_Der != null ? muro.EBE_Der.RamasX : (object)0f;
-
-                dataRow[12] = muro.Fc;
-                dataRow[13] = muro.Fy;
-                dataRow[14] = muro.RhoH;
-                dataRow[15] = muro.RhoV;
-                dataRow[16] = muro.AsH;
-                dataRow[17] = muro.AsV;
-                dataRow[18] = muro.AsAdicional;
+                dataRow[11] = muro.EBE_Izq != null ? muro.EBE_Izq.RamasX : (object)0f;
+                dataRow[12] = muro.EBE_Der != null ? muro.EBE_Der.RamasX : (object)0f;
+                dataRow[13] = muro.Fc;
+                dataRow[14] = muro.Fy;
+                dataRow[15] = muro.RhoH;
+                dataRow[16] = muro.RhoV;
+                dataRow[17] = muro.AsH;
+                dataRow[18] = muro.AsV;
+                dataRow[19] = muro.AsAdicional;
+                dataRow[20] = muro.Malla;
 
                 DT_AlzadoSeleccionado.Rows.Add(dataRow);
             }
@@ -114,13 +127,10 @@ namespace DisenioMurosAyG.Controller
 
         private void Cargar_DataGrid()
         {
-            GridViewComboBoxColumn ColumnEstribos = new GridViewComboBoxColumn();
-            ColumnEstribos.Name = "Estribos";
-            ColumnEstribos.HeaderText = "Estribos";
-            ColumnEstribos.TextAlignment = System.Drawing.ContentAlignment.MiddleRight;
-            ColumnEstribos.DataSource = new List<string>() { "#3", "#4", "#5" };
-
+            InformacionAlzadoView1.dgAlzado.AutoGenerateColumns = false;
             InformacionAlzadoView1.dgAlzado.DataSource = DT_AlzadoSeleccionado;
+            AddColumns(InformacionAlzadoView1.dgAlzado);
+
             InformacionAlzadoView1.dgAlzado.Columns["Zc_Izq (m)"].FormatString = "{0:F3}";
             InformacionAlzadoView1.dgAlzado.Columns["Zc_Der (m)"].FormatString = "{0:F3}";
             InformacionAlzadoView1.dgAlzado.Columns["Separacion (m)"].FormatString = "{0:F3}";
@@ -130,27 +140,37 @@ namespace DisenioMurosAyG.Controller
             InformacionAlzadoView1.dgAlzado.Columns["RefVert (cm²/m)"].FormatString = "{0:F2}";
             InformacionAlzadoView1.dgAlzado.Columns["RefAdicional (cm²)"].FormatString = "{0:F2}";
 
-
-            try
-            {
-                InformacionAlzadoView1.dgAlzado.Columns.Remove(InformacionAlzadoView1.dgAlzado.Columns[ColumnEstribos.Name]);
-                InformacionAlzadoView1.dgAlzado.Columns.Add(ColumnEstribos);
-            }
-            catch (Exception)
-            {
-                InformacionAlzadoView1.dgAlzado.Columns.Add(ColumnEstribos);
-            }
-            var index = InformacionAlzadoView1.dgAlzado.Columns["Estribos"].Index;
-            InformacionAlzadoView1.dgAlzado.Columns.Move(index, 9);
-            SetEstribosCells();
-
             InformacionAlzadoView1.dgAlzado.AutoSizeColumnsMode = GridViewAutoSizeColumnsMode.Fill;
             InformacionAlzadoView1.dgAlzado.ReadOnly = false;
             InformacionAlzadoView1.dgAlzado.AllowColumnReorder = false;
             InformacionAlzadoView1.dgAlzado.AllowAddNewRow = false;
             InformacionAlzadoView1.dgAlzado.AllowDragToGroup = false;
             InformacionAlzadoView1.dgAlzado.SelectionMode = GridViewSelectionMode.CellSelect;
+        }
 
+        private void AddColumns(RadGridView gridView)
+        {
+            DataGridController.AddGridViewColumn(gridView, typeof(GridViewTextBoxColumn), typeof(string), "Piso", "Piso", "Piso", true);
+            DataGridController.AddGridViewColumn(gridView, typeof(GridViewTextBoxColumn), typeof(string), "Nivel (m)", "Nivel (m)", "Nivel (m)", true);
+            DataGridController.AddGridViewColumn(gridView, typeof(GridViewTextBoxColumn), typeof(string), "Muro", "Muro", "Muro", true);
+            DataGridController.AddGridViewColumn(gridView, typeof(GridViewTextBoxColumn), typeof(string), "Nombre Definitivo", "Nombre Definitivo", "Nombre Definitivo", true);
+            DataGridController.AddGridViewColumn(gridView, typeof(GridViewTextBoxColumn), typeof(float), "L (m)", "L (m)", "L (m)", false);
+            DataGridController.AddGridViewColumn(gridView, typeof(GridViewTextBoxColumn), typeof(float), "t (m)", "t (m)", "t (m)", false);
+            DataGridController.AddGridViewColumn(gridView, typeof(GridViewTextBoxColumn), typeof(float), "h (m)", "h (m)", "h (m)", false);
+            DataGridController.AddGridViewColumn(gridView, typeof(GridViewTextBoxColumn), typeof(float), "Zc_Izq (m)", "Zc_Izq (m)", "Zc_Izq (m)", false);
+            DataGridController.AddGridViewColumn(gridView, typeof(GridViewTextBoxColumn), typeof(float), "Zc_Der (m)", "Zc_Der (m)", "Zc_Der (m)", false);
+            DataGridController.AddGridViewColumn(gridView, typeof(GridViewComboBoxColumn), typeof(float), "Estribo", "Estribo", "Estribo", false, new List<string>() { "#3", "#4", "#5" });
+            DataGridController.AddGridViewColumn(gridView, typeof(GridViewTextBoxColumn), typeof(float), "Separacion (m)", "Separacion (m)", "Separacion (m)", false);
+            DataGridController.AddGridViewColumn(gridView, typeof(GridViewTextBoxColumn), typeof(int), "Ramas Izq", "Ramas Izq", "Ramas Izq", true);
+            DataGridController.AddGridViewColumn(gridView, typeof(GridViewTextBoxColumn), typeof(int), "Ramas Der", "Ramas Der", "Ramas Der", true);
+            DataGridController.AddGridViewColumn(gridView, typeof(GridViewTextBoxColumn), typeof(float), "F'c (MPa)", "F'c (MPa)", "F'c (MPa)", true);
+            DataGridController.AddGridViewColumn(gridView, typeof(GridViewTextBoxColumn), typeof(float), "Fy (MPa)", "Fy (MPa)", "Fy (MPa)", true);
+            DataGridController.AddGridViewColumn(gridView, typeof(GridViewTextBoxColumn), typeof(float), "RhoH", "RhoH", "RhoH", true);
+            DataGridController.AddGridViewColumn(gridView, typeof(GridViewTextBoxColumn), typeof(float), "RhoV", "RhoV", "RhoV", true);
+            DataGridController.AddGridViewColumn(gridView, typeof(GridViewTextBoxColumn), typeof(float), "RefHoriz (cm²/m)", "RefHoriz (cm²/m)", "RefHoriz (cm²/m)", true);
+            DataGridController.AddGridViewColumn(gridView, typeof(GridViewTextBoxColumn), typeof(float), "RefVert (cm²/m)", "RefVert (cm²/m)", "RefVert (cm²/m)", true);
+            DataGridController.AddGridViewColumn(gridView, typeof(GridViewTextBoxColumn), typeof(float), "RefAdicional (cm²/m)", "RefAdicional (cm²/m)", "RefAdicional (cm²/m)", true);
+            DataGridController.AddGridViewColumn(gridView, typeof(GridViewComboBoxColumn), typeof(float), "Malla", "Malla", "Malla", false, _contex.Mallas.ToList());
         }
 
         private void SetEstribosCells()
@@ -239,7 +259,7 @@ namespace DisenioMurosAyG.Controller
                     foreach (var muro in MurosSeleccionados)
                     {
                         UploadEbe(indice, LongEbe, muro.EBE_Izq, "Ramas Izq");
-                        UploadAsLongMuroSeleccionado(muro,indice, "RefAdicional (cm²)");
+                        UploadAsLongMuroSeleccionado(muro, indice, "RefAdicional (cm²)");
                     }
                     break;
                 case "Zc_Der (m)":
@@ -247,7 +267,7 @@ namespace DisenioMurosAyG.Controller
                     foreach (var muro in MurosSeleccionados)
                     {
                         UploadEbe(indice, LongEbe, muro.EBE_Der, "Ramas Der");
-                        UploadAsLongMuroSeleccionado(muro,indice, "RefAdicional (cm²)");
+                        UploadAsLongMuroSeleccionado(muro, indice, "RefAdicional (cm²)");
                     }
                     break;
                 case "Estribos":

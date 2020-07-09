@@ -123,8 +123,10 @@
     <Compile Include="Controller\AlzadoController.cs" />
     <Compile Include="Controller\ContextController.cs" />
     <Compile Include="Controller\DespieceController.cs" />
+    <Compile Include="Controller\EditarMallaController.cs" />
     <Compile Include="Controller\InicioController.cs" />
     <Compile Include="Controller\DataGridController.cs" />
+    <Compile Include="Controller\MallaController.cs" />
     <Compile Include="Controller\MurosViewController.cs" />
     <Compile Include="Controller\VariablesDibujoController.cs" />
     <Compile Include="Form1.cs">
@@ -140,6 +142,18 @@
     </Compile>
     <Compile Include="Views\AgregarCapaView.Designer.cs">
       <DependentUpon>AgregarCapaView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EditarMallaView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\EditarMallaView.Designer.cs">
+      <DependentUpon>EditarMallaView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MallaViews.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\MallaViews.Designer.cs">
+      <DependentUpon>MallaViews.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\MurosView.cs">
       <SubType>Form</SubType>
@@ -199,6 +213,12 @@
     </Compile>
     <EmbeddedResource Include="Views\AgregarCapaView.resx">
       <DependentUpon>AgregarCapaView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\EditarMallaView.resx">
+      <DependentUpon>EditarMallaView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\MallaViews.resx">
+      <DependentUpon>MallaViews.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\MurosView.resx">
       <DependentUpon>MurosView.cs</DependentUpon>

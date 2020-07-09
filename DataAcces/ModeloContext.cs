@@ -4,6 +4,7 @@ using Entidades.ImportarInformacion;
 using Entidades.LecturaExcel;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -14,22 +15,24 @@ namespace DataAcces
 {
     public class ModeloContext : ApplicationContext
     {
-        public List<Alzado> Alzados { get; set; }
-        public List<Muro> Muros { get; set; }
-        public List<Refuerzo> Refuerzos { get; set; }
-        public List<Refuerzo> Estribos { get; set; }
+        public BindingList<Alzado> Alzados { get; set; }
+        public BindingList<Muro> Muros { get; set; }
+        public BindingList<Refuerzo> Refuerzos { get; set; }
+        public BindingList<Refuerzo> Estribos { get; set; }
+        public BindingList<Malla> Mallas { get; set; }
         public string RutaArchivoDisenio { get; set; }
         public string RutaArchivoDespiece { get; set; }
         public GradoDisipacionEnergia GradoDisipacionEnergia { get; set; }
         public ModeloContext()
         {
-
+            LoadMallasPredef();
         }
         public ModeloContext(string RutaArchivo1, string RutaArchivo2, GradoDisipacionEnergia disipacionEnergia)
         {
             RutaArchivoDisenio = RutaArchivo1;
             RutaArchivoDespiece = RutaArchivo2;
             GradoDisipacionEnergia = disipacionEnergia;
+            LoadMallasPredef();
         }
 
         public void LoadDisenioContext()
@@ -43,7 +46,7 @@ namespace DataAcces
                 var AlzadosBuilder = new AlzadosFactory(Modelo.MuroFactory.Muros);
 
                 var PierUnicos = Modelo.MuroFactory.Muros.Select(x => x.Label).Distinct();
-                Alzados = new List<Alzado>();
+                Alzados = new BindingList<Alzado>();
 
                 foreach (var Pier in PierUnicos)
                 {
@@ -68,20 +71,39 @@ namespace DataAcces
 
                     Alzados.Add(alzadoi);
                 }
-                Muros = Modelo.MuroFactory.Muros;
+                Muros = new BindingList<Muro>(Modelo.MuroFactory.Muros);
 
             }
         }
 
-        public  void LoadDespieceContext()
+        public void LoadDespieceContext()
         {
             if (File.Exists(RutaArchivoDespiece))
             {
                 ImportarExcel Modelo = new ImportarDespiece(RutaArchivoDespiece);
-                Modelo.MurosModelo = this.Muros;
+                Modelo.MurosModelo = this.Muros.ToList();
                 Modelo.ExtraerInformacion();
                 Modelo.CerrarExcel();
             }
+        }
+
+        public void LoadMallasPredef()
+        {
+            var MallasTemp = new List<Malla>()
+            {
+                new Malla("M10-1", Diametro.Num2,2, 0.25f,0.25f, 0.10f),
+                new Malla("M10-2", Diametro.Num2,1, 0.25f,0.25f, 0.10f),
+                new Malla("M10-3", Diametro.Num2,1, 0.125f,0.125f, 0.10f),
+                new Malla("M12-1", Diametro.Num2,2, 0.20f,0.20f, 0.125f),
+                new Malla("M12-2", Diametro.Num2,2, 0.35f,0.35f, 0.125f),
+                new Malla("M12-3", Diametro.Num2,2, 0.35f,0.20f, 0.125f),
+                new Malla("M15-1", Diametro.Num2,2, 0.175f,0.175f, 0.15f),
+                new Malla("M15-2", Diametro.Num2,2, 0.35f,0.35f, 0.15f),
+                new Malla("M15-3", Diametro.Num2,2, 0.35f,0.175f, 0.15f),
+                new Malla("M20-1", Diametro.Num2,2, 0.25f,0.25f, 0.20f),
+            };
+
+            Mallas = new BindingList<Malla>(MallasTemp);
         }
     }
 }

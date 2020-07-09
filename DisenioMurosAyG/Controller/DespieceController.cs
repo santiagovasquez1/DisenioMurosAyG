@@ -133,19 +133,19 @@ namespace DisenioMurosAyG.Controller
 
         private void AddColumns(RadGridView gridView)
         {
-            DataGridController.AddGridViewColumn<GridViewColumn>(gridView, typeof(GridViewTextBoxColumn), typeof(string), "Piso", "Piso", "Piso", true, null);
-            DataGridController.AddGridViewColumn<GridViewColumn>(gridView, typeof(GridViewTextBoxColumn), typeof(string), "Nivel (m)", "Nivel (m)", "Nivel (m)", true, null);
-            DataGridController.AddGridViewColumn<GridViewColumn>(gridView, typeof(GridViewTextBoxColumn), typeof(string), "Muro", "Muro", "Muro", true, null);
-            DataGridController.AddGridViewColumn<GridViewColumn>(gridView, typeof(GridViewTextBoxColumn), typeof(string), "Nombre Definitivo", "Nombre Definitivo", "Nombre Definitivo", true, null);
-            DataGridController.AddGridViewColumn<GridViewColumn>(gridView, typeof(GridViewTextBoxColumn), typeof(string), "AsReq", "AsReq", "AsReq", true, null);
-            DataGridController.AddGridViewColumn<GridViewColumn>(gridView, typeof(GridViewTextBoxColumn), typeof(string), "AsTotal", "AsTotal", "AsTotal", true, null);
+            DataGridController.AddGridViewColumn(gridView, typeof(GridViewTextBoxColumn), typeof(string), "Piso", "Piso", "Piso", true);
+            DataGridController.AddGridViewColumn(gridView, typeof(GridViewTextBoxColumn), typeof(string), "Nivel (m)", "Nivel (m)", "Nivel (m)", true);
+            DataGridController.AddGridViewColumn(gridView, typeof(GridViewTextBoxColumn), typeof(string), "Muro", "Muro", "Muro", true);
+            DataGridController.AddGridViewColumn(gridView, typeof(GridViewTextBoxColumn), typeof(string), "Nombre Definitivo", "Nombre Definitivo", "Nombre Definitivo", true);
+            DataGridController.AddGridViewColumn(gridView, typeof(GridViewTextBoxColumn), typeof(string), "AsReq", "AsReq", "AsReq", true);
+            DataGridController.AddGridViewColumn(gridView, typeof(GridViewTextBoxColumn), typeof(string), "AsTotal", "AsTotal", "AsTotal", true);
 
             if (ExisteDespiece == true)
             {
                 List<BarraMuro> Alzados = ExtraerAlzados();
 
                 foreach (var alzadoi in Alzados)
-                    DataGridController.AddGridViewColumn<GridViewColumn>(gridView, typeof(GridViewTextBoxColumn), typeof(string), alzadoi.BarraId, alzadoi.BarraDenom, alzadoi.BarraId, false, null);
+                    DataGridController.AddGridViewColumn(gridView, typeof(GridViewTextBoxColumn), typeof(string), alzadoi.BarraId, alzadoi.BarraDenom, alzadoi.BarraId, false);
             }
         }
 
@@ -159,14 +159,14 @@ namespace DisenioMurosAyG.Controller
 
             string barraDenom = AgregarCapaView.tbNombreCapa.Text;
             if (barraDenom != "")
-                NuevaCapa = new BarraMuro(barraDenom, Traslapo.T);
+                NuevaCapa = new BarraMuro(barraDenom, Traslapo.Par);
 
             if (NuevaCapa != null)
             {
                 var Columnas = new List<DataColumn>(){
                 DataGridController.CrearColumna(NuevaCapa.BarraId, typeof(string), false)};
                 DataGridController.Set_Columns_Data(DT_AlzadoSeleccionado, Columnas);
-                DataGridController.AddGridViewColumn<GridViewColumn>(DespieceView.gvDespieceMuro, typeof(GridViewTextBoxColumn), typeof(string), NuevaCapa.BarraId, NuevaCapa.BarraDenom, NuevaCapa.BarraId, false, null);
+                DataGridController.AddGridViewColumn(DespieceView.gvDespieceMuro, typeof(GridViewTextBoxColumn), typeof(string), NuevaCapa.BarraId, NuevaCapa.BarraDenom, NuevaCapa.BarraId, false);
             }
         }
 
@@ -178,7 +178,7 @@ namespace DisenioMurosAyG.Controller
             string[] infoRef;
             int Cantidad = 0;
             string diametro = "";
-            Traslapo traslapo = Traslapo.T;
+            Traslapo traslapo = Traslapo.Par;
             List<Muro> MurosSeleccionados = new List<Muro>();
 
             MuroSeleccionado = AlzadoSeleccionado.Muros[indice];
@@ -200,7 +200,7 @@ namespace DisenioMurosAyG.Controller
                     infoRef = CapaRef.Split('#');
                     Cantidad = int.Parse(infoRef[0]);
                     diametro = infoRef[1];
-                    traslapo = Traslapo.T;
+                    traslapo = Traslapo.Par;
                 }
                 else
                 {
@@ -211,16 +211,10 @@ namespace DisenioMurosAyG.Controller
                     switch (infoRef[3])
                     {
                         case "1":
-                            traslapo = Traslapo.T1;
+                            traslapo = Traslapo.Par;
                             break;
                         case "2":
-                            traslapo = Traslapo.T2;
-                            break;
-                        case "3":
-                            traslapo = Traslapo.T3;
-                            break;
-                        default:
-                            traslapo = Traslapo.T;
+                            traslapo = Traslapo.Impar;
                             break;
                     }
                 }

@@ -40,12 +40,10 @@ namespace Entidades.Factorias
                     //var BarraFin = BarrasDenom[i - 1];
                     switch (Barrai.Traslapo)
                     {
-                        case Traslapo.T1:
+                        case Traslapo.Par:
                                
                             break;
-                        case Traslapo.T2:
-                            break;
-                        case Traslapo.T3:
+                        case Traslapo.Impar:
                             break;
                         default:
                             break;

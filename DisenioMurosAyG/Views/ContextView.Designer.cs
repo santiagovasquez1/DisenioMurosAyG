@@ -92,7 +92,7 @@
             // cbMAlla
             // 
             this.cbMAlla.Name = "cbMAlla";
-            this.cbMAlla.Text = "Crear Malla";
+            this.cbMAlla.Text = "Editar Mallas";
             // 
             // cbListMuros
             // 
@@ -180,7 +180,7 @@
             // 
             this.radRibbonBar1.RootElement.AutoSizeMode = Telerik.WinControls.RadAutoSizeMode.WrapAroundChildren;
             this.radRibbonBar1.SimplifiedHeight = 140;
-            this.radRibbonBar1.Size = new System.Drawing.Size(1078, 215);
+            this.radRibbonBar1.Size = new System.Drawing.Size(1078, 207);
             this.radRibbonBar1.StartButtonImage = ((System.Drawing.Image)(resources.GetObject("radRibbonBar1.StartButtonImage")));
             this.radRibbonBar1.StartMenuItems.AddRange(new Telerik.WinControls.RadItem[] {
             this.cbNuevo,
@@ -193,16 +193,14 @@
             // PanelAlzados
             // 
             this.PanelAlzados.Dock = System.Windows.Forms.DockStyle.Left;
-            this.PanelAlzados.Location = new System.Drawing.Point(0, 215);
+            this.PanelAlzados.Location = new System.Drawing.Point(0, 207);
             this.PanelAlzados.Name = "PanelAlzados";
-            this.PanelAlzados.Padding = new System.Windows.Forms.Padding(0);
             // 
             // PanelAlzados.PanelContainer
             // 
             this.PanelAlzados.PanelContainer.Controls.Add(this.radGroupBox1);
-            this.PanelAlzados.PanelContainer.Location = new System.Drawing.Point(0, 0);
-            this.PanelAlzados.PanelContainer.Size = new System.Drawing.Size(212, 386);
-            this.PanelAlzados.Size = new System.Drawing.Size(212, 386);
+            this.PanelAlzados.PanelContainer.Size = new System.Drawing.Size(210, 392);
+            this.PanelAlzados.Size = new System.Drawing.Size(212, 394);
             this.PanelAlzados.TabIndex = 1;
             this.PanelAlzados.ThemeName = "Office2013Light";
             // 
@@ -216,7 +214,7 @@
             this.radGroupBox1.HeaderText = "Lista de muros";
             this.radGroupBox1.Location = new System.Drawing.Point(0, 0);
             this.radGroupBox1.Name = "radGroupBox1";
-            this.radGroupBox1.Size = new System.Drawing.Size(212, 386);
+            this.radGroupBox1.Size = new System.Drawing.Size(210, 392);
             this.radGroupBox1.TabIndex = 2;
             this.radGroupBox1.Text = "Lista de muros";
             this.radGroupBox1.ThemeName = "Office2013Light";
@@ -229,7 +227,7 @@
             this.ListViewAlzados.ItemSize = new System.Drawing.Size(200, 36);
             this.ListViewAlzados.Location = new System.Drawing.Point(7, 34);
             this.ListViewAlzados.Name = "ListViewAlzados";
-            this.ListViewAlzados.Size = new System.Drawing.Size(200, 340);
+            this.ListViewAlzados.Size = new System.Drawing.Size(200, 346);
             this.ListViewAlzados.TabIndex = 0;
             this.ListViewAlzados.ThemeName = "Office2013Light";
             this.ListViewAlzados.SelectedItemChanged += new System.EventHandler(this.ListViewAlzados_SelectedItemChanged);
@@ -237,9 +235,9 @@
             // radPanel1
             // 
             this.radPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.radPanel1.Location = new System.Drawing.Point(212, 215);
+            this.radPanel1.Location = new System.Drawing.Point(212, 207);
             this.radPanel1.Name = "radPanel1";
-            this.radPanel1.Size = new System.Drawing.Size(866, 386);
+            this.radPanel1.Size = new System.Drawing.Size(866, 394);
             this.radPanel1.TabIndex = 2;
             this.radPanel1.ThemeName = "Office2013Light";
             // 
