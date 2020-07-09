@@ -20,6 +20,7 @@ namespace DisenioMurosAyG.Controller
         public Alzado AlzadoSeleccionado { get; set; }
         public Muro MuroSeleccionado { get; set; }
         public DataTable DT_AlzadoSeleccionado { get; set; }
+        public DataTable DT_AyudaAlzadoSeleccionado { get; set; }
         public bool ExisteDespiece { get; set; }
 
         public DespieceController(DespieceView despieceView, Alzado alzadoi)
@@ -70,6 +71,10 @@ namespace DisenioMurosAyG.Controller
 
         }
 
+        private void Set_Columns_AyudaAlzado()
+        {
+
+        }
         private List<BarraMuro> ExtraerAlzados()
         {
             var NumBarrasMax = (from muro in AlzadoSeleccionado.Muros
@@ -129,6 +134,10 @@ namespace DisenioMurosAyG.Controller
             DespieceView.gvDespieceMuro.AllowDragToGroup = false;
             DespieceView.gvDespieceMuro.SelectionMode = GridViewSelectionMode.CellSelect;
             DespieceView.gvDespieceMuro.MultiSelect = true;
+
+            AddColumns(DespieceView.rdAyudaDespiece);
+            DespieceView.rdAyudaDespiece.AutoSizeColumnsMode = GridViewAutoSizeColumnsMode.Fill;
+
         }
 
         private void AddColumns(RadGridView gridView)

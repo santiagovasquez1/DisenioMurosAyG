@@ -9,9 +9,9 @@ namespace DisenioMurosAyG.ClasesEstaticas
 {
    public static class  Cargar_Formularios
     {
-        public static void Open_From_Panel(Telerik.WinControls.UI.RadPanel Formulario_Madre, Telerik.WinControls.UI.RadForm Formulario)
+        public static void Open_From_Panel(Telerik.WinControls.UI.RadPageViewPage Formulario_Madre, Telerik.WinControls.UI.RadForm Formulario)
         {
-            Telerik.WinControls.UI.RadPanel FM = Formulario_Madre;
+            Telerik.WinControls.UI.RadPageViewPage FM = Formulario_Madre;
             Telerik.WinControls.UI.RadForm FH = Formulario;
 
             if (FM.Controls.Count > 0)

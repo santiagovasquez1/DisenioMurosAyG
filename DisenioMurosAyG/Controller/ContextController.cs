@@ -23,6 +23,7 @@ namespace DisenioMurosAyG.Controller
         public VariablesDibujoController VariablesDibujoController { get; set; }
         public Alzado AlzadoSeleccionado { get; set; }
         public RadForm ControlActivo { get; set; }
+        public int TabIndex { get; set; }
         public ContextController(ContextView contextView)
         {
             _context = Program._context;
@@ -32,11 +33,25 @@ namespace DisenioMurosAyG.Controller
             contextView.cbNuevo.Click += new EventHandler(NuevoCommand);
             contextView.ListViewAlzados.MultiSelect = false;
             contextView.ListViewAlzados.SelectedIndexChanged += new EventHandler(SeleccionAlzadoCommand);
-            contextView.Infogeneraltab.Click += new EventHandler(InfoGeneralClick);
-            contextView.DespieceTab.Click += new EventHandler(DespieceClick);
             contextView.cbListMuros.Click += new EventHandler(OpenListMurosClick);
             contextView.cbVariablesDibujo.Click += new EventHandler(VariablesDibujoClick);
             contextView.cbMAlla.Click += new EventHandler(MallaClick);
+            contextView.ViePageContainer.SelectedPageChanged += new EventHandler(SelectPageCommand);
+        }
+
+        private void SelectPageCommand(object sender, EventArgs e)
+        {
+            var ContextViewPage = ContextView.ViePageContainer.SelectedPage;
+            TabIndex = ContextViewPage.TabIndex;
+            if (TabIndex == 0)
+            {
+                InfoGeneralClick();
+            }
+            else
+            {
+                DespieceClick();
+            }
+
         }
 
         private void MallaClick(object sender, EventArgs e)
@@ -61,7 +76,7 @@ namespace DisenioMurosAyG.Controller
             listaMurosView.ShowDialog();
         }
 
-        private void DespieceClick(object sender, EventArgs e)
+        private void DespieceClick()
         {
             var control = ContextView.ListViewAlzados;
             if (control != null)
@@ -75,21 +90,21 @@ namespace DisenioMurosAyG.Controller
                 {
                     var DespieceMuro = new DespieceView();
                     DespieceController = new DespieceController(DespieceMuro, AlzadoSeleccionado);
-                    Cargar_Formularios.Open_From_Panel(ContextView.radPanel1, DespieceMuro);
+                    Cargar_Formularios.Open_From_Panel(ContextView.ViewPageDespiece, DespieceMuro);
                     ControlActivo = DespieceMuro;
                 }
             }
         }
 
-        private void InfoGeneralClick(object sender, EventArgs e)
+        private void InfoGeneralClick()
         {
-            LoadInfoAlzado();
+            //LoadInfoAlzado();
 
             if (AlzadoSeleccionado != null)
             {
                 var InformacionAlzado = new InformacionAlzadoView1();
                 AlzadoController = new AlzadoController(InformacionAlzado, AlzadoSeleccionado);
-                Cargar_Formularios.Open_From_Panel(ContextView.radPanel1, InformacionAlzado);
+                Cargar_Formularios.Open_From_Panel(ContextView.ViewPageAlzado, InformacionAlzado);
                 ControlActivo = InformacionAlzado;
             }
         }
@@ -121,15 +136,14 @@ namespace DisenioMurosAyG.Controller
                     case "InformacionAlzadoView1":
                         var InformacionAlzado = new InformacionAlzadoView1();
                         AlzadoController = new AlzadoController(InformacionAlzado, AlzadoSeleccionado);
-                        Cargar_Formularios.Open_From_Panel(ContextView.radPanel1, InformacionAlzado);
+                        Cargar_Formularios.Open_From_Panel(ContextView.ViewPageAlzado, InformacionAlzado);
                         break;
                     case "DespieceView":
                         var DespieceMuro = new DespieceView();
                         DespieceController = new DespieceController(DespieceMuro, AlzadoSeleccionado);
-                        Cargar_Formularios.Open_From_Panel(ContextView.radPanel1, DespieceMuro);
+                        Cargar_Formularios.Open_From_Panel(ContextView.ViewPageDespiece, DespieceMuro);
                         break;
                 }
-
             }
 
         }

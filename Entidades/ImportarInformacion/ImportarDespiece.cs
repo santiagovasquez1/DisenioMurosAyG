@@ -26,7 +26,6 @@ namespace Entidades.ImportarInformacion
 
             if (MurosModelo != null)
             {
-
                 var barrasfactory = new BarraMuroFactory(MurosModelo);
 
                 for (int i = 1; i < columns; i += 28)
@@ -39,7 +38,7 @@ namespace Entidades.ImportarInformacion
                     for (int j = 5; j < filas; j++)
                     {
                         var BarrasPiso = GetRow(Datos, j, i, i + 26);
-                        barrasfactory.BuildBarras(MuroName, Barra, Cantidad, BarrasPiso);
+                        barrasfactory.BuildBarras(MuroName, Barra, Cantidad, BarrasPiso);                      
                     }
                 }
             }

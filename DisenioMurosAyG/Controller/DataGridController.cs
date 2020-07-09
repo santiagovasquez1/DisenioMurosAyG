@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
 using System.Linq;
 using System.Text;
@@ -100,9 +101,15 @@ namespace DisenioMurosAyG.Controller
         private static GridViewComboBoxColumn ComboBoxColumn<T>(Type typevalue, string columnName, string headerText, string fieldName, bool isreadonly, List<T> dataSource)
         {
             GridViewComboBoxColumn gridViewComboBox = new GridViewComboBoxColumn();
+            gridViewComboBox.PropertyChanged += new PropertyChangedEventHandler(UpdateDataCommand);
             SetPropertiesColumn(typevalue, columnName, headerText, fieldName, isreadonly, gridViewComboBox);
             gridViewComboBox.DataSource = dataSource;
             return gridViewComboBox;
+        }
+
+        private static void UpdateDataCommand(object sender, PropertyChangedEventArgs e)
+        {
+            //throw new NotImplementedException();
         }
 
         private static void SetPropertiesColumn(Type typevalue, string columnName, string headerText, string fieldName, bool isreadonly, GridViewDataColumn boxColumn)

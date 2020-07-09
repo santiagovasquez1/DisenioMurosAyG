@@ -28,27 +28,37 @@ namespace Entidades.Factorias
             {
                 var StoryName = $"piso{int.Parse(BarrasPiso[0].ToString()) + 1}".Replace(" ", string.Empty).ToLower();
 
-                var muros = (from muro  in Muros 
+                var muros = (from muro in Muros
                              where ($"muro{muro.LabelDef}").ToLower() == muroName
                              where muro.Story.StoryName.ToLower().Replace(" ", string.Empty) == StoryName
                              select muro).ToList();
 
+
                 foreach (Muro muro in muros)
                 {
                     var barras = new List<BarraMuro>();
+                    int x = 0;
+                    Traslapo traslapo = Traslapo.Par;
+
                     for (int i = 1; i < BarrasPiso.Count; i++)
                     {
                         var barradenom = DenomBarras[i].ToString();
                         var cant = int.Parse(CantidadesBarras[i].ToString());
                         var diametro = DiccionariosRefuerzo.ReturnDiametro(BarrasPiso[i].ToString());
 
-                        var barra = new BarraMuro(muro.Label,muro, barradenom, cant, diametro,Traslapo.Par);
+                        if (x % 2 == 0)
+                            traslapo = Traslapo.Par;
+                        else
+                            traslapo = Traslapo.Impar;
+
+                        var barra = new BarraMuro(muro.Label, muro, barradenom, cant, diametro, traslapo);
                         barras.Add(barra);
-                    }              
+                        x++;
+                    }
                     muro.BarrasMuros = barras;
                     muro.CalcAsTotal();
-                }
 
+                }
             }
         }
 

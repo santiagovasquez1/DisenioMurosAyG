@@ -38,24 +38,32 @@
             this.radRibbonBarGroup2 = new Telerik.WinControls.UI.RadRibbonBarGroup();
             this.cbVariablesDibujo = new Telerik.WinControls.UI.RadButtonElement();
             this.cbDibujo = new Telerik.WinControls.UI.RadButtonElement();
-            this.DespieceTab = new Telerik.WinControls.UI.RibbonTab();
             this.cbNuevo = new Telerik.WinControls.UI.RadMenuItem();
             this.cbCargar = new Telerik.WinControls.UI.RadMenuItem();
             this.cbGuardar = new Telerik.WinControls.UI.RadMenuItem();
             this.radRibbonBar1 = new Telerik.WinControls.UI.RadRibbonBar();
-            this.PanelAlzados = new Telerik.WinControls.UI.RadScrollablePanel();
-            this.radGroupBox1 = new Telerik.WinControls.UI.RadGroupBox();
-            this.ListViewAlzados = new Telerik.WinControls.UI.RadListView();
-            this.radPanel1 = new Telerik.WinControls.UI.RadPanel();
             this.office2013LightTheme1 = new Telerik.WinControls.Themes.Office2013LightTheme();
+            this.PanelContainer = new Telerik.WinControls.UI.RadScrollablePanelContainer();
+            this.ListViewAlzados = new Telerik.WinControls.UI.RadListView();
+            this.radGroupBox1 = new Telerik.WinControls.UI.RadGroupBox();
+            this.radSplitContainer1 = new Telerik.WinControls.UI.RadSplitContainer();
+            this.splitPanel1 = new Telerik.WinControls.UI.SplitPanel();
+            this.splitPanel2 = new Telerik.WinControls.UI.SplitPanel();
+            this.ViePageContainer = new Telerik.WinControls.UI.RadPageView();
+            this.ViewPageAlzado = new Telerik.WinControls.UI.RadPageViewPage();
+            this.ViewPageDespiece = new Telerik.WinControls.UI.RadPageViewPage();
             ((System.ComponentModel.ISupportInitialize)(this.radRibbonBar1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.PanelAlzados)).BeginInit();
-            this.PanelAlzados.PanelContainer.SuspendLayout();
-            this.PanelAlzados.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ListViewAlzados)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radGroupBox1)).BeginInit();
             this.radGroupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ListViewAlzados)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radPanel1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radSplitContainer1)).BeginInit();
+            this.radSplitContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitPanel1)).BeginInit();
+            this.splitPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitPanel2)).BeginInit();
+            this.splitPanel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ViePageContainer)).BeginInit();
+            this.ViePageContainer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
@@ -120,17 +128,6 @@
             this.cbDibujo.Name = "cbDibujo";
             this.cbDibujo.Text = "Dibujar Alzado";
             // 
-            // DespieceTab
-            // 
-            this.DespieceTab.AutoEllipsis = false;
-            this.DespieceTab.DisabledTextRenderingHint = System.Drawing.Text.TextRenderingHint.SystemDefault;
-            this.DespieceTab.IsSelected = false;
-            this.DespieceTab.Name = "DespieceTab";
-            this.DespieceTab.Text = "Despiece muros concreto";
-            this.DespieceTab.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SystemDefault;
-            this.DespieceTab.UseCompatibleTextRendering = false;
-            this.DespieceTab.UseMnemonic = false;
-            // 
             // cbNuevo
             // 
             this.cbNuevo.Name = "cbNuevo";
@@ -152,8 +149,7 @@
             // radRibbonBar1
             // 
             this.radRibbonBar1.CommandTabs.AddRange(new Telerik.WinControls.RadItem[] {
-            this.Infogeneraltab,
-            this.DespieceTab});
+            this.Infogeneraltab});
             // 
             // 
             // 
@@ -180,7 +176,7 @@
             // 
             this.radRibbonBar1.RootElement.AutoSizeMode = Telerik.WinControls.RadAutoSizeMode.WrapAroundChildren;
             this.radRibbonBar1.SimplifiedHeight = 140;
-            this.radRibbonBar1.Size = new System.Drawing.Size(1078, 207);
+            this.radRibbonBar1.Size = new System.Drawing.Size(1219, 207);
             this.radRibbonBar1.StartButtonImage = ((System.Drawing.Image)(resources.GetObject("radRibbonBar1.StartButtonImage")));
             this.radRibbonBar1.StartMenuItems.AddRange(new Telerik.WinControls.RadItem[] {
             this.cbNuevo,
@@ -190,19 +186,21 @@
             this.radRibbonBar1.Text = "InformacionAlzadoView1";
             this.radRibbonBar1.ThemeName = "Office2013Light";
             // 
-            // PanelAlzados
+            // PanelContainer
             // 
-            this.PanelAlzados.Dock = System.Windows.Forms.DockStyle.Left;
-            this.PanelAlzados.Location = new System.Drawing.Point(0, 207);
-            this.PanelAlzados.Name = "PanelAlzados";
+            this.PanelContainer.Size = new System.Drawing.Size(210, 441);
             // 
-            // PanelAlzados.PanelContainer
+            // ListViewAlzados
             // 
-            this.PanelAlzados.PanelContainer.Controls.Add(this.radGroupBox1);
-            this.PanelAlzados.PanelContainer.Size = new System.Drawing.Size(210, 392);
-            this.PanelAlzados.Size = new System.Drawing.Size(212, 394);
-            this.PanelAlzados.TabIndex = 1;
-            this.PanelAlzados.ThemeName = "Office2013Light";
+            this.ListViewAlzados.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ListViewAlzados.GroupItemSize = new System.Drawing.Size(200, 36);
+            this.ListViewAlzados.ItemSize = new System.Drawing.Size(200, 36);
+            this.ListViewAlzados.Location = new System.Drawing.Point(2, 18);
+            this.ListViewAlzados.Name = "ListViewAlzados";
+            this.ListViewAlzados.Size = new System.Drawing.Size(242, 423);
+            this.ListViewAlzados.TabIndex = 0;
+            this.ListViewAlzados.ThemeName = "Office2013Light";
+            this.ListViewAlzados.SelectedItemChanged += new System.EventHandler(this.ListViewAlzados_SelectedItemChanged);
             // 
             // radGroupBox1
             // 
@@ -214,40 +212,99 @@
             this.radGroupBox1.HeaderText = "Lista de muros";
             this.radGroupBox1.Location = new System.Drawing.Point(0, 0);
             this.radGroupBox1.Name = "radGroupBox1";
-            this.radGroupBox1.Size = new System.Drawing.Size(210, 392);
+            this.radGroupBox1.Size = new System.Drawing.Size(246, 443);
             this.radGroupBox1.TabIndex = 2;
             this.radGroupBox1.Text = "Lista de muros";
             this.radGroupBox1.ThemeName = "Office2013Light";
             // 
-            // ListViewAlzados
+            // radSplitContainer1
             // 
-            this.ListViewAlzados.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.ListViewAlzados.GroupItemSize = new System.Drawing.Size(200, 36);
-            this.ListViewAlzados.ItemSize = new System.Drawing.Size(200, 36);
-            this.ListViewAlzados.Location = new System.Drawing.Point(7, 34);
-            this.ListViewAlzados.Name = "ListViewAlzados";
-            this.ListViewAlzados.Size = new System.Drawing.Size(200, 346);
-            this.ListViewAlzados.TabIndex = 0;
-            this.ListViewAlzados.ThemeName = "Office2013Light";
-            this.ListViewAlzados.SelectedItemChanged += new System.EventHandler(this.ListViewAlzados_SelectedItemChanged);
+            this.radSplitContainer1.Controls.Add(this.splitPanel1);
+            this.radSplitContainer1.Controls.Add(this.splitPanel2);
+            this.radSplitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.radSplitContainer1.Location = new System.Drawing.Point(0, 207);
+            this.radSplitContainer1.Name = "radSplitContainer1";
             // 
-            // radPanel1
             // 
-            this.radPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.radPanel1.Location = new System.Drawing.Point(212, 207);
-            this.radPanel1.Name = "radPanel1";
-            this.radPanel1.Size = new System.Drawing.Size(866, 394);
-            this.radPanel1.TabIndex = 2;
-            this.radPanel1.ThemeName = "Office2013Light";
+            // 
+            this.radSplitContainer1.RootElement.MinSize = new System.Drawing.Size(25, 25);
+            this.radSplitContainer1.Size = new System.Drawing.Size(1219, 443);
+            this.radSplitContainer1.SplitterWidth = 5;
+            this.radSplitContainer1.TabIndex = 3;
+            this.radSplitContainer1.TabStop = false;
+            this.radSplitContainer1.ThemeName = "Office2013Light";
+            // 
+            // splitPanel1
+            // 
+            this.splitPanel1.Controls.Add(this.radGroupBox1);
+            this.splitPanel1.Location = new System.Drawing.Point(0, 0);
+            this.splitPanel1.Name = "splitPanel1";
+            // 
+            // 
+            // 
+            this.splitPanel1.RootElement.MinSize = new System.Drawing.Size(25, 25);
+            this.splitPanel1.Size = new System.Drawing.Size(246, 443);
+            this.splitPanel1.SizeInfo.AutoSizeScale = new System.Drawing.SizeF(-0.2975309F, 0F);
+            this.splitPanel1.SizeInfo.SplitterCorrection = new System.Drawing.Size(-362, 0);
+            this.splitPanel1.TabIndex = 0;
+            this.splitPanel1.TabStop = false;
+            this.splitPanel1.Text = "splitPanel1";
+            this.splitPanel1.ThemeName = "Office2013Light";
+            // 
+            // splitPanel2
+            // 
+            this.splitPanel2.Controls.Add(this.ViePageContainer);
+            this.splitPanel2.Location = new System.Drawing.Point(251, 0);
+            this.splitPanel2.Name = "splitPanel2";
+            // 
+            // 
+            // 
+            this.splitPanel2.RootElement.MinSize = new System.Drawing.Size(25, 25);
+            this.splitPanel2.Size = new System.Drawing.Size(968, 443);
+            this.splitPanel2.SizeInfo.AutoSizeScale = new System.Drawing.SizeF(0.2975309F, 0F);
+            this.splitPanel2.SizeInfo.SplitterCorrection = new System.Drawing.Size(362, 0);
+            this.splitPanel2.TabIndex = 1;
+            this.splitPanel2.TabStop = false;
+            this.splitPanel2.Text = "splitPanel2";
+            this.splitPanel2.ThemeName = "Office2013Light";
+            // 
+            // ViePageContainer
+            // 
+            this.ViePageContainer.Controls.Add(this.ViewPageAlzado);
+            this.ViePageContainer.Controls.Add(this.ViewPageDespiece);
+            this.ViePageContainer.DefaultPage = this.ViewPageAlzado;
+            this.ViePageContainer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ViePageContainer.Location = new System.Drawing.Point(0, 0);
+            this.ViePageContainer.Name = "ViePageContainer";
+            this.ViePageContainer.SelectedPage = this.ViewPageAlzado;
+            this.ViePageContainer.Size = new System.Drawing.Size(968, 443);
+            this.ViePageContainer.TabIndex = 0;
+            this.ViePageContainer.ThemeName = "Office2013Light";
+            ((Telerik.WinControls.UI.RadPageViewStripElement)(this.ViePageContainer.GetChildAt(0))).ItemFitMode = Telerik.WinControls.UI.StripViewItemFitMode.None;
+            ((Telerik.WinControls.UI.RadPageViewStripElement)(this.ViePageContainer.GetChildAt(0))).StripAlignment = Telerik.WinControls.UI.StripViewAlignment.Top;
+            // 
+            // ViewPageAlzado
+            // 
+            this.ViewPageAlzado.ItemSize = new System.Drawing.SizeF(52F, 27F);
+            this.ViewPageAlzado.Location = new System.Drawing.Point(5, 31);
+            this.ViewPageAlzado.Name = "ViewPageAlzado";
+            this.ViewPageAlzado.Size = new System.Drawing.Size(958, 407);
+            this.ViewPageAlzado.Text = "Alzado";
+            // 
+            // ViewPageDespiece
+            // 
+            this.ViewPageDespiece.ItemSize = new System.Drawing.SizeF(64F, 27F);
+            this.ViewPageDespiece.Location = new System.Drawing.Point(5, 31);
+            this.ViewPageDespiece.Name = "ViewPageDespiece";
+            this.ViewPageDespiece.Size = new System.Drawing.Size(958, 407);
+            this.ViewPageDespiece.Text = "Despiece";
             // 
             // ContextView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1078, 601);
-            this.Controls.Add(this.radPanel1);
-            this.Controls.Add(this.PanelAlzados);
+            this.ClientSize = new System.Drawing.Size(1219, 650);
+            this.Controls.Add(this.radSplitContainer1);
             this.Controls.Add(this.radRibbonBar1);
             this.MainMenuStrip = null;
             this.Name = "ContextView";
@@ -258,13 +315,17 @@
             this.Text = "InformacionAlzadoView1";
             this.ThemeName = "Office2013Light";
             ((System.ComponentModel.ISupportInitialize)(this.radRibbonBar1)).EndInit();
-            this.PanelAlzados.PanelContainer.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.PanelAlzados)).EndInit();
-            this.PanelAlzados.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.ListViewAlzados)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radGroupBox1)).EndInit();
             this.radGroupBox1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.ListViewAlzados)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radPanel1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radSplitContainer1)).EndInit();
+            this.radSplitContainer1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitPanel1)).EndInit();
+            this.splitPanel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitPanel2)).EndInit();
+            this.splitPanel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.ViePageContainer)).EndInit();
+            this.ViePageContainer.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -274,7 +335,6 @@
         #endregion
 
         public Telerik.WinControls.UI.RibbonTab Infogeneraltab;
-        public Telerik.WinControls.UI.RibbonTab DespieceTab;
         public Telerik.WinControls.UI.RadMenuItem cbNuevo;
         public Telerik.WinControls.UI.RadMenuItem cbCargar;
         public Telerik.WinControls.UI.RadMenuItem cbGuardar;
@@ -282,15 +342,20 @@
         public Telerik.WinControls.UI.RadRibbonBarGroup radRibbonBarGroup1;
         public Telerik.WinControls.RadThemeManager radThemeManager1;
         public Telerik.WinControls.UI.RadMenuHeaderItem radMenuHeaderItem1;
-        public Telerik.WinControls.UI.RadScrollablePanel PanelAlzados;
-        public Telerik.WinControls.UI.RadListView ListViewAlzados;
-        public Telerik.WinControls.UI.RadPanel radPanel1;
         public Telerik.WinControls.UI.RadButtonElement cbMAlla;
         public Telerik.WinControls.UI.RadButtonElement cbListMuros;
         public Telerik.WinControls.UI.RadRibbonBarGroup radRibbonBarGroup2;
         public Telerik.WinControls.UI.RadButtonElement cbVariablesDibujo;
         public Telerik.WinControls.UI.RadButtonElement cbDibujo;
-        public Telerik.WinControls.UI.RadGroupBox radGroupBox1;
         private Telerik.WinControls.Themes.Office2013LightTheme office2013LightTheme1;
+        private Telerik.WinControls.UI.RadScrollablePanelContainer PanelContainer;
+        public Telerik.WinControls.UI.RadListView ListViewAlzados;
+        public Telerik.WinControls.UI.RadGroupBox radGroupBox1;
+        private Telerik.WinControls.UI.SplitPanel splitPanel1;
+        private Telerik.WinControls.UI.SplitPanel splitPanel2;
+        public Telerik.WinControls.UI.RadSplitContainer radSplitContainer1;
+        public Telerik.WinControls.UI.RadPageView ViePageContainer;
+        public Telerik.WinControls.UI.RadPageViewPage ViewPageDespiece;
+        public Telerik.WinControls.UI.RadPageViewPage ViewPageAlzado;
     }
 }
