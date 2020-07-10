@@ -41,8 +41,8 @@ namespace UnitTestDisenioAyG
 
         public void ProbarDespiece(Alzado alzado)
         {
-            var RefuerzoFactory = new RefuerzoLongFactory(alzado);
-            RefuerzoFactory.SetRefuerzo();
+            var RefuerzoFactory = new RefuerzoLongFactory(alzado,1.00f);
+            RefuerzoFactory.SetRefuerzoMuro();
 
         }
 

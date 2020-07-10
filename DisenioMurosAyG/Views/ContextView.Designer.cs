@@ -95,7 +95,7 @@
             this.radRibbonBarGroup1.MinSize = new System.Drawing.Size(70, 144);
             this.radRibbonBarGroup1.Name = "radRibbonBarGroup1";
             this.radRibbonBarGroup1.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.radRibbonBarGroup1.Text = "Modelo";
+            this.radRibbonBarGroup1.Text = "Propiedades";
             // 
             // cbMAlla
             // 
