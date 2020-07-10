@@ -39,6 +39,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="B_Operaciones_Matricialesl, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\B_Operaciones_Matricialesl\B_Operaciones_Matricialesl\bin\Debug\B_Operaciones_Matricialesl.dll</HintPath>
+    </Reference>
     <Reference Include="FunctionsAutoCAD">
       <HintPath>..\..\FunctionsAutoCAD\bin\Debug\FunctionsAutoCAD.dll</HintPath>
     </Reference>
@@ -64,9 +68,9 @@
       <Project>{88207F88-9200-499D-9E0B-B2BC617C508A}</Project>
       <Name>DataAcces</Name>
     </ProjectReference>
-    <ProjectReference Include="..\DibujoAutomatico\DibujoAutomatico.csproj">
-      <Project>{5613D467-FDE9-4418-BCC2-943C5DCC7315}</Project>
-      <Name>DibujoAutomatico</Name>
+    <ProjectReference Include="..\DibujoAutomaticoAlzados\DibujoAutomaticoAlzados.csproj">
+      <Project>{94dcbe3f-8144-4989-bf41-af647210048d}</Project>
+      <Name>DibujoAutomaticoAlzados</Name>
     </ProjectReference>
     <ProjectReference Include="..\Entidades\Entidades.csproj">
       <Project>{cc20fadf-8d13-4024-996c-db1afb60a234}</Project>

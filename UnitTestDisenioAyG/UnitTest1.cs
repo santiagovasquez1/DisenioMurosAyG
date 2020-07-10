@@ -9,7 +9,8 @@ using Entidades.ImportarInformacion;
 using System.Collections.Generic;
 using FunctionsAutoCAD;
 using DataAcces;
-using DibujoAutomatico;
+using B_Operaciones_Matricialesl;
+using DibujoAutomaticoAlzados;
 
 namespace UnitTestDisenioAyG
 {
@@ -60,6 +61,10 @@ namespace UnitTestDisenioAyG
             var InsertionPoint = new double[2];
             FunctionsAutoCAD.FunctionsAutoCAD.OpenAutoCAD();
             FunctionsAutoCAD.FunctionsAutoCAD.GetPoint(ref InsertionPoint);
+
+            //var temp = Array.ConvertAll(InsertionPoint, x => (float)x);
+            //var prueba = new float[] { 0, 1, 0, 4, 5, 6 };
+            //var Prueba = Operaciones.TraslacionPoligono(temp, prueba);
 
             //var Alzado = ModeloContext.Alzados.FirstOrDefault();
             //var Prueba = new DibujoAlzado(Alzado, InsertionPoint, "SUBRAYADO1", "SUBRAYADO2");

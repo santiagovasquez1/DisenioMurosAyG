@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestDisenioAyG", "UnitT
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAcces", "DataAcces\DataAcces.csproj", "{88207F88-9200-499D-9E0B-B2BC617C508A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DibujoAutomatico", "DibujoAutomatico\DibujoAutomatico.csproj", "{5613D467-FDE9-4418-BCC2-943C5DCC7315}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DibujoAutomaticoAlzados", "DibujoAutomaticoAlzados\DibujoAutomaticoAlzados.csproj", "{94DCBE3F-8144-4989-BF41-AF647210048D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,10 +35,10 @@ Global
 		{88207F88-9200-499D-9E0B-B2BC617C508A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{88207F88-9200-499D-9E0B-B2BC617C508A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{88207F88-9200-499D-9E0B-B2BC617C508A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5613D467-FDE9-4418-BCC2-943C5DCC7315}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5613D467-FDE9-4418-BCC2-943C5DCC7315}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5613D467-FDE9-4418-BCC2-943C5DCC7315}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5613D467-FDE9-4418-BCC2-943C5DCC7315}.Release|Any CPU.Build.0 = Release|Any CPU
+		{94DCBE3F-8144-4989-BF41-AF647210048D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94DCBE3F-8144-4989-BF41-AF647210048D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94DCBE3F-8144-4989-BF41-AF647210048D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94DCBE3F-8144-4989-BF41-AF647210048D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

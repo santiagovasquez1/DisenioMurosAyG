@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DataAcces;
-using DibujoAutomatico;
+using DibujoAutomaticoAlzados;
 using Entidades;
 using Telerik.WinControls;
 using System.ComponentModel;

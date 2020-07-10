@@ -1,14 +1,22 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <OutputType>Library</OutputType>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MathNet.Numerics" Version="4.11.0" />
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Entidades\Entidades.csproj" />
   </ItemGroup>
 
   <ItemGroup>
+    <Reference Include="B_Operaciones_Matricialesl">
+      <HintPath>..\..\..\B_Operaciones_Matricialesl\B_Operaciones_Matricialesl\bin\Debug\B_Operaciones_Matricialesl.dll</HintPath>
+    </Reference>
     <Reference Include="FunctionsAutoCAD">
       <HintPath>..\..\FunctionsAutoCAD\bin\Debug\FunctionsAutoCAD.dll</HintPath>
     </Reference>

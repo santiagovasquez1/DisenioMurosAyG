@@ -275,9 +275,9 @@
       <Project>{88207F88-9200-499D-9E0B-B2BC617C508A}</Project>
       <Name>DataAcces</Name>
     </ProjectReference>
-    <ProjectReference Include="..\DibujoAutomatico\DibujoAutomatico.csproj">
-      <Project>{5613d467-fde9-4418-bcc2-943c5dcc7315}</Project>
-      <Name>DibujoAutomatico</Name>
+    <ProjectReference Include="..\DibujoAutomaticoAlzados\DibujoAutomaticoAlzados.csproj">
+      <Project>{94dcbe3f-8144-4989-bf41-af647210048d}</Project>
+      <Name>DibujoAutomaticoAlzados</Name>
     </ProjectReference>
     <ProjectReference Include="..\Entidades\Entidades.csproj">
       <Project>{cc20fadf-8d13-4024-996c-db1afb60a234}</Project>

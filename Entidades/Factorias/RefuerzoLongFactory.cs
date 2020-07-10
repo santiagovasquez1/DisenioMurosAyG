@@ -67,11 +67,6 @@ namespace Entidades.Factorias
                 int x = 0;
                 for (int i = BarrasDenom.Count - 1; i >= 0; i--)
                 {
-                    if(i==0 & BarrasDenom[i].Traslapo == Traslapo.Impar)
-                    {
-                        var prueba = "Hol";
-                    }
-
                     if (i > 0)
                     {
                         fc = (from muro in Alzado.Muros
@@ -168,6 +163,7 @@ namespace Entidades.Factorias
             }
 
             refuerzotemp.Coordenadas = Coord;
+            refuerzotemp.Longitud = refuerzotemp.GetLong(Coord);
             return refuerzotemp;
         }
     }

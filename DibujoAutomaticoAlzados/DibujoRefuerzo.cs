@@ -1,11 +1,12 @@
 ﻿using Entidades;
 using System;
-using B_Operaciones_Matricialesl;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
+using FunctionsAutoCAD;
+using B_Operaciones_Matricialesl;
 
-namespace DibujoAutomatico
+namespace DibujoAutomaticoAlzados
 {
     public class DibujoRefuerzo : IDibujoElemento
     {
@@ -34,10 +35,10 @@ namespace DibujoAutomatico
             foreach (var refuerzo in Alzado.RefuerzosLongitudinales)
             {
                 var temp = Array.ConvertAll(InsertionPoint, x => (float)x);
-                //var Prueba = Operaciones.TraslacionPoligono(temp, refuerzo.Coordenadas);
+                var Prueba = Operaciones.TraslacionPoligono(temp, refuerzo.Coordenadas);
 
-                var Coord = Array.ConvertAll(refuerzo.Coordenadas, x => (double)x);
-                FunctionsAutoCAD.FunctionsAutoCAD.AddPolyline2D(Coord, LayerRefuerzo, false);
+                //var Coord = Array.ConvertAll(refuerzo.Coordenadas, x => (double)x);
+                FunctionsAutoCAD.FunctionsAutoCAD.AddPolyline2D(Prueba, LayerRefuerzo, false);
             }
         }
 

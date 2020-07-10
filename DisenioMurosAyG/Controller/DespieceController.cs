@@ -5,9 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Telerik.WinControls;
 using Telerik.WinControls.UI;
 
 namespace DisenioMurosAyG.Controller
@@ -68,17 +65,11 @@ namespace DisenioMurosAyG.Controller
                     Columnas.Add(DataGridController.CrearColumna(alzadoi.BaraDenomPos.ToString(), typeof(string), false));
                     x++;
                 }
-
             }
 
             DataGridController.Set_Columns_Data(DT_AlzadoSeleccionado, Columnas);
-
         }
 
-        private void Set_Columns_AyudaAlzado()
-        {
-
-        }
         private List<BarraMuro> ExtraerAlzados()
         {
             var NumBarrasMax = (from muro in AlzadoSeleccionado.Muros
@@ -112,11 +103,11 @@ namespace DisenioMurosAyG.Controller
                     if (muro.BarrasMuros != null)
                     {
                         int x = 6;
-                        string ColumnName="";
+                        string ColumnName = "";
 
                         foreach (var barra in muro.BarrasMuros)
                         {
-                            foreach(DataColumn col in DT_AlzadoSeleccionado.Columns)
+                            foreach (DataColumn col in DT_AlzadoSeleccionado.Columns)
                             {
                                 if (col.ColumnName == barra.BaraDenomPos.ToString())
                                 {
@@ -133,6 +124,7 @@ namespace DisenioMurosAyG.Controller
                 DT_AlzadoSeleccionado.Rows.Add(dataRow);
             }
         }
+
         private void Cargar_DataGrid()
         {
             DespieceView.gvDespieceMuro.AutoGenerateColumns = false;
@@ -151,7 +143,6 @@ namespace DisenioMurosAyG.Controller
 
             AddColumns(DespieceView.rdAyudaDespiece);
             DespieceView.rdAyudaDespiece.AutoSizeColumnsMode = GridViewAutoSizeColumnsMode.Fill;
-
         }
 
         private void AddColumns(RadGridView gridView)
@@ -173,7 +164,6 @@ namespace DisenioMurosAyG.Controller
                     DataGridController.AddGridViewColumn(gridView, typeof(GridViewTextBoxColumn), typeof(string), alzadoi.BaraDenomPos.ToString(), alzadoi.BarraDenom, alzadoi.BaraDenomPos.ToString(), false);
                     x++;
                 }
-
             }
         }
 
@@ -241,6 +231,7 @@ namespace DisenioMurosAyG.Controller
                         case "1":
                             traslapo = Traslapo.Par;
                             break;
+
                         case "2":
                             traslapo = Traslapo.Impar;
                             break;
@@ -280,7 +271,6 @@ namespace DisenioMurosAyG.Controller
                         DespieceView.gvDespieceMuro.Columns["AsTotal"].ReadOnly = true;
                     }
                 }
-
             }
         }
     }
