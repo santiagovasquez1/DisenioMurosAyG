@@ -61,7 +61,7 @@ namespace Entidades
             var TraslapoRefuerzo = new Dictionary<Diametro, float>();
             switch (fc)
             {
-                case 210:
+                case 21:
                     TraslapoRefuerzo.Add(Diametro.Num45mm, 0.55f);
                     TraslapoRefuerzo.Add(Diametro.Num2, 0.55f);
                     TraslapoRefuerzo.Add(Diametro.Num3, 0.55f);
@@ -71,7 +71,7 @@ namespace Entidades
                     TraslapoRefuerzo.Add(Diametro.Num7, 1.60f);
                     TraslapoRefuerzo.Add(Diametro.Num8, 1.80f);
                     break;
-                case 280:
+                case 28:
                     TraslapoRefuerzo.Add(Diametro.Num45mm, 0.50f);
                     TraslapoRefuerzo.Add(Diametro.Num2, 0.50f);
                     TraslapoRefuerzo.Add(Diametro.Num3, 0.50f);

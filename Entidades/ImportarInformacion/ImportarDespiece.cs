@@ -16,7 +16,7 @@ namespace Entidades.ImportarInformacion
             RutaArchivo = ruta;
             ExcelApp = new Application();
             Workbook = ExcelApp.Workbooks.Open(ruta);
-            Datos = LeerDatos();
+            Datos = LeerDatos(1);
         }
 
         public override void ExtraerInformacion()
@@ -35,9 +35,9 @@ namespace Entidades.ImportarInformacion
                     var Barra = GetRow(Datos, 2, i, i + 26);
                     var Cantidad = GetRow(Datos, 3, i, i + 26);
 
-                    for (int j = 5; j < filas; j++)
+                    for (int j = 5; j < 100; j++)
                     {
-                        var BarrasPiso = GetRow(Datos, j, i, i + 26);
+                        var BarrasPiso = GetRow2(Datos, j, i, i + 26);
                         barrasfactory.BuildBarras(MuroName, Barra, Cantidad, BarrasPiso);                      
                     }
                 }

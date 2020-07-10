@@ -67,10 +67,21 @@ namespace Entidades.Factorias
                 int x = 0;
                 for (int i = BarrasDenom.Count - 1; i >= 0; i--)
                 {
+                    if(i==0 & BarrasDenom[i].Traslapo == Traslapo.Impar)
+                    {
+                        var prueba = "Hol";
+                    }
+
                     if (i > 0)
                     {
                         fc = (from muro in Alzado.Muros
                               where muro.Story.StoryId == BarrasDenom[i - 1].Muro.Story.StoryId
+                              select muro.Fc).FirstOrDefault();
+                    }
+                    else
+                    {
+                        fc = (from muro in Alzado.Muros
+                              where muro.Story.StoryId == BarrasDenom[i].Muro.Story.StoryId
                               select muro.Fc).FirstOrDefault();
                     }
 
@@ -91,7 +102,7 @@ namespace Entidades.Factorias
                                 ? BarrasDenom[i].Muro.Story.StoryElevation + DiccionariosRefuerzo.ReturnTraslapo(BarrasDenom[i].Diametro, fc)
                                 : BarrasDenom[i].Muro.Story.StoryElevation;
 
-                            if (fc == 0) tipoBarra = TipoBarra.Tipo3;
+                            tipoBarra = fc == 0 ? TipoBarra.Tipo3 : TipoBarra.Tipo1;
                         }
 
                         deltax = deltax == 0 ? 0.10f : 0f;
@@ -106,9 +117,21 @@ namespace Entidades.Factorias
                             ? BarrasDenom[i].Muro.Story.StoryElevation + DiccionariosRefuerzo.ReturnTraslapo(BarrasDenom[i].Diametro, fc)
                             : BarrasDenom[i].Muro.Story.StoryElevation;
 
+                        tipoBarra = fc == 0 ? TipoBarra.Tipo3 : TipoBarra.Tipo1;
                         if (NivelInicial == 0) tipoBarra = TipoBarra.Tipo2;
-                        if (fc == 0) tipoBarra = TipoBarra.Tipo3;
 
+                        deltax = deltax == 0 ? 0.10f : 0f;
+                        var Refuerzoi = SetRefuerzo(NivelInicial, NivelFinal, fc, BarrasDenom[i].Diametro, BarrasDenom[i].Cantidad, Barrai.Traslapo, PosX + deltax, tipoBarra);
+                        Alzado.RefuerzosLongitudinales.Add(Refuerzoi);
+                    }
+                    else if(x % 2 > 0 && Barrai.Traslapo == Traslapo.Impar && i==0 || x % 2 == 0 && Barrai.Traslapo == Traslapo.Par && i == 0)
+                    {
+                        NivelInicial = BarrasDenom[i ].Muro.Story.StoryElevation - BarrasDenom[i ].Muro.Hw;
+                        NivelFinal = fc > 0
+                            ? BarrasDenom[i].Muro.Story.StoryElevation + DiccionariosRefuerzo.ReturnTraslapo(BarrasDenom[i].Diametro, fc)
+                            : BarrasDenom[i].Muro.Story.StoryElevation;
+
+                        tipoBarra = fc == 0 ? TipoBarra.Tipo3 : TipoBarra.Tipo1;
                         deltax = deltax == 0 ? 0.10f : 0f;
                         var Refuerzoi = SetRefuerzo(NivelInicial, NivelFinal, fc, BarrasDenom[i].Diametro, BarrasDenom[i].Cantidad, Barrai.Traslapo, PosX + deltax, tipoBarra);
                         Alzado.RefuerzosLongitudinales.Add(Refuerzoi);

@@ -35,6 +35,20 @@ namespace Entidades.ImportarInformacion
             return datos as object[,];
         }
 
+        public object[,] LeerDatos(int Column)
+        {
+            Worksheet Sheet = Workbook.Worksheets[1] as Worksheet;
+
+            var Filas = 100;
+            var cols = Sheet.Range["XFD1"].End[XlDirection.xlToLeft].Column;
+
+            var Cell1 = Sheet.Rows.Cells[1, 1];
+            var Cell2 = Sheet.Rows.Cells[Filas, cols];
+
+            var datos = Sheet.Range[Cell1, Cell2].Value;
+            return datos as object[,];
+        }
+
         public abstract void ExtraerInformacion(GradoDisipacionEnergia disipacionEnergia);
         public abstract void ExtraerInformacion();
 
@@ -62,6 +76,13 @@ namespace Entidades.ImportarInformacion
             return prueba.FindAll(x=>x!=null).ToList();
         }
 
+        public List<object> GetRow2(object[,] matrix, int RowNumber, int StartColumn, int EndColumn)
+        {
+            var prueba = Enumerable.Range(StartColumn, EndColumn - StartColumn).
+                Select(x => matrix[RowNumber, x]).ToList();
+
+            return prueba.ToList();
+        }
 
     }
 }

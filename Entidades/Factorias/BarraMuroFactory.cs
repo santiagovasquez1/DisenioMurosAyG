@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Entidades.Factorias
 {
@@ -15,6 +13,7 @@ namespace Entidades.Factorias
         {
             Muros = murosmodelo;
         }
+
         /// <summary>
         /// Instanciacion de lista de barras por piso
         /// </summary>
@@ -26,41 +25,45 @@ namespace Entidades.Factorias
         {
             if (BarrasPiso.Count > 0)
             {
-                var StoryName = $"piso{int.Parse(BarrasPiso[0].ToString()) + 1}".Replace(" ", string.Empty).ToLower();
-
-                var muros = (from muro in Muros
-                             where ($"muro{muro.LabelDef}").ToLower() == muroName
-                             where muro.Story.StoryName.ToLower().Replace(" ", string.Empty) == StoryName
-                             select muro).ToList();
-
-
-                foreach (Muro muro in muros)
+                if (BarrasPiso[0] != null)
                 {
-                    var barras = new List<BarraMuro>();
-                    int x = 0;
-                    Traslapo traslapo = Traslapo.Par;
+                    var StoryName = $"piso{int.Parse(BarrasPiso[0].ToString()) + 1}".Replace(" ", string.Empty).ToLower();
 
-                    for (int i = 1; i < BarrasPiso.Count; i++)
+                    var muros = (from muro in Muros
+                                 where ($"muro{muro.LabelDef}").ToLower() == muroName
+                                 where muro.Story.StoryName.ToLower().Replace(" ", string.Empty) == StoryName
+                                 select muro).ToList();
+
+                    foreach (Muro muro in muros)
                     {
-                        var barradenom = DenomBarras[i].ToString();
-                        var cant = int.Parse(CantidadesBarras[i].ToString());
-                        var diametro = DiccionariosRefuerzo.ReturnDiametro(BarrasPiso[i].ToString());
+                        var barras = new List<BarraMuro>();
+                        int x = 0;
+                        Traslapo traslapo = Traslapo.Par;
 
-                        if (x % 2 == 0)
-                            traslapo = Traslapo.Par;
-                        else
-                            traslapo = Traslapo.Impar;
+                        for (int i = 1; i < DenomBarras.Count; i++)
+                        {
+                            if (BarrasPiso[i] != null)
+                            {
+                                var barradenom = DenomBarras[i].ToString();
+                                var cant = int.Parse(CantidadesBarras[i].ToString());
+                                var diametro = DiccionariosRefuerzo.ReturnDiametro(BarrasPiso[i].ToString());
 
-                        var barra = new BarraMuro(muro.Label, muro, barradenom, cant, diametro, traslapo);
-                        barras.Add(barra);
-                        x++;
+                                if (x % 2 == 0)
+                                    traslapo = Traslapo.Par;
+                                else
+                                    traslapo = Traslapo.Impar;
+
+                                var barra = new BarraMuro(muro.Label, muro, barradenom, cant, diametro, traslapo);
+                                barras.Add(barra);
+                            }
+
+                            x++;
+                        }
+                        muro.BarrasMuros = barras;
+                        muro.CalcAsTotal();
                     }
-                    muro.BarrasMuros = barras;
-                    muro.CalcAsTotal();
-
                 }
             }
         }
-
     }
 }

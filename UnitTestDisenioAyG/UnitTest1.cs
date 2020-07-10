@@ -43,7 +43,16 @@ namespace UnitTestDisenioAyG
         {
             var RefuerzoFactory = new RefuerzoLongFactory(alzado,1.00f);
             RefuerzoFactory.SetRefuerzoMuro();
+            DibujarRefuerzo(alzado);
+        }
 
+        public void DibujarRefuerzo(Alzado alzado)
+        {
+            var InsertionPoint = new double[2];
+            FunctionsAutoCAD.FunctionsAutoCAD.OpenAutoCAD();
+            FunctionsAutoCAD.FunctionsAutoCAD.GetPoint(ref InsertionPoint);
+            var DibujarRefuerzo = new DibujoRefuerzo(alzado, InsertionPoint, 0.10f, "BORDES", "HIERROS", "R-60");
+            DibujarRefuerzo.DibujarRefuerzoLongitudinal();
         }
 
         public void AutocadController()
