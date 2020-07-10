@@ -38,6 +38,7 @@ namespace Entidades.Factorias
                     {
                         var barras = new List<BarraMuro>();
                         int x = 0;
+                        int y = 0;
                         Traslapo traslapo = Traslapo.Par;
 
                         for (int i = 1; i < DenomBarras.Count; i++)
@@ -45,6 +46,7 @@ namespace Entidades.Factorias
                             if (BarrasPiso[i] != null)
                             {
                                 var barradenom = DenomBarras[i].ToString();
+                                var barradenompos = i-1;
                                 var cant = int.Parse(CantidadesBarras[i].ToString());
                                 var diametro = DiccionariosRefuerzo.ReturnDiametro(BarrasPiso[i].ToString());
 
@@ -54,7 +56,9 @@ namespace Entidades.Factorias
                                     traslapo = Traslapo.Impar;
 
                                 var barra = new BarraMuro(muro.Label, muro, barradenom, cant, diametro, traslapo);
+                                barra.BaraDenomPos = barradenompos;
                                 barras.Add(barra);
+                                y++;
                             }
 
                             x++;

@@ -62,9 +62,13 @@ namespace DisenioMurosAyG.Controller
             if (ExisteDespiece == true)
             {
                 List<BarraMuro> Alzados = ExtraerAlzados();
-
+                int x = 0;
                 foreach (var alzadoi in Alzados)
-                    Columnas.Add(DataGridController.CrearColumna(alzadoi.BarraId, typeof(string), false));
+                {
+                    Columnas.Add(DataGridController.CrearColumna(alzadoi.BaraDenomPos.ToString(), typeof(string), false));
+                    x++;
+                }
+
             }
 
             DataGridController.Set_Columns_Data(DT_AlzadoSeleccionado, Columnas);
@@ -108,10 +112,20 @@ namespace DisenioMurosAyG.Controller
                     if (muro.BarrasMuros != null)
                     {
                         int x = 6;
+                        string ColumnName="";
+
                         foreach (var barra in muro.BarrasMuros)
                         {
-                            dataRow[x] = $"{barra.Cantidad}#{DiccionariosRefuerzo.ReturnNombreDiametro(barra.Diametro)}";
-                            x++;
+                            foreach(DataColumn col in DT_AlzadoSeleccionado.Columns)
+                            {
+                                if (col.ColumnName == barra.BaraDenomPos.ToString())
+                                {
+                                    ColumnName = col.ColumnName;
+                                    break;
+                                }
+                            }
+
+                            dataRow[ColumnName] = $"{barra.Cantidad}#{DiccionariosRefuerzo.ReturnNombreDiametro(barra.Diametro)}";
                         }
                     }
                 }
@@ -153,8 +167,13 @@ namespace DisenioMurosAyG.Controller
             {
                 List<BarraMuro> Alzados = ExtraerAlzados();
 
+                int x = 0;
                 foreach (var alzadoi in Alzados)
-                    DataGridController.AddGridViewColumn(gridView, typeof(GridViewTextBoxColumn), typeof(string), alzadoi.BarraId, alzadoi.BarraDenom, alzadoi.BarraId, false);
+                {
+                    DataGridController.AddGridViewColumn(gridView, typeof(GridViewTextBoxColumn), typeof(string), alzadoi.BaraDenomPos.ToString(), alzadoi.BarraDenom, alzadoi.BaraDenomPos.ToString(), false);
+                    x++;
+                }
+
             }
         }
 

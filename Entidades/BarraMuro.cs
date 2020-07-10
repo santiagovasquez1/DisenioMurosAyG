@@ -11,6 +11,7 @@ namespace Entidades
         public string MuroName { get; set; }
         public Muro Muro { get; set; }
         public string BarraDenom { get; set; }
+        public int BaraDenomPos { get; set; }
         public int Cantidad { get; set; }
         public Diametro Diametro { get; set; }
         public Traslapo Traslapo { get; set; }
