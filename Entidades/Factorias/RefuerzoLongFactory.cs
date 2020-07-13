@@ -76,9 +76,11 @@ namespace Entidades.Factorias
                     }
                     else
                     {
-                        fc = (from muro in Alzado.Muros
-                              where muro.Story.StoryId == BarrasDenom[i].Muro.Story.StoryId
-                              select muro.Fc).FirstOrDefault();
+                        var IndiceFc = Alzado.Muros.FindIndex(y => y.Story.StoryId == BarrasDenom[i].Muro.Story.StoryId) - 1;
+
+                        if (IndiceFc < 0) IndiceFc = 0;
+
+                        fc = Alzado.Muros[IndiceFc].Fc;
                     }
 
                     var Barrai = BarrasDenom[i];
