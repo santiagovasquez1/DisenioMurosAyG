@@ -116,7 +116,7 @@ namespace DisenioMurosAyG.Controller
                                 }
                             }
 
-                            dataRow[ColumnName] = $"{barra.Cantidad}#{DiccionariosRefuerzo.ReturnNombreDiametro(barra.Diametro)}";
+                            dataRow[ColumnName] = $"{barra.Cantidad}#{DiccionariosRefuerzo.ReturnNombreDiametro(barra.Diametro,1)}";
                         }
                     }
                 }

@@ -7,9 +7,10 @@ namespace Entidades
 {
     public class RefuerzoLong : Refuerzo
     {
-        public RefuerzoLong(Diametro diametro, int cantidad, float separacion, TipoRefuerzo tipo, Traslapo traslapo)
+        public RefuerzoLong(Diametro diametro,string denom, int cantidad, float separacion, TipoRefuerzo tipo, Traslapo traslapo)
         {
             RefuerzoId = Guid.NewGuid().ToString();
+            RefDenom = denom;
             Diametro = diametro;
             TipoRefuerzo = tipo;
             TipoTraslapo = traslapo;
@@ -49,7 +50,7 @@ namespace Entidades
 
         public override string ToString()
         {
-            return $"{Cantidad}#{DiccionariosRefuerzo.ReturnNombreDiametro(Diametro)}L={Longitud}";
+            return $"{Cantidad}#{DiccionariosRefuerzo.ReturnNombreDiametro(Diametro,1)}L={Longitud}";
         }
     }
 }

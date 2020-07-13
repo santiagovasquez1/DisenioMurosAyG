@@ -92,13 +92,13 @@ namespace DisenioMurosAyG.Controller
                 {
                     if (muro.EBE_Izq != null)
                     {
-                        dataRow[9] = $"#{DiccionariosRefuerzo.ReturnNombreDiametro(muro.EBE_Izq.DiametroEstribo)}";
+                        dataRow[9] = $"#{DiccionariosRefuerzo.ReturnNombreDiametro(muro.EBE_Izq.DiametroEstribo,1)}";
                         dataRow[10] = muro.EBE_Izq.SepEstribo;
                     }
 
                     else if (muro.EBE_Der != null)
                     {
-                        dataRow[9] = $"#{DiccionariosRefuerzo.ReturnNombreDiametro(muro.EBE_Der.DiametroEstribo)}";
+                        dataRow[9] = $"#{DiccionariosRefuerzo.ReturnNombreDiametro(muro.EBE_Der.DiametroEstribo,1)}";
                         dataRow[10] = muro.EBE_Der.SepEstribo;
                     }
 

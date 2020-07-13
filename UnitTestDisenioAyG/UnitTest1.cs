@@ -42,7 +42,7 @@ namespace UnitTestDisenioAyG
 
         public void ProbarDespiece(Alzado alzado)
         {
-            var RefuerzoFactory = new RefuerzoLongFactory(alzado,1.00f);
+            var RefuerzoFactory = new RefuerzoLongFactory(alzado, 1.00f);
             RefuerzoFactory.SetRefuerzoMuro();
             DibujarRefuerzo(alzado);
         }
@@ -52,7 +52,9 @@ namespace UnitTestDisenioAyG
             var InsertionPoint = new double[2];
             FunctionsAutoCAD.FunctionsAutoCAD.OpenAutoCAD();
             FunctionsAutoCAD.FunctionsAutoCAD.GetPoint(ref InsertionPoint);
-            var DibujarRefuerzo = new DibujoRefuerzo(alzado, InsertionPoint, 0.10f, "BORDES", "HIERROS", "R-60");
+            var DibujarRefuerzo = new DibujoRefuerzo(alzado, InsertionPoint, 0.10f, 1.20f, 1.00f, "BORDES", "HIERROS", "R-60", "COTA");
+            DibujarRefuerzo.DibujarMuros();
+            DibujarRefuerzo.DibujoCambioResistencia();
             DibujarRefuerzo.DibujarRefuerzoLongitudinal();
         }
 
@@ -78,7 +80,7 @@ namespace UnitTestDisenioAyG
             {
                 if (alzadoi.IsMaestro)
                 {
-                    var DibujoAlzado = new DibujoAlzado(alzadoi, InsertionPoint, "SUBRAYADO1", "SUBRAYADO2",0.1f,"","","");
+                    var DibujoAlzado = new DibujoAlzado(alzadoi, InsertionPoint, "SUBRAYADO1", "SUBRAYADO2", 0.1f, "", "", "");
                     DibujoAlzado.DibujarNombreMuro();
                     DibujoAlzado.CotaLongitudMuro();
                     DibujoAlzado.DibujarMuros();

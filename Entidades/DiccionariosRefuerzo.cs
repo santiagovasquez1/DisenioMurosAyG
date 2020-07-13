@@ -56,6 +56,20 @@ namespace Entidades
             nombrerefuerzo.Add("8", Diametro.Num8);
             return nombrerefuerzo;
         }
+
+        private static Dictionary<string, Diametro> SetNombreRefuerzo2()
+        {
+            var nombrerefuerzo = new Dictionary<string, Diametro>();
+            nombrerefuerzo.Add("4.5mm", Diametro.Num45mm);
+            nombrerefuerzo.Add("1/4", Diametro.Num2);
+            nombrerefuerzo.Add("3/8", Diametro.Num3);
+            nombrerefuerzo.Add("1/2", Diametro.Num4);
+            nombrerefuerzo.Add("5/8", Diametro.Num5);
+            nombrerefuerzo.Add("3/4", Diametro.Num6);
+            nombrerefuerzo.Add("7/8", Diametro.Num7);
+            nombrerefuerzo.Add("1", Diametro.Num8);
+            return nombrerefuerzo;
+        }
         private static Dictionary<Diametro, float> SetTraslapo(float fc)
         {
             var TraslapoRefuerzo = new Dictionary<Diametro, float>();
@@ -129,13 +143,14 @@ namespace Entidades
             return diametro;
         }
 
-        public static string ReturnNombreDiametro(Diametro diametro)
+        public static string ReturnNombreDiametro(Diametro diametro, int caso)
         {
-            NombreRefuerzo = SetNombreRefuerzo();
+            NombreRefuerzo = caso == 1 ? SetNombreRefuerzo() : SetNombreRefuerzo2();
+
             var diametronombre = NombreRefuerzo.FirstOrDefault(x => x.Value == diametro).Key;
             return diametronombre;
         }
-        public static float ReturnTraslapo(Diametro diametro,float fc)
+        public static float ReturnTraslapo(Diametro diametro, float fc)
         {
             TraslapoRefuerzo = SetTraslapo(fc);
             var Traslapo = TraslapoRefuerzo[diametro];

@@ -10,6 +10,7 @@ namespace Entidades
         public string AlzadoName { get; set; }
         public string NombreDef { get; set; }
         public bool IsMaestro { get; set; }
+        public bool Dibujar { get; set; }
         public string PadreId { get; set; }
         public Alzado Padre { get; set; }
         public List<Muro> Muros { get; set; }

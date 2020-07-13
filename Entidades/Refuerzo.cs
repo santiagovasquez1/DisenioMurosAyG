@@ -7,6 +7,7 @@ namespace Entidades
     public abstract class Refuerzo
     {
         public string RefuerzoId { get; set; }
+        public string RefDenom { get; set; }
         public Diametro Diametro { get; set; }
         public int Cantidad { get; set; }
         public float Asi { get; set; }
@@ -14,6 +15,7 @@ namespace Entidades
         public float Longitud { get; set; }
         public float Separacion { get; set; }
         public Traslapo TipoTraslapo { get; set; }
+        public float LongTraslapo { get; set; }
         public TipoRefuerzo TipoRefuerzo { get; set; }
         public float[] Coordenadas { get; set; }
         public abstract float GetPeso(Diametro diametro, float longitud, int cantidad);

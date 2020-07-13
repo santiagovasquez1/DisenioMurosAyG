@@ -47,7 +47,7 @@ namespace DibujoAutomaticoAlzados
             for (int i = Alzado.Muros.Count - 1; i >= 0; i--)
             {
                 var muro = Alzado.Muros[i];
-                var dibujomuroi = new DibujoMuro(muro, InsertionPoint, HLosa, LayerCoco,LayerHatchEBE, LayerTexto);
+                var dibujomuroi = new DibujoMuro(muro, InsertionPoint, HLosa, LayerCoco,LayerHatchEBE, LayerTexto,LayerCota);
                 dibujomuroi.DibujarCoco();
                 dibujomuroi.DibujarCotasMuro(muro.Hw, muro.Story.StoryElevation);
                 dibujomuroi.DibujarCotasViga(HLosa, muro.Story.StoryElevation);

@@ -20,18 +20,32 @@ namespace DibujoAutomaticoAlzados
         public string LayerTexto { get; set; }
         public string LayerCota { get; set; }
         public float HLosa { get; set; }
-        public DibujoMuro(Muro muro, double[] insertionpoint, float hlosa, string layercoco, string layerebe, string layertexto)
+        public DibujoMuro(Muro muro, double[] insertionpoint, float hlosa, string layercoco, string layerebe, string layertexto,string layerCota)
         {
             Muro = muro;
             InsertionPoint = insertionpoint;
             HLosa = hlosa;
             LayerCoco = layercoco;
+            LayerCota = layerCota;
             LayerHatchEBE = layerebe;
             LayerTexto = layertexto;
             CoordCoco = SetCoorPoligono(0, muro.Lw, muro.Hw, muro.Story.StoryElevation);
             CoordLosa = SetCoorPoligono(0, Muro.Lw, 0f, muro.Story.StoryElevation - HLosa);
             CoordNivel = SetCoorPoligono(-1.78f, 1.54f, 0f, muro.Story.StoryElevation);
-            InsertionPointText = new double[] { -1.78f + insertionpoint[0], muro.Story.StoryElevation + 0.75f, 0f };
+            InsertionPointText = new double[] { -1.78f + insertionpoint[0], insertionpoint[1] + muro.Story.StoryElevation + 0.25f, 0f };
+        }
+        public DibujoMuro(Muro muro, double[] insertionpoint, float hlosa, float LwCoco, string layercoco, string layertexto, string layerCota)
+        {
+            Muro = muro;
+            InsertionPoint = insertionpoint;
+            HLosa = hlosa;
+            LayerCota = layerCota;
+            LayerCoco = layercoco;
+            LayerTexto = layertexto;
+            CoordCoco = SetCoorPoligono(0, LwCoco, muro.Hw, muro.Story.StoryElevation);
+            CoordLosa = SetCoorPoligono(0, LwCoco, 0f, muro.Story.StoryElevation - HLosa);
+            CoordNivel = SetCoorPoligono(-1.78f, 1.54f, 0f, muro.Story.StoryElevation);
+            InsertionPointText = new double[] { -1.78f + insertionpoint[0],insertionpoint[1]+ muro.Story.StoryElevation + 0.25f, 0f };
         }
 
         public double[] SetCoorPoligono(float DeltaX, float longitud, float altitud, float nivel)
@@ -64,7 +78,7 @@ namespace DibujoAutomaticoAlzados
             var niveltemp = nivel - altitud;
             var P1 = new double[] { InsertionPoint[0] + Muro.Lw, InsertionPoint[1] + niveltemp, 0 };
             var P2 = new double[] { InsertionPoint[0] + Muro.Lw, InsertionPoint[1] + niveltemp + altitud - HLosa, 0 };
-            FunctionsAutoCAD.FunctionsAutoCAD.AddCota(P1, P2,LayerCota, "ROMANS", 0.75f, TextHeight: 1.50, ArrowheadSize: 0.85f);
+            FunctionsAutoCAD.FunctionsAutoCAD.AddCota(P1, P2, LayerCota, "ROMANS", 0.75f, TextHeight: 1.50, ArrowheadSize: 0.85f);
         }
         public void DibujarCotasViga(float altitud, float nivel)
         {

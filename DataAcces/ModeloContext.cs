@@ -13,6 +13,7 @@ using System.Windows.Forms;
 
 namespace DataAcces
 {
+    [Serializable]
     public class ModeloContext : ApplicationContext
     {
         public BindingList<Alzado> Alzados { get; set; }

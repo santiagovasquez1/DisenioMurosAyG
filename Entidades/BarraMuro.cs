@@ -34,7 +34,7 @@ namespace Entidades
         }
         public override string ToString()
         {
-            return $"Capa {BarraDenom}-{Cantidad}#{DiccionariosRefuerzo.ReturnNombreDiametro(this.Diametro)}{Traslapo}";
+            return $"Capa {BarraDenom}-{Cantidad}#{DiccionariosRefuerzo.ReturnNombreDiametro(this.Diametro,1)}{Traslapo}";
         }
     }
 }
