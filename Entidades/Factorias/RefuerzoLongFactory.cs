@@ -81,7 +81,7 @@ namespace Entidades.Factorias
                             VariablesImpar(out NivelInicial, out NivelFinal, LongTraslapo, fc, out tipoBarra, BarrasDenom, i);
                             deltax = deltax == 0 ? 0.10f : 0f;
 
-                            var Refuerzoi = SetRefuerzo(NivelInicial, NivelFinal, BarrasDenom[i].BarraDenom, BarrasDenom[i].Diametro, BarrasDenom[i].Cantidad, Barrai.Traslapo, PosX + deltax, tipoBarra, LongTraslapo);
+                            var Refuerzoi = SetRefuerzo(NivelInicial, NivelFinal, BarrasDenom[i].CapaRefuerzo, BarrasDenom[i].Diametro, BarrasDenom[i].Cantidad, Barrai.Traslapo, PosX + deltax, tipoBarra, LongTraslapo);
                             Alzado.RefuerzosLongitudinales.Add(Refuerzoi);
                         }
                         else if (x % 2 > 0 && Barrai.Traslapo == Traslapo.Par)
@@ -91,7 +91,7 @@ namespace Entidades.Factorias
                             VariablesPar(out NivelInicial, out NivelFinal, LongTraslapo, fc, out tipoBarra, BarrasDenom, i);
                             deltax = deltax == 0 ? 0.10f : 0f;
 
-                            var Refuerzoi = SetRefuerzo(NivelInicial, NivelFinal, BarrasDenom[i].BarraDenom, BarrasDenom[i].Diametro, BarrasDenom[i].Cantidad, Barrai.Traslapo, PosX + deltax, tipoBarra, LongTraslapo);
+                            var Refuerzoi = SetRefuerzo(NivelInicial, NivelFinal, BarrasDenom[i].CapaRefuerzo, BarrasDenom[i].Diametro, BarrasDenom[i].Cantidad, Barrai.Traslapo, PosX + deltax, tipoBarra, LongTraslapo);
                             Alzado.RefuerzosLongitudinales.Add(Refuerzoi);
                             //}
                             //else
@@ -118,7 +118,7 @@ namespace Entidades.Factorias
 
                             tipoBarra = fc == 0 ? TipoBarra.Tipo3 : TipoBarra.Tipo1;
                             deltax = deltax == 0 ? 0.10f : 0f;
-                            var Refuerzoi = SetRefuerzo(NivelInicial, NivelFinal, BarrasDenom[i].BarraDenom, BarrasDenom[i].Diametro, BarrasDenom[i].Cantidad, Barrai.Traslapo, PosX + deltax, tipoBarra, LongTraslapo);
+                            var Refuerzoi = SetRefuerzo(NivelInicial, NivelFinal, BarrasDenom[i].CapaRefuerzo, BarrasDenom[i].Diametro, BarrasDenom[i].Cantidad, Barrai.Traslapo, PosX + deltax, tipoBarra, LongTraslapo);
                             Alzado.RefuerzosLongitudinales.Add(Refuerzoi);
                         }
                     }
@@ -129,7 +129,7 @@ namespace Entidades.Factorias
                             VariableRefuerzoUnPisoImpar(out NivelInicial, out NivelFinal, LongTraslapo, fc, out tipoBarra, BarrasDenom, i);
 
                             deltax = deltax == 0 ? 0.10f : 0f;
-                            var Refuerzoi = SetRefuerzo(NivelInicial, NivelFinal, BarrasDenom[i].BarraDenom, BarrasDenom[i].Diametro, BarrasDenom[i].Cantidad, Barrai.Traslapo, PosX + deltax, tipoBarra, LongTraslapo);
+                            var Refuerzoi = SetRefuerzo(NivelInicial, NivelFinal, BarrasDenom[i].CapaRefuerzo, BarrasDenom[i].Diametro, BarrasDenom[i].Cantidad, Barrai.Traslapo, PosX + deltax, tipoBarra, LongTraslapo);
                             Alzado.RefuerzosLongitudinales.Add(Refuerzoi);
 
                         }
@@ -138,7 +138,7 @@ namespace Entidades.Factorias
                             VariableRefuerzoUnPisoPar(out NivelInicial, out NivelFinal, LongTraslapo, fc, out tipoBarra, BarrasDenom, i);
 
                             deltax = deltax == 0 ? 0.10f : 0f;
-                            var Refuerzoi = SetRefuerzo(NivelInicial, NivelFinal, BarrasDenom[i].BarraDenom, BarrasDenom[i].Diametro, BarrasDenom[i].Cantidad, Barrai.Traslapo, PosX + deltax, tipoBarra, LongTraslapo);
+                            var Refuerzoi = SetRefuerzo(NivelInicial, NivelFinal, BarrasDenom[i].CapaRefuerzo, BarrasDenom[i].Diametro, BarrasDenom[i].Cantidad, Barrai.Traslapo, PosX + deltax, tipoBarra, LongTraslapo);
                             Alzado.RefuerzosLongitudinales.Add(Refuerzoi);
                         }
                     }
@@ -233,10 +233,10 @@ namespace Entidades.Factorias
             return fc;
         }
 
-        private RefuerzoLong SetRefuerzo(float NivelInicial, float NivelFinal, string denom, Diametro diametro, int cantidad, Traslapo traslapo, float posx, TipoBarra tipoBarra, float longTraslapo)
+        private RefuerzoLong SetRefuerzo(float NivelInicial, float NivelFinal, CapaRefuerzo capa, Diametro diametro, int cantidad, Traslapo traslapo, float posx, TipoBarra tipoBarra, float longTraslapo)
         {
             float[] Coord = new float[] { };
-            var refuerzotemp = new RefuerzoLong(diametro, denom, cantidad, 0f, TipoRefuerzo.Longitudinal, traslapo);
+            var refuerzotemp = new RefuerzoLong(diametro, capa, 0f, TipoRefuerzo.Longitudinal);
             refuerzotemp.LongTraslapo = longTraslapo;
 
             switch (tipoBarra)

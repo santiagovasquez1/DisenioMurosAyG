@@ -92,9 +92,9 @@
         }
 
         #endregion
+        public Telerik.WinControls.UI.RadGridView ListlMuros;
         private Telerik.WinControls.Themes.MaterialBlueGreyTheme materialBlueGreyTheme1;
         private Telerik.WinControls.UI.RadGroupBox radGroupBox1;
-        public Telerik.WinControls.UI.RadGridView ListlMuros;
         private Telerik.WinControls.Themes.Office2013LightTheme office2013LightTheme1;
     }
 }

@@ -73,7 +73,7 @@ namespace DibujoAutomaticoAlzados
                     var InsertionCircle = new double[] { Coord[2], InsertionPoint[1] - HViga - 0.30, 0 };
                     var InsertionText = new double[] { InsertionCircle[0] - 0.25, InsertionCircle[1] + 0.08, 0 };
                     FunctionsAutoCAD.FunctionsAutoCAD.AddCircle(InsertionCircle, 0.36f, "R60");
-                    FunctionsAutoCAD.FunctionsAutoCAD.AddText(refuerzo.RefDenom, InsertionText, 0.15f, 0.15f, "R60", "ROMANS", 0f, Width2: 0.50, justifyText: JustifyText.Center);
+                    FunctionsAutoCAD.FunctionsAutoCAD.AddText(refuerzo.CapaRefuerzo.CapaNombre, InsertionText, 0.15f, 0.15f, "R60", "ROMANS", 0f, Width2: 0.50, justifyText: JustifyText.Center);
                 }
 
             }

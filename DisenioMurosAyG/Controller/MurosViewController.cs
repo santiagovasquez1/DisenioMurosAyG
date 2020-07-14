@@ -55,6 +55,7 @@ namespace DisenioMurosAyG.Controller
             {
                 DataGridController.CrearColumna("Muro",typeof(string),true),
                 DataGridController.CrearColumna("NombreDef",typeof(string),false),
+                DataGridController.CrearColumna("Dibujar",typeof(bool),false),
                 DataGridController.CrearColumna("IsMaestro",typeof(bool),false),
                 DataGridController.CrearColumna("Padre",typeof(string),false),
             };
@@ -71,9 +72,11 @@ namespace DisenioMurosAyG.Controller
                 DataRow dataRow = DT_MurosModelo.NewRow();
                 dataRow[0] = Alzado.AlzadoName;
                 dataRow[1] = Alzado.NombreDef;
-                dataRow[2] = Alzado.IsMaestro;
+                dataRow[2] = Alzado.Dibujar;
+                dataRow[3] = Alzado.IsMaestro;
+
                 if (Alzado.Padre != null)
-                    dataRow[3] = Alzado.Padre.AlzadoName;
+                    dataRow[4] = Alzado.Padre.AlzadoName;
 
                 DT_MurosModelo.Rows.Add(dataRow);
             }
@@ -99,8 +102,8 @@ namespace DisenioMurosAyG.Controller
         {
             DataGridController.AddGridViewColumn(gridView, typeof(GridViewTextBoxColumn), typeof(string), "Muro", "Muro", "Muro", true);
             DataGridController.AddGridViewColumn(gridView, typeof(GridViewTextBoxColumn), typeof(string), "NombreDef", "Nombre Def", "NombreDef", false);
+            DataGridController.AddGridViewColumn(gridView, typeof(bool), "Dibujar", "Dibujar Muro", "Dibujar", false);
             DataGridController.AddGridViewColumn(gridView, typeof(bool), "IsMaestro", "Muro maestro", "IsMaestro", false);
-
             var DataSource = (from alzado in Alzados where alzado.IsMaestro select alzado.AlzadoName).ToList();
             DataGridController.AddGridViewColumn(gridView, typeof(GridViewComboBoxColumn), typeof(string), "Padre", "Similar a", "Padre", true, DataSource);
         }
@@ -162,6 +165,9 @@ namespace DisenioMurosAyG.Controller
                                        where alzado.Padre.NombreDef == MurosView.ListlMuros.Rows[indice].Cells[column].Value.ToString()
                                        select alzado).FirstOrDefault();
                     AlzadoSeleccionado.Padre = AlzadoPadre;
+                    break;
+                case "Dibujar":
+                    AlzadoSeleccionado.Dibujar= (bool)MurosView.ListlMuros.Rows[indice].Cells["Dibujar"].Value;
                     break;
             }
         }

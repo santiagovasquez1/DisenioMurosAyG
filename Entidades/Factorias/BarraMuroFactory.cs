@@ -5,6 +5,7 @@ namespace Entidades.Factorias
 {
     public class BarraMuroFactory
     {
+        public CapaRefuerzo CapaRefuerzo { get; set; }
         public BarraMuro BarraMuro { get; set; }
         public List<BarraMuro> BarrasMuros { get; set; }
         public List<Muro> Muros { get; set; }
@@ -14,6 +15,29 @@ namespace Entidades.Factorias
             Muros = murosmodelo;
         }
 
+        public List<CapaRefuerzo> BuildCapas(List<object> DenomBarras, List<object> CantidadesBarras)
+        {
+            int x = 0;
+            List<CapaRefuerzo> TempCapas = new List<CapaRefuerzo>();
+            for (int i = 1; i < DenomBarras.Count; i++)
+            {
+                var barradenom = DenomBarras[i].ToString();
+                var cant = int.Parse(CantidadesBarras[i].ToString());
+
+                Traslapo traslapo;
+                if (x % 2 == 0)
+                    traslapo = Traslapo.Par;
+                else
+                    traslapo = Traslapo.Impar;
+
+                CapaRefuerzo = new CapaRefuerzo(barradenom, cant, traslapo, x);
+                TempCapas.Add(CapaRefuerzo);
+
+                x++;
+            }
+            return TempCapas;
+        }
+
         /// <summary>
         /// Instanciacion de lista de barras por piso
         /// </summary>
@@ -21,7 +45,7 @@ namespace Entidades.Factorias
         /// <param name="DenomBarras">Nombre del alzado en planos</param>
         /// <param name="CantidadesBarras">Cantidad de barras por capa de alzado</param>
         /// <param name="BarrasPiso">Diamertros de las barras</param>
-        public void BuildBarras(string muroName, List<object> DenomBarras, List<object> CantidadesBarras, List<object> BarrasPiso)
+        public void BuildBarras(string muroName, List<object> DenomBarras, List<object> CantidadesBarras, List<object> BarrasPiso, List<CapaRefuerzo> capas)
         {
             if (BarrasPiso.Count > 0)
             {
@@ -39,28 +63,24 @@ namespace Entidades.Factorias
                         var barras = new List<BarraMuro>();
                         int x = 0;
                         int y = 0;
-                        Traslapo traslapo = Traslapo.Par;
 
                         for (int i = 1; i < DenomBarras.Count; i++)
                         {
                             if (BarrasPiso[i] != null)
                             {
                                 var barradenom = DenomBarras[i].ToString();
-                                var barradenompos = i-1;
+
+                                var capa = (from capai in capas
+                                            where capai.Pos == i - 1
+                                            select capai).FirstOrDefault();
+
                                 var cant = int.Parse(CantidadesBarras[i].ToString());
                                 var diametro = DiccionariosRefuerzo.ReturnDiametro(BarrasPiso[i].ToString());
 
-                                if (x % 2 == 0)
-                                    traslapo = Traslapo.Par;
-                                else
-                                    traslapo = Traslapo.Impar;
-
-                                var barra = new BarraMuro(muro.Label, muro, barradenom, cant, diametro, traslapo);
-                                barra.BaraDenomPos = barradenompos;
+                                var barra = new BarraMuro(muro.Label, muro, diametro, capa);
                                 barras.Add(barra);
                                 y++;
                             }
-
                             x++;
                         }
                         muro.BarrasMuros = barras;

@@ -21,6 +21,7 @@ namespace DataAcces
         public BindingList<Refuerzo> Refuerzos { get; set; }
         public BindingList<Refuerzo> Estribos { get; set; }
         public BindingList<Malla> Mallas { get; set; }
+        public List<CapaRefuerzo> CapaRefuerzos { get; set; }
         public string RutaArchivoDisenio { get; set; }
         public string RutaArchivoDespiece { get; set; }
         public GradoDisipacionEnergia GradoDisipacionEnergia { get; set; }
@@ -63,12 +64,21 @@ namespace DataAcces
                         {
                             alzadoi.PadreId = padre.AlzadoId;
                             alzadoi.Padre = padre;
+                            alzadoi.Dibujar = false;
                         }
                         else
+                        {
                             alzadoi.IsMaestro = true;
+                            alzadoi.Dibujar = true;
+                        }
+
                     }
                     else
+                    {
                         alzadoi.IsMaestro = true;
+                        alzadoi.Dibujar = true;
+                    }
+
 
                     Alzados.Add(alzadoi);
                 }
@@ -85,6 +95,7 @@ namespace DataAcces
                 Modelo.MurosModelo = this.Muros.ToList();
                 Modelo.ExtraerInformacion();
                 Modelo.CerrarExcel();
+                          
             }
         }
 

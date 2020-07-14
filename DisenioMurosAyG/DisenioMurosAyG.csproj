@@ -145,11 +145,11 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Views\AgregarCapaView.cs">
+    <Compile Include="Views\EditarCapaView.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Views\AgregarCapaView.Designer.cs">
-      <DependentUpon>AgregarCapaView.cs</DependentUpon>
+    <Compile Include="Views\EditarCapaView.Designer.cs">
+      <DependentUpon>EditarCapaView.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\EditarMallaView.cs">
       <SubType>Form</SubType>
@@ -219,8 +219,8 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="Views\AgregarCapaView.resx">
-      <DependentUpon>AgregarCapaView.cs</DependentUpon>
+    <EmbeddedResource Include="Views\EditarCapaView.resx">
+      <DependentUpon>EditarCapaView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\EditarMallaView.resx">
       <DependentUpon>EditarMallaView.cs</DependentUpon>

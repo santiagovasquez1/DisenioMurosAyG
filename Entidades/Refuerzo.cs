@@ -7,8 +7,8 @@ namespace Entidades
     public abstract class Refuerzo
     {
         public string RefuerzoId { get; set; }
-        public string RefDenom { get; set; }
         public Diametro Diametro { get; set; }
+        public CapaRefuerzo CapaRefuerzo { get; set; }
         public int Cantidad { get; set; }
         public float Asi { get; set; }
         public float Peso { get; set; }

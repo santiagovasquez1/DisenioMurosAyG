@@ -35,10 +35,12 @@ namespace Entidades.ImportarInformacion
                     var Barra = GetRow(Datos, 2, i, i + 26);
                     var Cantidad = GetRow(Datos, 3, i, i + 26);
 
+                    var Capas=barrasfactory.BuildCapas(Barra, Cantidad);
+
                     for (int j = 5; j < 100; j++)
                     {
                         var BarrasPiso = GetRow2(Datos, j, i, i + 26);
-                        barrasfactory.BuildBarras(MuroName, Barra, Cantidad, BarrasPiso);                      
+                        barrasfactory.BuildBarras(MuroName, Barra, Cantidad, BarrasPiso,Capas);                      
                     }
                 }
             }

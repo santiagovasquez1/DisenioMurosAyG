@@ -9,9 +9,9 @@ using Telerik.WinControls;
 
 namespace DisenioMurosAyG.Views
 {
-    public partial class AgregarCapaView : Telerik.WinControls.UI.RadForm
+    public partial class EditarCapaView : Telerik.WinControls.UI.RadForm
     {
-        public AgregarCapaView()
+        public EditarCapaView()
         {
             InitializeComponent();
         }

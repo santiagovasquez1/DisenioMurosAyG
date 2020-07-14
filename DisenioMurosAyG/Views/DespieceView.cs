@@ -16,5 +16,6 @@ namespace DisenioMurosAyG.Views
         {
             InitializeComponent();
         }
+
     }
 }

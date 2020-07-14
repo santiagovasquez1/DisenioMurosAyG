@@ -7,16 +7,16 @@ namespace Entidades
 {
     public class RefuerzoLong : Refuerzo
     {
-        public RefuerzoLong(Diametro diametro,string denom, int cantidad, float separacion, TipoRefuerzo tipo, Traslapo traslapo)
+        public RefuerzoLong(Diametro diametro,CapaRefuerzo capa, float separacion, TipoRefuerzo tipo)
         {
             RefuerzoId = Guid.NewGuid().ToString();
-            RefDenom = denom;
+            CapaRefuerzo = capa;
             Diametro = diametro;
             TipoRefuerzo = tipo;
-            TipoTraslapo = traslapo;
-            Cantidad = cantidad;
+            TipoTraslapo = capa.Traslapo;
+            Cantidad = capa.Cantidad;
             Separacion = separacion;
-            Asi = GetAsi(diametro, cantidad);
+            Asi = GetAsi(diametro, Cantidad);
         }
         public override float GetPeso(Diametro diametro, float longitud, int cantidad)
         {

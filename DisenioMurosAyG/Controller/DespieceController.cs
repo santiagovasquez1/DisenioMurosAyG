@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Windows.Forms;
 using Telerik.WinControls.UI;
 
 namespace DisenioMurosAyG.Controller
@@ -12,9 +13,11 @@ namespace DisenioMurosAyG.Controller
     public class DespieceController
     {
         public ModeloContext _contex { get; set; }
+        public int IndiceCapaRefuerzo { get; set; }
         public DespieceView DespieceView { get; set; }
-        public AgregarCapaView AgregarCapaView { get; set; }
+        public EditarCapaView EditarCapaView { get; set; }
         public Alzado AlzadoSeleccionado { get; set; }
+        public List<CapaRefuerzo> CapasRefuerzos { get; set; }
         public Muro MuroSeleccionado { get; set; }
         public DataTable DT_AlzadoSeleccionado { get; set; }
         public DataTable DT_AyudaAlzadoSeleccionado { get; set; }
@@ -26,8 +29,8 @@ namespace DisenioMurosAyG.Controller
             DespieceView = despieceView;
             AlzadoSeleccionado = alzadoi;
 
-            DespieceView.cbAgregarCapa.Click += new EventHandler(AddCapaDespiece);
             DespieceView.gvDespieceMuro.CellEndEdit += new GridViewCellEventHandler(EditMuroCommand);
+            despieceView.gvDespieceMuro.ContextMenuOpening += new ContextMenuOpeningEventHandler(ColumnContextMenuOpening);
 
             Set_Columns_Data_Alzado();
             LoadAlzadoData();
@@ -36,8 +39,8 @@ namespace DisenioMurosAyG.Controller
 
         private void AceptarCapaClick(object sender, EventArgs e)
         {
-            if (AgregarCapaView.tbNombreCapa.Text != "")
-                AgregarCapaView.Close();
+            if (EditarCapaView.tbNombreCapa.Text != "")
+                EditarCapaView.Close();
         }
 
         private void Set_Columns_Data_Alzado()
@@ -62,7 +65,7 @@ namespace DisenioMurosAyG.Controller
                 int x = 0;
                 foreach (var alzadoi in Alzados)
                 {
-                    Columnas.Add(DataGridController.CrearColumna(alzadoi.BaraDenomPos.ToString(), typeof(string), false));
+                    Columnas.Add(DataGridController.CrearColumna(alzadoi.CapaRefuerzo.CapaId, typeof(string), false));
                     x++;
                 }
             }
@@ -103,20 +106,20 @@ namespace DisenioMurosAyG.Controller
                     if (muro.BarrasMuros != null)
                     {
                         int x = 6;
-                        string ColumnName = "";
+                        string ColumnName = string.Empty;
 
                         foreach (var barra in muro.BarrasMuros)
                         {
                             foreach (DataColumn col in DT_AlzadoSeleccionado.Columns)
                             {
-                                if (col.ColumnName == barra.BaraDenomPos.ToString())
+                                if (col.ColumnName == barra.CapaRefuerzo.CapaId)
                                 {
                                     ColumnName = col.ColumnName;
                                     break;
                                 }
                             }
 
-                            dataRow[ColumnName] = $"{barra.Cantidad}#{DiccionariosRefuerzo.ReturnNombreDiametro(barra.Diametro,1)}";
+                            dataRow[ColumnName] = $"{barra.Cantidad}#{DiccionariosRefuerzo.ReturnNombreDiametro(barra.Diametro, 1)}";
                         }
                     }
                 }
@@ -141,8 +144,7 @@ namespace DisenioMurosAyG.Controller
             DespieceView.gvDespieceMuro.SelectionMode = GridViewSelectionMode.CellSelect;
             DespieceView.gvDespieceMuro.MultiSelect = true;
 
-            AddColumns(DespieceView.rdAyudaDespiece);
-            DespieceView.rdAyudaDespiece.AutoSizeColumnsMode = GridViewAutoSizeColumnsMode.Fill;
+         DespieceView.gvDespieceMuro.TableElement.TableHeaderHeight=80;
         }
 
         private void AddColumns(RadGridView gridView)
@@ -161,7 +163,9 @@ namespace DisenioMurosAyG.Controller
                 int x = 0;
                 foreach (var alzadoi in Alzados)
                 {
-                    DataGridController.AddGridViewColumn(gridView, typeof(GridViewTextBoxColumn), typeof(string), alzadoi.BaraDenomPos.ToString(), alzadoi.BarraDenom, alzadoi.BaraDenomPos.ToString(), false);
+                    var ColumnHeaderText = $"{ alzadoi.BarraDenom}\nCantidad: {alzadoi.CapaRefuerzo.Cantidad}\nTraslapo: {alzadoi.CapaRefuerzo.Traslapo.ToString()}";
+
+                    DataGridController.AddGridViewColumn(gridView, typeof(GridViewTextBoxColumn), typeof(string), alzadoi.CapaRefuerzo.CapaId, ColumnHeaderText, alzadoi.CapaRefuerzo.CapaId, false);
                     x++;
                 }
             }
@@ -169,109 +173,147 @@ namespace DisenioMurosAyG.Controller
 
         private void AddCapaDespiece(object sender, EventArgs e)
         {
-            BarraMuro NuevaCapa = null;
-            AgregarCapaView = new AgregarCapaView();
-            AgregarCapaView.ListTraslapo.DataSource = Enum.GetValues(typeof(Traslapo));
-            AgregarCapaView.cbAceptar.Click += new EventHandler(AceptarCapaClick);
-            AgregarCapaView.ShowDialog();
+            var capaRefuerzo = new CapaRefuerzo();
 
-            string barraDenom = AgregarCapaView.tbNombreCapa.Text;
-            if (barraDenom != "")
-                NuevaCapa = new BarraMuro(barraDenom, Traslapo.Par);
+            EditarCapaView = new EditarCapaView();
+            EditarCapaView.ListTraslapo.DataSource = Enum.GetValues(typeof(Traslapo));
+            EditarCapaView.cbAceptar.Click += new EventHandler(AceptarCapaClick);
 
-            if (NuevaCapa != null)
+            EditarCapaView.tbNombreCapa.DataBindings.Add("Text", capaRefuerzo, "CapaNombre", true, DataSourceUpdateMode.OnPropertyChanged);
+            EditarCapaView.tbNumeroCapas.DataBindings.Add("Text", capaRefuerzo, "Cantidad", true, DataSourceUpdateMode.OnPropertyChanged);
+            EditarCapaView.ListTraslapo.DataBindings.Add("Text", capaRefuerzo, "Traslapo", true, DataSourceUpdateMode.OnPropertyChanged);
+            EditarCapaView.ShowDialog();
+
+            if (capaRefuerzo.CapaNombre != string.Empty)
             {
                 var Columnas = new List<DataColumn>(){
-                DataGridController.CrearColumna(NuevaCapa.BarraId, typeof(string), false)};
+                DataGridController.CrearColumna(capaRefuerzo.CapaNombre, typeof(string), false)};
                 DataGridController.Set_Columns_Data(DT_AlzadoSeleccionado, Columnas);
-                DataGridController.AddGridViewColumn(DespieceView.gvDespieceMuro, typeof(GridViewTextBoxColumn), typeof(string), NuevaCapa.BarraId, NuevaCapa.BarraDenom, NuevaCapa.BarraId, false);
+                DataGridController.AddGridViewColumn(DespieceView.gvDespieceMuro, typeof(GridViewTextBoxColumn), typeof(string), capaRefuerzo.CapaNombre, capaRefuerzo.CapaNombre, capaRefuerzo.CapaNombre, false);
             }
+        }
+
+        private void ColumnContextMenuOpening(object sender, Telerik.WinControls.UI.ContextMenuOpeningEventArgs e)
+        {
+            var controlprovider = e.ContextMenuProvider as GridHeaderCellElement;
+
+            if (controlprovider != null)
+            {
+                IndiceCapaRefuerzo = controlprovider.ColumnIndex;
+                e.ContextMenu.Items.Clear();
+
+                RadMenuItem AgregarCapa = new RadMenuItem("Agregar capa de refuerzo");
+                AgregarCapa.Click += new EventHandler(AddCapaDespiece);
+                e.ContextMenu.Items.Add(AgregarCapa);
+
+                RadMenuItem EditarCapa = new RadMenuItem();
+                EditarCapa.Text = $"Editar capa {controlprovider.AccessibleName}";
+                EditarCapa.Click += new EventHandler(EditarCapaDespiece);
+                e.ContextMenu.Items.Add(EditarCapa);
+
+                RadMenuItem EliminarCapa = new RadMenuItem();
+                EliminarCapa.Text = $"Eliminar capa {controlprovider.AccessibleName}";
+                EliminarCapa.Click += new EventHandler(EliminarCapaDespiece);
+                e.ContextMenu.Items.Add(EliminarCapa);
+            }
+
+        }
+
+        private void EliminarCapaDespiece(object sender, EventArgs e)
+        {
+
+        }
+
+        private void EditarCapaDespiece(object sender, EventArgs e)
+        {
+
         }
 
         private void EditMuroCommand(object sender, GridViewCellEventArgs e)
         {
-            int indice = e.RowIndex;
-            int column = e.ColumnIndex;
-            var ColumnHeader = DespieceView.gvDespieceMuro.Rows[indice].Cells[column].ColumnInfo.HeaderText;
-            string[] infoRef;
-            int Cantidad = 0;
-            string diametro = "";
-            Traslapo traslapo = Traslapo.Par;
-            List<Muro> MurosSeleccionados = new List<Muro>();
+            //int indice = e.RowIndex;
+            //int column = e.ColumnIndex;
+            //var ColumnHeader = DespieceView.gvDespieceMuro.Rows[indice].Cells[column].ColumnInfo.HeaderText;
+            //string[] infoRef;
+            //int Cantidad = 0;
+            //string diametro = "";
+            //Traslapo traslapo = Traslapo.Par;
+            //List<Muro> MurosSeleccionados = new List<Muro>();
 
-            MuroSeleccionado = AlzadoSeleccionado.Muros[indice];
-            var CapaRef = DespieceView.gvDespieceMuro.Rows[indice].Cells[column].Value.ToString();
+            //MuroSeleccionado = AlzadoSeleccionado.Muros[indice];
+            //var CapaRef = DespieceView.gvDespieceMuro.Rows[indice].Cells[column].Value.ToString();
 
-            if (AlzadoSeleccionado.IsMaestro)
-            {
-                MurosSeleccionados = (from Alzado in _contex.Alzados
-                                      where Alzado.PadreId == AlzadoSeleccionado.AlzadoId | Alzado.AlzadoId == AlzadoSeleccionado.AlzadoId
-                                      select Alzado.Muros[indice]).ToList();
-            }
-            else
-                MurosSeleccionados.Add(MuroSeleccionado);
+            //if (AlzadoSeleccionado.IsMaestro)
+            //{
+            //    MurosSeleccionados = (from Alzado in _contex.Alzados
+            //                          where Alzado.PadreId == AlzadoSeleccionado.AlzadoId | Alzado.AlzadoId == AlzadoSeleccionado.AlzadoId
+            //                          select Alzado.Muros[indice]).ToList();
+            //}
+            //else
+            //    MurosSeleccionados.Add(MuroSeleccionado);
 
-            if (CapaRef != "" && CapaRef.Contains("#"))
-            {
-                if (CapaRef.ToLower().Contains("t") == false)
-                {
-                    infoRef = CapaRef.Split('#');
-                    Cantidad = int.Parse(infoRef[0]);
-                    diametro = infoRef[1];
-                    traslapo = Traslapo.Par;
-                }
-                else
-                {
-                    infoRef = CapaRef.ToLower().Split(new char[] { '#', 't' });
-                    Cantidad = int.Parse(infoRef[0]);
-                    diametro = infoRef[1];
+            //if (CapaRef != string.Empty && CapaRef.Contains("#"))
+            //{
+            //    if (CapaRef.ToLower().Contains("t") == false)
+            //    {
+            //        infoRef = CapaRef.Split('#');
+            //        Cantidad = int.Parse(infoRef[0]);
+            //        diametro = infoRef[1];
+            //        traslapo = Traslapo.Par;
+            //    }
+            //    else
+            //    {
+            //        infoRef = CapaRef.ToLower().Split(new char[] { '#', 't' });
+            //        Cantidad = int.Parse(infoRef[0]);
+            //        diametro = infoRef[1];
 
-                    switch (infoRef[3])
-                    {
-                        case "1":
-                            traslapo = Traslapo.Par;
-                            break;
+            //        switch (infoRef[3])
+            //        {
+            //            case "1":
+            //                traslapo = Traslapo.Par;
+            //                break;
 
-                        case "2":
-                            traslapo = Traslapo.Impar;
-                            break;
-                    }
-                }
+            //            case "2":
+            //                traslapo = Traslapo.Impar;
+            //                break;
+            //        }
+            //    }
 
-                foreach (var muro in MurosSeleccionados)
-                {
-                    if (muro.BarrasMuros != null)
-                    {
-                        var indiceBarra = muro.BarrasMuros.FindIndex(x => x.BarraDenom == ColumnHeader);
+            //    foreach (var muro in MurosSeleccionados)
+            //    {
+            //        if (muro.BarrasMuros != null)
+            //        {
+            //            var indiceBarra = muro.BarrasMuros.FindIndex(x => x.BarraDenom == ColumnHeader);
 
-                        if (indiceBarra >= 0)
-                        {
-                            var Barra = muro.BarrasMuros[indiceBarra];
-                            Barra.Cantidad = Cantidad;
-                            Barra.Diametro = DiccionariosRefuerzo.ReturnDiametro(diametro);
-                        }
-                        else
-                        {
-                            var Barra = new BarraMuro(muro.Label, muro, ColumnHeader, Cantidad, DiccionariosRefuerzo.ReturnDiametro(diametro), traslapo);
-                            muro.BarrasMuros.Add(Barra);
-                        }
-                        muro.CalcAsTotal();
-                        DespieceView.gvDespieceMuro.Columns["AsTotal"].ReadOnly = false;
-                        DespieceView.gvDespieceMuro.Rows[indice].Cells["AsTotal"].Value = muro.AsTotalAdicional;
-                        DespieceView.gvDespieceMuro.Columns["AsTotal"].ReadOnly = true;
-                    }
-                    else
-                    {
-                        var Barra = new BarraMuro(muro.Label, muro, ColumnHeader, Cantidad, DiccionariosRefuerzo.ReturnDiametro(diametro), traslapo);
-                        muro.BarrasMuros = new List<BarraMuro>();
-                        muro.BarrasMuros.Add(Barra);
-                        muro.CalcAsTotal();
-                        DespieceView.gvDespieceMuro.Columns["AsTotal"].ReadOnly = false;
-                        DespieceView.gvDespieceMuro.Rows[indice].Cells["AsTotal"].Value = muro.AsTotalAdicional;
-                        DespieceView.gvDespieceMuro.Columns["AsTotal"].ReadOnly = true;
-                    }
-                }
-            }
+            //            if (indiceBarra >= 0)
+            //            {
+            //                var Barra = muro.BarrasMuros[indiceBarra];
+            //                Barra.Cantidad = Cantidad;
+            //                Barra.Diametro = DiccionariosRefuerzo.ReturnDiametro(diametro);
+            //            }
+            //            else
+            //            {
+            //                var Barra = new BarraMuro(muro.Label, muro, ColumnHeader, Cantidad, DiccionariosRefuerzo.ReturnDiametro(diametro), traslapo);
+            //                muro.BarrasMuros.Add(Barra);
+            //            }
+            //            muro.CalcAsTotal();
+            //            DespieceView.gvDespieceMuro.Columns["AsTotal"].ReadOnly = false;
+            //            DespieceView.gvDespieceMuro.Rows[indice].Cells["AsTotal"].Value = muro.AsTotalAdicional;
+            //            DespieceView.gvDespieceMuro.Columns["AsTotal"].ReadOnly = true;
+            //        }
+            //        else
+            //        {
+            //            var Barra = new BarraMuro(muro.Label, muro, ColumnHeader, Cantidad, DiccionariosRefuerzo.ReturnDiametro(diametro), traslapo);
+            //            muro.BarrasMuros = new List<BarraMuro>();
+            //            muro.BarrasMuros.Add(Barra);
+            //            muro.CalcAsTotal();
+            //            DespieceView.gvDespieceMuro.Columns["AsTotal"].ReadOnly = false;
+            //            DespieceView.gvDespieceMuro.Rows[indice].Cells["AsTotal"].Value = muro.AsTotalAdicional;
+            //            DespieceView.gvDespieceMuro.Columns["AsTotal"].ReadOnly = true;
+            //        }
+            //    }
+            //}
         }
+
     }
 }

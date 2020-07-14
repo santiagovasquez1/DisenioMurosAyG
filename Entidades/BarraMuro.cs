@@ -15,22 +15,23 @@ namespace Entidades
         public int Cantidad { get; set; }
         public Diametro Diametro { get; set; }
         public Traslapo Traslapo { get; set; }
-
+        public CapaRefuerzo CapaRefuerzo { get; set; }
         public BarraMuro(string barradenom, Traslapo traslapo)
         {
             BarraId = Guid.NewGuid().ToString();
             BarraDenom = barradenom;
             Traslapo = traslapo;
         }
-        public BarraMuro(string nombremuro, Muro muro, string barradenom, int cantidad, Diametro diametro, Traslapo traslapo)
+        public BarraMuro(string nombremuro, Muro muro, Diametro diametro,CapaRefuerzo capa)
         {
             BarraId = Guid.NewGuid().ToString();
             MuroName = nombremuro;
             Muro = muro;
-            BarraDenom = barradenom;
+            CapaRefuerzo = capa;
+            BarraDenom = CapaRefuerzo.CapaNombre;
             Diametro = diametro;
-            Cantidad = cantidad;
-            Traslapo = traslapo;
+            Cantidad = CapaRefuerzo.Cantidad;
+            Traslapo = CapaRefuerzo.Traslapo;
         }
         public override string ToString()
         {
