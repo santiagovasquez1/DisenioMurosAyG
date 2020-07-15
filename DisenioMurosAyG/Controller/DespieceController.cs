@@ -208,7 +208,7 @@ namespace DisenioMurosAyG.Controller
 
                     RadMenuItem EliminarCapa = new RadMenuItem();
                     EliminarCapa.Text = $"Eliminar capa {CapaRefuerzoSeleccionada.CapaNombre}";
-                    //EliminarCapa.Click += new EventHandler(EliminarCapaDespiece);
+                    EliminarCapa.Click += new EventHandler(EliminarCapaDespiece);
                     e.ContextMenu.Items.Add(EliminarCapa);
                 }
 
@@ -216,6 +216,43 @@ namespace DisenioMurosAyG.Controller
 
         }
 
+        private void EliminarCapaDespiece(object sender, EventArgs e)
+        {
+            var barras = (from prueba in AlzadoSeleccionado.Muros
+                          where prueba.BarrasMuros != null
+                          from barra in prueba.BarrasMuros
+                          where barra.CapaRefuerzo.CapaId == CapaRefuerzoSeleccionada.CapaId
+                          select barra).ToList();
+
+            foreach (var muro in AlzadoSeleccionado.Muros)
+            {
+                if (muro.BarrasMuros != null)
+                {
+                    var barrai = (from prueba in barras
+                                  where prueba.Muro.MuroId == muro.MuroId
+                                  select prueba).FirstOrDefault();
+
+                    muro.BarrasMuros.Remove(barrai);
+                    muro.CalcAsTotal();
+
+                    var indice = AlzadoSeleccionado.Muros.FindIndex(x=>x.MuroId==muro.MuroId);
+                    if (indice >= 0)
+                        DespieceView.gvDespieceMuro.Rows[indice].Cells["AsTotal"].Value=muro.AsTotalAdicional;
+                }
+            }
+
+            var ColumnaEliminar = (from DataColumn columna in DT_AlzadoSeleccionado.Columns
+                                   where columna.ColumnName == CapaRefuerzoSeleccionada.CapaId
+                                   select columna).FirstOrDefault();
+
+            var ColumnaEliminar2 = (from GridViewColumn columna in DespieceView.gvDespieceMuro.Columns
+                                    where columna.Name == CapaRefuerzoSeleccionada.CapaId
+                                    select columna).FirstOrDefault();
+
+
+            DT_AlzadoSeleccionado.Columns.Remove(ColumnaEliminar);
+            DespieceView.gvDespieceMuro.Columns.Remove(ColumnaEliminar2.Name);
+        }
 
         private void AddCapaDespieceClick(object sender, EventArgs e)
         {
