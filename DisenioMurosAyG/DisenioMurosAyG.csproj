@@ -131,11 +131,13 @@
     <Compile Include="Controller\AlzadoController.cs" />
     <Compile Include="Controller\ContextController.cs" />
     <Compile Include="Controller\DespieceController.cs" />
+    <Compile Include="Controller\EditarCapaController.cs" />
     <Compile Include="Controller\EditarMallaController.cs" />
     <Compile Include="Controller\InicioController.cs" />
     <Compile Include="Controller\DataGridController.cs" />
     <Compile Include="Controller\MallaController.cs" />
     <Compile Include="Controller\MurosViewController.cs" />
+    <Compile Include="Controller\TipoEdicionCapa.cs" />
     <Compile Include="Controller\VariablesDibujoController.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
