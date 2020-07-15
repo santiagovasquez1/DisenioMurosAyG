@@ -119,7 +119,7 @@ namespace DisenioMurosAyG.Controller
                                 }
                             }
 
-                            dataRow[ColumnName] = $"{barra.Cantidad}#{DiccionariosRefuerzo.ReturnNombreDiametro(barra.Diametro, 1)}";
+                            dataRow[ColumnName] = int.Parse(DiccionariosRefuerzo.ReturnNombreDiametro(barra.Diametro, 1));
                         }
                     }
                 }
@@ -134,8 +134,8 @@ namespace DisenioMurosAyG.Controller
             DespieceView.gvDespieceMuro.DataSource = DT_AlzadoSeleccionado;
             AddColumns(DespieceView.gvDespieceMuro);
 
-            DespieceView.gvDespieceMuro.Columns["AsReq"].FormatString = "{0:F3}";
-            DespieceView.gvDespieceMuro.Columns["AsTotal"].FormatString = "{0:F3}";
+            DespieceView.gvDespieceMuro.Columns["AsReq"].FormatString = "{0:F2}";
+            DespieceView.gvDespieceMuro.Columns["AsTotal"].FormatString = "{0:F2}";
             DespieceView.gvDespieceMuro.AutoSizeColumnsMode = GridViewAutoSizeColumnsMode.Fill;
             DespieceView.gvDespieceMuro.ReadOnly = false;
             DespieceView.gvDespieceMuro.AllowColumnReorder = false;
@@ -144,7 +144,7 @@ namespace DisenioMurosAyG.Controller
             DespieceView.gvDespieceMuro.SelectionMode = GridViewSelectionMode.CellSelect;
             DespieceView.gvDespieceMuro.MultiSelect = true;
 
-         DespieceView.gvDespieceMuro.TableElement.TableHeaderHeight=80;
+            DespieceView.gvDespieceMuro.TableElement.TableHeaderHeight = 80;
         }
 
         private void AddColumns(RadGridView gridView)
@@ -231,89 +231,92 @@ namespace DisenioMurosAyG.Controller
 
         private void EditMuroCommand(object sender, GridViewCellEventArgs e)
         {
-            //int indice = e.RowIndex;
-            //int column = e.ColumnIndex;
-            //var ColumnHeader = DespieceView.gvDespieceMuro.Rows[indice].Cells[column].ColumnInfo.HeaderText;
-            //string[] infoRef;
-            //int Cantidad = 0;
-            //string diametro = "";
-            //Traslapo traslapo = Traslapo.Par;
-            //List<Muro> MurosSeleccionados = new List<Muro>();
+            int indice = e.RowIndex;
+            int column = e.ColumnIndex;
+            var ColumnName = DespieceView.gvDespieceMuro.Rows[indice].Cells[column].ColumnInfo.Name;
+            BarraMuro barra = null;
+            List<Muro> MurosSeleccionados = new List<Muro>();
 
-            //MuroSeleccionado = AlzadoSeleccionado.Muros[indice];
-            //var CapaRef = DespieceView.gvDespieceMuro.Rows[indice].Cells[column].Value.ToString();
+            MuroSeleccionado = AlzadoSeleccionado.Muros[indice];
 
-            //if (AlzadoSeleccionado.IsMaestro)
-            //{
-            //    MurosSeleccionados = (from Alzado in _contex.Alzados
-            //                          where Alzado.PadreId == AlzadoSeleccionado.AlzadoId | Alzado.AlzadoId == AlzadoSeleccionado.AlzadoId
-            //                          select Alzado.Muros[indice]).ToList();
-            //}
-            //else
-            //    MurosSeleccionados.Add(MuroSeleccionado);
+            if (AlzadoSeleccionado.IsMaestro)
+            {
+                MurosSeleccionados = (from Alzado in _contex.Alzados
+                                      where Alzado.PadreId == AlzadoSeleccionado.AlzadoId | Alzado.AlzadoId == AlzadoSeleccionado.AlzadoId
+                                      select Alzado.Muros[indice]).ToList();
+            }
+            else
+                MurosSeleccionados.Add(MuroSeleccionado);
 
-            //if (CapaRef != string.Empty && CapaRef.Contains("#"))
-            //{
-            //    if (CapaRef.ToLower().Contains("t") == false)
-            //    {
-            //        infoRef = CapaRef.Split('#');
-            //        Cantidad = int.Parse(infoRef[0]);
-            //        diametro = infoRef[1];
-            //        traslapo = Traslapo.Par;
-            //    }
-            //    else
-            //    {
-            //        infoRef = CapaRef.ToLower().Split(new char[] { '#', 't' });
-            //        Cantidad = int.Parse(infoRef[0]);
-            //        diametro = infoRef[1];
+            if (AlzadoSeleccionado.Muros.LastOrDefault().BarrasMuros != null)
+            {
+                var CapaRefuerzo = (from barrai in AlzadoSeleccionado.Muros.LastOrDefault().BarrasMuros
+                                    where barrai.CapaRefuerzo.CapaId == ColumnName
+                                    select barrai.CapaRefuerzo).FirstOrDefault();
 
-            //        switch (infoRef[3])
-            //        {
-            //            case "1":
-            //                traslapo = Traslapo.Par;
-            //                break;
+                var ValorCelda = DespieceView.gvDespieceMuro.Rows[indice].Cells[column].Value.ToString();
+                int Diametro = 0;
 
-            //            case "2":
-            //                traslapo = Traslapo.Impar;
-            //                break;
-            //        }
-            //    }
-
-            //    foreach (var muro in MurosSeleccionados)
-            //    {
-            //        if (muro.BarrasMuros != null)
-            //        {
-            //            var indiceBarra = muro.BarrasMuros.FindIndex(x => x.BarraDenom == ColumnHeader);
-
-            //            if (indiceBarra >= 0)
-            //            {
-            //                var Barra = muro.BarrasMuros[indiceBarra];
-            //                Barra.Cantidad = Cantidad;
-            //                Barra.Diametro = DiccionariosRefuerzo.ReturnDiametro(diametro);
-            //            }
-            //            else
-            //            {
-            //                var Barra = new BarraMuro(muro.Label, muro, ColumnHeader, Cantidad, DiccionariosRefuerzo.ReturnDiametro(diametro), traslapo);
-            //                muro.BarrasMuros.Add(Barra);
-            //            }
-            //            muro.CalcAsTotal();
-            //            DespieceView.gvDespieceMuro.Columns["AsTotal"].ReadOnly = false;
-            //            DespieceView.gvDespieceMuro.Rows[indice].Cells["AsTotal"].Value = muro.AsTotalAdicional;
-            //            DespieceView.gvDespieceMuro.Columns["AsTotal"].ReadOnly = true;
-            //        }
-            //        else
-            //        {
-            //            var Barra = new BarraMuro(muro.Label, muro, ColumnHeader, Cantidad, DiccionariosRefuerzo.ReturnDiametro(diametro), traslapo);
-            //            muro.BarrasMuros = new List<BarraMuro>();
-            //            muro.BarrasMuros.Add(Barra);
-            //            muro.CalcAsTotal();
-            //            DespieceView.gvDespieceMuro.Columns["AsTotal"].ReadOnly = false;
-            //            DespieceView.gvDespieceMuro.Rows[indice].Cells["AsTotal"].Value = muro.AsTotalAdicional;
-            //            DespieceView.gvDespieceMuro.Columns["AsTotal"].ReadOnly = true;
-            //        }
-            //    }
-            //}
+                if (ValorCelda != string.Empty)
+                {
+                    if (int.TryParse(ValorCelda, out Diametro))
+                    {
+                        if (Diametro >= 3 && Diametro <= 8)
+                        {
+                            foreach (var muroi in MurosSeleccionados)
+                            {
+                                barra = EditBarraMuro(ColumnName, CapaRefuerzo, Diametro, muroi);
+                            }
+                        }
+                        else
+                        {
+                            ValorCelda = "Error";
+                        }
+                    }
+                }
+                else
+                {
+                    foreach (var muroi in MurosSeleccionados)
+                    {
+                        if (muroi.BarrasMuros != null)
+                        {
+                            var index = muroi.BarrasMuros.FindIndex(x => x.CapaRefuerzo.CapaId == ColumnName);
+                            if (index >= 0)
+                                muroi.BarrasMuros.RemoveAt(index);
+                        }
+                    }
+                }
+            }
         }
 
+        private static BarraMuro EditBarraMuro(string ColumnName, CapaRefuerzo CapaRefuerzo, int Diametro, Muro muroi)
+        {
+            BarraMuro barra;
+            if (muroi.BarrasMuros != null)
+            {
+                barra = (from barrai in muroi.BarrasMuros
+                         where barrai.CapaRefuerzo.CapaId == ColumnName
+                         select barrai).FirstOrDefault();
+                if (barra != null)
+                {
+                    barra.Diametro = DiccionariosRefuerzo.ReturnDiametro(Diametro.ToString());
+                }
+                else
+                {
+                    barra = new BarraMuro(muroi.Label, muroi, DiccionariosRefuerzo.ReturnDiametro(Diametro.ToString()), CapaRefuerzo);
+                    muroi.BarrasMuros.Add(barra);
+                }
+            }
+            else
+            {
+                barra = new BarraMuro(muroi.Label, muroi, DiccionariosRefuerzo.ReturnDiametro(Diametro.ToString()), CapaRefuerzo);
+                muroi.BarrasMuros = new List<BarraMuro>
+                                    {
+                                        barra
+                                    };
+            }
+
+            return barra;
+        }
     }
 }

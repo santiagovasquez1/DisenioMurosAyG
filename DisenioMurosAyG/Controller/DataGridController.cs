@@ -85,7 +85,7 @@ namespace DisenioMurosAyG.Controller
             GridViewTextBoxColumn textBoxColumn = new GridViewTextBoxColumn();
             SetPropertiesColumn(typevalue, columnName, headerText, fieldName, isreadonly, textBoxColumn);
             textBoxColumn.DataType = typevalue;
-            textBoxColumn.DataSourceNullValue = "Error";
+            //textBoxColumn.DataSourceNullValue = "Error";
             return textBoxColumn;
         }
 
