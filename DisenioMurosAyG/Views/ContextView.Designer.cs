@@ -104,6 +104,7 @@
             // 
             // cbListMuros
             // 
+            this.cbListMuros.Enabled = false;
             this.cbListMuros.Name = "cbListMuros";
             this.cbListMuros.Text = "Lista Muros";
             // 
@@ -188,6 +189,9 @@
             // 
             // PanelContainer
             // 
+            this.PanelContainer.AutoScroll = false;
+            this.PanelContainer.Dock = System.Windows.Forms.DockStyle.None;
+            this.PanelContainer.Location = new System.Drawing.Point(0, 0);
             this.PanelContainer.Size = new System.Drawing.Size(210, 441);
             // 
             // ListViewAlzados
@@ -274,9 +278,10 @@
             this.ViePageContainer.Controls.Add(this.ViewPageDespiece);
             this.ViePageContainer.DefaultPage = this.ViewPageAlzado;
             this.ViePageContainer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ViePageContainer.Enabled = false;
             this.ViePageContainer.Location = new System.Drawing.Point(0, 0);
             this.ViePageContainer.Name = "ViePageContainer";
-            this.ViePageContainer.SelectedPage = this.ViewPageAlzado;
+            this.ViePageContainer.SelectedPage = this.ViewPageDespiece;
             this.ViePageContainer.Size = new System.Drawing.Size(968, 443);
             this.ViePageContainer.TabIndex = 0;
             this.ViePageContainer.ThemeName = "Office2013Light";

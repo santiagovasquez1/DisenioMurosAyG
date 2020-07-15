@@ -43,7 +43,7 @@ namespace DisenioMurosAyG.Controller
 
         private void CancelarClick(object sender, EventArgs e)
         {
-            MallaView.Visible = true;
+            //MallaView.Visible = true;
             EditarMallaView.Close();
         }
 

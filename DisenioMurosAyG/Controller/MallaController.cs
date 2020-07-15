@@ -28,9 +28,10 @@ namespace DisenioMurosAyG.Controller
             MallaView.cbEliminar.Click += new EventHandler(EliminarMallaClick);
 
             MallaView.ListaMallas.DataSource = _context.Mallas;
+            MallaSeleccionada = _context.Mallas[0];
 
             MallaView.ListaMallas.DataBindings.Add("Text", this, "MallaSeleccionada", true, DataSourceUpdateMode.OnPropertyChanged);
-            //MallaView.ListaMallas.SelectedIndexChanged += new PositionChangedEventHandler(SeleccionMallaCommand);
+            MallaView.ListaMallas.SelectedIndexChanged += new PositionChangedEventHandler(SeleccionMallaCommand);
         }
 
         private void SeleccionMallaCommand(object sender, PositionChangedEventArgs e)
@@ -48,7 +49,6 @@ namespace DisenioMurosAyG.Controller
         {
             var editarMallaView = new EditarMallaView();
             EditarMallaController = new EditarMallaController(editarMallaView,MallaView, MallaSeleccionada);
-            MallaView.Visible = false;
             editarMallaView.ShowDialog();
         }
 

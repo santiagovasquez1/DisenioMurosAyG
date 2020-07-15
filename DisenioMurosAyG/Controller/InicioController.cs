@@ -57,6 +57,9 @@ namespace DisenioMurosAyG.Controller
         {
             OpenFileMethod("Archivo con información de diseño", InicioView.tbArchivoDiseno, 1);
             OpenFileMethod("Archivo con el despiece de los muros", InicioView.tbArchivoDespiece, 2);
+
+            ContextController.ContextView.cbListMuros.Enabled = true;
+            ContextController.ContextView.ViePageContainer.Enabled = true;
         }
 
         private void OpenFileMethod(string titulo, Telerik.WinControls.UI.RadTextBox textBox, int tipo)

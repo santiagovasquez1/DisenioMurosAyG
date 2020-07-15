@@ -19,7 +19,7 @@ namespace DibujoAutomaticoAlzados
         public float HViga { get; set; }
         public float ProfRefuerzo { get; set; }
         public string LayerCoco { get; set; }
-
+        public float LongitudCoco { get; set; }
         public DibujoRefuerzo(Alzado alzado, double[] insertionpoint, float hlosa, float hViga, float profRefuerzo, string layercoco, string leyerrefuerzo, string layertexto, string layerCota)
         {
             Alzado = alzado;
@@ -81,7 +81,7 @@ namespace DibujoAutomaticoAlzados
 
         public void DibujarMuros()
         {
-            var LongitudCoco = Alzado.RefuerzosLongitudinales.LastOrDefault().Coordenadas[0] + 1.25f;
+             LongitudCoco = Alzado.RefuerzosLongitudinales.LastOrDefault().Coordenadas[0] + 1.25f;
 
             var NivelMax = (from refuerzolong in Alzado.RefuerzosLongitudinales
                             select refuerzolong.Coordenadas.LastOrDefault()).Max();

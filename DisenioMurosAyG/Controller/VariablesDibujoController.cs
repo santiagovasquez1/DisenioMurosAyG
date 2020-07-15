@@ -12,6 +12,7 @@ using DibujoAutomaticoAlzados;
 using Entidades;
 using Telerik.WinControls;
 using System.ComponentModel;
+using Entidades.Factorias;
 
 namespace DisenioMurosAyG.Controller
 {
@@ -26,7 +27,8 @@ namespace DisenioMurosAyG.Controller
         public string LayerTexto { get; set; }
         public string LayerCota { get; set; }
         public float HLosa { get; set; }
-
+        public float HVigaFundacion { get; set; }
+        public float ProfRefuerzo { get; set; }
         public VariablesDibujoController(VariablesDibujoView variablesDibujoView)
         {
             _context = Program._context;
@@ -65,7 +67,7 @@ namespace DisenioMurosAyG.Controller
             var InsertionPoint = new double[2];
             FunctionsAutoCAD.FunctionsAutoCAD.OpenAutoCAD();
 
-            RadMessageBox.SetThemeName("MaterialBlueGrey");
+            RadMessageBox.SetThemeName(VariablesDibujoView.ThemeName);
             RadMessageBox.Show("Localice el cursor donde se iniciara el dibujo", "AyG");
 
             FunctionsAutoCAD.FunctionsAutoCAD.GetPoint(ref InsertionPoint);
@@ -76,15 +78,29 @@ namespace DisenioMurosAyG.Controller
 
             foreach (var alzadoi in Alzados)
             {
-                if (alzadoi.IsMaestro)
+                if (alzadoi.Dibujar)
                 {
-                    var DibujoAlzado = new DibujoAlzado(alzadoi, InsertionPoint, "SUBRAYADO1", "SUBRAYADO2",HLosa,LayerCoco,"SOLIDO-ZCON",LayerTexto);
+                    var DibujoAlzado = new DibujoAlzado(alzadoi, InsertionPoint, "SUBRAYADO1", "SUBRAYADO2",HLosa,LayerCoco,"SOLIDO-ZCON",LayerCota,LayerTexto);
                     DibujoAlzado.DibujarNombreMuro();
                     DibujoAlzado.CotaLongitudMuro();
                     DibujoAlzado.DibujarMuros();
                     DibujoAlzado.DibujoCambioEspesor();
                     DibujoAlzado.DibujoCambioResistencia();
                     InsertionPoint[0] += alzadoi.Muros.FirstOrDefault().Lw + 4.50f;
+
+                    var ExisteDespiece = alzadoi.Muros.Exists(x => x.BarrasMuros != null);
+
+                    if (ExisteDespiece)
+                    {
+                        var RefuerzoFactory = new RefuerzoLongFactory(alzadoi, 1.00f);
+                        RefuerzoFactory.SetRefuerzoMuro();
+                        var DibujoRefuerzo = new DibujoRefuerzo(alzadoi, InsertionPoint, 0.10f, 1.20f, 1.00f, "BORDES", "HIERROS", "R-60", "COTA");
+                        DibujoRefuerzo.DibujarMuros();
+                        DibujoRefuerzo.DibujoCambioResistencia();
+                        DibujoRefuerzo.DibujarRefuerzoLongitudinal();
+                        InsertionPoint[0] += DibujoRefuerzo.LongitudCoco + 4.50f;
+                    }
+
                 }
             }
         }

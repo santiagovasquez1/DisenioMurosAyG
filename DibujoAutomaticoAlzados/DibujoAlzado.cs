@@ -18,7 +18,7 @@ namespace DibujoAutomaticoAlzados
         public string LayerTexto { get; set; }
         public string LayerCota { get; set; }
         public float HLosa { get; set; }
-        public DibujoAlzado(Alzado alzado, double[] insertionpoint, string subrayado1, string subrayado2, float hlosa, string layercoco, string layerebe, string layertexto)
+        public DibujoAlzado(Alzado alzado, double[] insertionpoint, string subrayado1, string subrayado2, float hlosa, string layercoco, string layerebe,string layercota, string layertexto)
         {
             Alzado = alzado;
             InsertionPoint = insertionpoint;
@@ -28,6 +28,7 @@ namespace DibujoAutomaticoAlzados
             LayerCoco = layercoco;
             LayerHatchEBE = layerebe;
             LayerTexto = layertexto;
+            LayerCota = layercota;
             InsertionPointNombreMuro = new double[] { InsertionPoint[0], InsertionPoint[1] - 1.90f, 0 };
         }
         public double[] SetCoorPoligono(float DeltaX, float longitud, float altitud, float nivel)
