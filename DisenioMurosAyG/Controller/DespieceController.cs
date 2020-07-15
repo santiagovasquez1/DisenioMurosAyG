@@ -180,9 +180,15 @@ namespace DisenioMurosAyG.Controller
 
             if (controlprovider != null)
             {
-                CapaRefuerzoSeleccionada = (from barrai in AlzadoSeleccionado.Muros.LastOrDefault().BarrasMuros
-                                            where barrai.CapaRefuerzo.CapaId == controlprovider.ColumnInfo.Name
-                                            select barrai.CapaRefuerzo).FirstOrDefault();
+                ExisteDespiece = AlzadoSeleccionado.Muros.Exists(x => x.BarrasMuros != null);
+
+                if (ExisteDespiece == true)
+                {
+                    CapaRefuerzoSeleccionada = (from barrai in AlzadoSeleccionado.Muros.LastOrDefault().BarrasMuros
+                                                where barrai.CapaRefuerzo.CapaId == controlprovider.ColumnInfo.Name
+                                                select barrai.CapaRefuerzo).FirstOrDefault();
+                }
+
 
                 ColumnaSeleccionadaName = controlprovider.ColumnInfo.Name;
 
@@ -193,15 +199,19 @@ namespace DisenioMurosAyG.Controller
                 AgregarCapa.Click += new EventHandler(AddCapaDespieceClick);
                 e.ContextMenu.Items.Add(AgregarCapa);
 
-                RadMenuItem EditarCapa = new RadMenuItem();
-                EditarCapa.Text = $"Editar capa {controlprovider.AccessibleName}";
-                EditarCapa.Click += new EventHandler(EditarCapaDespieceClick);
-                e.ContextMenu.Items.Add(EditarCapa);
+                if (CapaRefuerzoSeleccionada != null)
+                {
+                    RadMenuItem EditarCapa = new RadMenuItem();
+                    EditarCapa.Text = $"Editar capa {CapaRefuerzoSeleccionada.CapaNombre}";
+                    EditarCapa.Click += new EventHandler(EditarCapaDespieceClick);
+                    e.ContextMenu.Items.Add(EditarCapa);
 
-                RadMenuItem EliminarCapa = new RadMenuItem();
-                EliminarCapa.Text = $"Eliminar capa {controlprovider.AccessibleName}";
-                //EliminarCapa.Click += new EventHandler(EliminarCapaDespiece);
-                e.ContextMenu.Items.Add(EliminarCapa);
+                    RadMenuItem EliminarCapa = new RadMenuItem();
+                    EliminarCapa.Text = $"Eliminar capa {CapaRefuerzoSeleccionada.CapaNombre}";
+                    //EliminarCapa.Click += new EventHandler(EliminarCapaDespiece);
+                    e.ContextMenu.Items.Add(EliminarCapa);
+                }
+
             }
 
         }
@@ -219,10 +229,22 @@ namespace DisenioMurosAyG.Controller
         {
             if (EditarCapaController.CapaRefuerzo.CapaNombre != string.Empty)
             {
+                var ColumnHeaderText = $"{ EditarCapaController.CapaRefuerzo.CapaNombre}\nCantidad: {EditarCapaController.CapaRefuerzo.Cantidad}\nTraslapo: {EditarCapaController.CapaRefuerzo.Traslapo}";
+                if (AlzadoSeleccionado.Muros.LastOrDefault().BarrasMuros == null)
+                {
+                    var barra = new BarraMuro(AlzadoSeleccionado.Muros.LastOrDefault().Label, AlzadoSeleccionado.Muros.LastOrDefault(), EditarCapaController.CapaRefuerzo);
+                    AlzadoSeleccionado.Muros.LastOrDefault().BarrasMuros = new List<BarraMuro>();
+                    AlzadoSeleccionado.Muros.LastOrDefault().BarrasMuros.Add(barra);
+                }
+                else
+                {
+                    var barra = new BarraMuro(AlzadoSeleccionado.Muros.LastOrDefault().Label, AlzadoSeleccionado.Muros.LastOrDefault(), EditarCapaController.CapaRefuerzo);
+                    AlzadoSeleccionado.Muros.LastOrDefault().BarrasMuros.Add(barra);
+                }
                 var Columnas = new List<DataColumn>(){
                 DataGridController.CrearColumna(EditarCapaController.CapaRefuerzo.CapaNombre, typeof(string), false)};
                 DataGridController.Set_Columns_Data(DT_AlzadoSeleccionado, Columnas);
-                DataGridController.AddGridViewColumn(DespieceView.gvDespieceMuro, typeof(GridViewTextBoxColumn), typeof(string), EditarCapaController.CapaRefuerzo.CapaNombre, EditarCapaController.CapaRefuerzo.CapaNombre, EditarCapaController.CapaRefuerzo.CapaNombre, false);
+                DataGridController.AddGridViewColumn(DespieceView.gvDespieceMuro, typeof(GridViewTextBoxColumn), typeof(string), EditarCapaController.CapaRefuerzo.CapaId, ColumnHeaderText, EditarCapaController.CapaRefuerzo.CapaId, false);
             }
         }
 
@@ -260,6 +282,7 @@ namespace DisenioMurosAyG.Controller
 
         private void EditMuroCommand(object sender, GridViewCellEventArgs e)
         {
+            var ValorCelda = string.Empty;
             int indice = e.RowIndex;
             int column = e.ColumnIndex;
             var ColumnName = DespieceView.gvDespieceMuro.Rows[indice].Cells[column].ColumnInfo.Name;
@@ -283,7 +306,12 @@ namespace DisenioMurosAyG.Controller
                                     where barrai.CapaRefuerzo.CapaId == ColumnName
                                     select barrai.CapaRefuerzo).FirstOrDefault();
 
-                var ValorCelda = DespieceView.gvDespieceMuro.Rows[indice].Cells[column].Value.ToString();
+                if (CapaRefuerzo == null)
+                    CapaRefuerzo = EditarCapaController.CapaRefuerzo;
+
+                if (DespieceView.gvDespieceMuro.Rows[indice].Cells[column].Value != null)
+                    ValorCelda = DespieceView.gvDespieceMuro.Rows[indice].Cells[column].Value.ToString();
+
                 int Diametro = 0;
 
                 if (ValorCelda != string.Empty)

@@ -14,6 +14,7 @@ namespace DisenioMurosAyG.Controller
     {
         public static void Set_Columns_Data(DataTable dataTable, List<DataColumn> columns)
         {
+            //dataTable.Columns.Clear();
             foreach (var column in columns)
             {
                 dataTable.Columns.Add(column);
