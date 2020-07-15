@@ -18,7 +18,7 @@ namespace DibujoAutomaticoAlzados
         public string LayerTexto { get; set; }
         public string LayerCota { get; set; }
         public float HLosa { get; set; }
-        public DibujoAlzado(Alzado alzado, double[] insertionpoint, string subrayado1, string subrayado2, float hlosa, string layercoco, string layerebe,string layercota, string layertexto)
+        public DibujoAlzado(Alzado alzado, double[] insertionpoint, string subrayado1, string subrayado2, float hlosa, string layercoco, string layerebe, string layercota, string layertexto)
         {
             Alzado = alzado;
             InsertionPoint = insertionpoint;
@@ -48,7 +48,7 @@ namespace DibujoAutomaticoAlzados
             for (int i = Alzado.Muros.Count - 1; i >= 0; i--)
             {
                 var muro = Alzado.Muros[i];
-                var dibujomuroi = new DibujoMuro(muro, InsertionPoint, HLosa, LayerCoco,LayerHatchEBE, LayerTexto,LayerCota);
+                var dibujomuroi = new DibujoMuro(muro, InsertionPoint, HLosa, LayerCoco, LayerHatchEBE, LayerTexto, LayerCota);
                 dibujomuroi.DibujarCoco();
                 dibujomuroi.DibujarCotasMuro(muro.Hw, muro.Story.StoryElevation);
                 dibujomuroi.DibujarCotasViga(HLosa, muro.Story.StoryElevation);
@@ -97,7 +97,7 @@ namespace DibujoAutomaticoAlzados
 
                 var Coord = SetCoorPoligono(Alzado.Muros.FirstOrDefault().Lw + 1.65f, 0, NivelFin - NivelIni, NivelFin);
                 var Coord2 = SetCoorPoligono(Alzado.Muros.FirstOrDefault().Lw + 1.425f, 0.45f, 0, NivelFin);
-                var InsertionPointText = new double[] { Coord[0] - 0.25f, NivelIni + (NivelFin - NivelIni) / 2, 0 };
+                var InsertionPointText = new double[] { Coord[0] - 0.25f, (float)InsertionPoint[1] + NivelIni + (NivelFin - NivelIni) / 2, 0 };
 
                 FunctionsAutoCAD.FunctionsAutoCAD.AddPolyline2D(Coord, "LINEA-CORTE");
                 FunctionsAutoCAD.FunctionsAutoCAD.AddPolyline2D(Coord2, "LINEA-CORTE");
@@ -117,7 +117,7 @@ namespace DibujoAutomaticoAlzados
 
                 var Coord = SetCoorPoligono(Alzado.Muros.FirstOrDefault().Lw + 2.10f, 0, NivelFin - NivelIni, NivelFin);
                 var Coord2 = SetCoorPoligono(Alzado.Muros.FirstOrDefault().Lw + 1.875f, 0.45f, 0, NivelFin);
-                var InsertionPointText = new double[] { Coord[0] - 0.25f, NivelIni + (NivelFin - NivelIni) / 2, 0 };
+                var InsertionPointText = new double[] { Coord[0] - 0.25f, (float)InsertionPoint[1] + NivelIni + (NivelFin - NivelIni) / 2, 0 };
 
                 FunctionsAutoCAD.FunctionsAutoCAD.AddPolyline2D(Coord, "LINEA-CORTE");
                 FunctionsAutoCAD.FunctionsAutoCAD.AddPolyline2D(Coord2, "LINEA-CORTE");
