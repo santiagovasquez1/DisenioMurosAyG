@@ -50,6 +50,7 @@
     <Compile Include="DibujoAlzado.cs" />
     <Compile Include="DibujoMuro.cs" />
     <Compile Include="DibujoRefuerzo.cs" />
+    <Compile Include="DibujoSeccion.cs" />
     <Compile Include="IDibujoElemento.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -36,7 +36,7 @@ namespace UnitTestDisenioAyG
                 ModeloContext.LoadDespieceContext();
             }
 
-            ProbarDespiece(ModeloContext.Alzados[1]);
+            ProbarDespiece(ModeloContext.Alzados.FirstOrDefault());
             //AutocadController();
         }
 
@@ -45,6 +45,8 @@ namespace UnitTestDisenioAyG
             var RefuerzoFactory = new RefuerzoLongFactory(alzado, 1.00f);
             RefuerzoFactory.SetRefuerzoMuro();
             DibujarRefuerzo(alzado);
+
+
         }
 
         public void DibujarRefuerzo(Alzado alzado)
@@ -56,25 +58,25 @@ namespace UnitTestDisenioAyG
             DibujarRefuerzo.DibujarMuros();
             DibujarRefuerzo.DibujoCambioResistencia();
             DibujarRefuerzo.DibujarRefuerzoLongitudinal();
+
+            DibujarSecciones(alzado, InsertionPoint);
         }
+
+        public void DibujarSecciones(Alzado alzado,double[] insertionpoint)
+        {
+
+            var InsertionPoint2 = new double[] { insertionpoint[0], insertionpoint[1] - 2.40, insertionpoint[2] };
+            var DibujoSeccion = new DibujoSeccion(alzado, InsertionPoint2, "REFUERZO-SECCION", "COTAS-MUROS", "R60","R-100", "BORDES",6.70f,0.04f);
+            DibujoSeccion.DibujoCocoSeccion();
+
+        }
+
 
         public void AutocadController()
         {
             var InsertionPoint = new double[2];
             FunctionsAutoCAD.FunctionsAutoCAD.OpenAutoCAD();
             FunctionsAutoCAD.FunctionsAutoCAD.GetPoint(ref InsertionPoint);
-
-            //var temp = Array.ConvertAll(InsertionPoint, x => (float)x);
-            //var prueba = new float[] { 0, 1, 0, 4, 5, 6 };
-            //var Prueba = Operaciones.TraslacionPoligono(temp, prueba);
-
-            //var Alzado = ModeloContext.Alzados.FirstOrDefault();
-            //var Prueba = new DibujoAlzado(Alzado, InsertionPoint, "SUBRAYADO1", "SUBRAYADO2");
-            //Prueba.DibujarNombreMuro();
-            //Prueba.CotaLongitudMuro();
-            //Prueba.DibujarMuros();
-            //Prueba.DibujoCambioEspesor();
-            //Prueba.DibujoCambioResistencia();
 
             foreach (Alzado alzadoi in ModeloContext.Alzados)
             {
