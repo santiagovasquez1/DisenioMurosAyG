@@ -66,7 +66,8 @@ namespace DibujoAutomaticoAlzados
                 }
 
                 FunctionsAutoCAD.FunctionsAutoCAD.AddPolyline2DWithLengthText(Coord, LayerRefuerzo, TextString, InsertionPointText, 0.15, 0.15, LayerTexto, "ROMANS", 90, 2.50);
-                FunctionsAutoCAD.FunctionsAutoCAD.AddCota(P1Cota, P2Cota, LayerCota, "ROMANS", TextHeight: 1.50, ArrowheadSize: 0.85f, DesplazCota: -0.35f);
+                FunctionsAutoCAD.FunctionsAutoCAD.AddCota(P1Cota, P2Cota, LayerCota, "ROMANS",
+                    TextHeight: 1.50, ArrowheadSize: 0.85f, DesplazCota: -0.35f);
 
                 if (refuerzo.Coordenadas[1] == NivelMin)
                 {
@@ -81,7 +82,7 @@ namespace DibujoAutomaticoAlzados
 
         public void DibujarMuros()
         {
-             LongitudCoco = Alzado.RefuerzosLongitudinales.LastOrDefault().Coordenadas[0] + 1.25f;
+            LongitudCoco = Alzado.RefuerzosLongitudinales.LastOrDefault().Coordenadas[0] + 1.25f;
 
             var NivelMax = (from refuerzolong in Alzado.RefuerzosLongitudinales
                             select refuerzolong.Coordenadas.LastOrDefault()).Max();

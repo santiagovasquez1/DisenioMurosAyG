@@ -1,6 +1,7 @@
 ﻿using Entidades;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -55,7 +56,7 @@ namespace DibujoAutomaticoAlzados
             NumCapas = NumBarras / 2;
 
             if (Muroinicial.RhoV >= 0.01)
-                Separacion = ((Muroinicial.Lw - 2 * Recubrimiento) / (NumCapas-1)) * Escala;
+                Separacion = ((Muroinicial.Lw - 2 * Recubrimiento) / (NumCapas - 1)) * Escala;
             else
                 Separacion = 0.15f * Escala;
 
@@ -88,19 +89,22 @@ namespace DibujoAutomaticoAlzados
 
                 var CoordDef = B_Operaciones_Matricialesl.Operaciones.TraslacionPoligono(Array.ConvertAll(InsertionPoint, y => (float)y), Array.ConvertAll(CoordEscalada, y => (float)y));
 
-
                 var X1 = (float)CoordDef[0];
                 var X2 = (float)CoordDef[4];
                 var Y1 = (float)CoordDef[1];
                 var Y2 = (float)CoordDef[3];
 
                 var TempCapas = (from barra in muroi.BarrasMuros
-                                 where barra!=null
-                                 select barra.Cantidad).Sum()/2;
+                                 where barra != null
+                                 select barra.Cantidad).Sum() / 2;
 
                 FunctionsAutoCAD.FunctionsAutoCAD.AddPolyline2D(CoordDef, LayerCoco, true);
 
-                DibujarRefuerzo(X1, X2, Y1, Y2,TempCapas);
+                AgregarCota(X1, X2, Y1, Y1, 0.52f, 0f);
+                AgregarCota(X1, X1, Y1, Y2, -0.43f, -1.35f);
+                AgregarCota(X2, X2, Y1, Y2, 0.43f, -1.35f);
+
+                DibujarRefuerzo(X1, X2, Y1, Y2, TempCapas);
                 DibujarTextoSeccion(TextoSeccion, InsertionPoint, X1, X2);
                 InsertionPoint = new double[] { InsertionPoint[0], InsertionPoint[1] + DeltaY, InsertionPoint[2] };
 
@@ -115,7 +119,7 @@ namespace DibujoAutomaticoAlzados
             FunctionsAutoCAD.FunctionsAutoCAD.AddText(TextoSeccion, CoordText, 0.25, 0.25, LayerNombreSeccion, "REG", 0f, Width2: 9.00, justifyText: FunctionsAutoCAD.JustifyText.Left);
         }
 
-        public void DibujarRefuerzo(double X1, double X2, double Y1, double Y2,int numerocapas)
+        public void DibujarRefuerzo(double X1, double X2, double Y1, double Y2, int numerocapas)
         {
             var PosX1 = X1 + (Recubrimiento * Escala);
             var PosY1 = Y1 - (Recubrimiento * Escala);
@@ -131,6 +135,10 @@ namespace DibujoAutomaticoAlzados
 
                     FunctionsAutoCAD.FunctionsAutoCAD.AddCircle(CoordCirculo1, 0.14f, "REFUERZO-SECCION");
                     FunctionsAutoCAD.FunctionsAutoCAD.AddCircle(CoordCirculo2, 0.14f, "REFUERZO-SECCION");
+
+                    if (i > 1)
+                        AgregarCota(PosX1 - Separacion, PosX1, PosY1, PosY1, (Recubrimiento * Escala) + 0.20f, 0f);
+
                     PosX1 += Separacion;
                 }
 
@@ -143,6 +151,9 @@ namespace DibujoAutomaticoAlzados
                     FunctionsAutoCAD.FunctionsAutoCAD.AddCircle(CoordCirculo1, 0.14f, "REFUERZO-SECCION");
                     FunctionsAutoCAD.FunctionsAutoCAD.AddCircle(CoordCirculo2, 0.14f, "REFUERZO-SECCION");
 
+                    if (i < numerocapas / 2)
+                        AgregarCota(PosX2 - Separacion, PosX2, PosY1, PosY1, (Recubrimiento * Escala) + 0.20f, 0f);
+
                     PosX2 -= Separacion;
                 }
             }
@@ -151,23 +162,30 @@ namespace DibujoAutomaticoAlzados
                 var Limite1 = (numerocapas / 2);
                 var Limite2 = numerocapas - Limite1;
 
-                for(int i = 1; i <= Limite2; i++)
+                for (int i = 1; i <= Limite2; i++)
                 {
                     var CoordCirculo1 = new double[] { PosX1, PosY1, 0 };
                     var CoordCirculo2 = new double[] { PosX1, PosY2, 0 };
 
                     FunctionsAutoCAD.FunctionsAutoCAD.AddCircle(CoordCirculo1, 0.14f, "REFUERZO-SECCION");
                     FunctionsAutoCAD.FunctionsAutoCAD.AddCircle(CoordCirculo2, 0.14f, "REFUERZO-SECCION");
+
+                    if (i > 1)
+                        AgregarCota(PosX1 - Separacion, PosX1, PosY1, PosY1, (Recubrimiento * Escala) + 0.20f, 0f);
+
                     PosX1 += Separacion;
                 }
 
-                for(int i = 1; i <= Limite1; i++)
+                for (int i = 1; i <= Limite1; i++)
                 {
                     var CoordCirculo1 = new double[] { PosX2, PosY1, 0 };
                     var CoordCirculo2 = new double[] { PosX2, PosY2, 0 };
 
                     FunctionsAutoCAD.FunctionsAutoCAD.AddCircle(CoordCirculo1, 0.14f, "REFUERZO-SECCION");
                     FunctionsAutoCAD.FunctionsAutoCAD.AddCircle(CoordCirculo2, 0.14f, "REFUERZO-SECCION");
+
+                    if (i < Limite1)
+                        AgregarCota(PosX2 - Separacion, PosX2, PosY1, PosY1, (Recubrimiento * Escala) + 0.20f, 0f);
 
                     PosX2 -= Separacion;
                 }
@@ -177,6 +195,14 @@ namespace DibujoAutomaticoAlzados
 
         }
 
+        public void AgregarCota(double X1, double X2, double Y1, double Y2, float OffsetCota, float despTexto)
+        {
+            var CoordCota1 = new double[] { X1, Y1, 0 };
+            var CoordCota2 = new double[] { X2, Y2, 0 };
+            FunctionsAutoCAD.FunctionsAutoCAD.AddCota2(CoordCota1, CoordCota2, LayerCota, "ROMANS", Color.Cyan, DesplazCota: OffsetCota,
+                TextHeight: 1.50, scaleLinear: 1 / Escala, ArrowheadSize: 0.85f, DeplazaTextY: despTexto);
+
+        }
         public double[] SetCoorPoligono(float DeltaX, float longitud, float altitud, float nivel)
         {
             return null;
