@@ -5,6 +5,7 @@ using System.Text;
 
 namespace Entidades
 {
+    [Serializable]
     public class BarraMuro
     {
         public string BarraId { get; set; }
@@ -26,7 +27,7 @@ namespace Entidades
             Cantidad = CapaRefuerzo.Cantidad;
             Traslapo = CapaRefuerzo.Traslapo;
         }
-        public BarraMuro(string nombremuro, Muro muro, Diametro diametro,CapaRefuerzo capa)
+        public BarraMuro(string nombremuro, Muro muro, Diametro diametro, CapaRefuerzo capa)
         {
             BarraId = Guid.NewGuid().ToString();
             MuroName = nombremuro;
@@ -39,7 +40,7 @@ namespace Entidades
         }
         public override string ToString()
         {
-            return $"Capa {BarraDenom}-{Cantidad}#{DiccionariosRefuerzo.ReturnNombreDiametro(this.Diametro,1)}{Traslapo}";
+            return $"Capa {BarraDenom}-{Cantidad}#{DiccionariosRefuerzo.ReturnNombreDiametro(this.Diametro, 1)}{Traslapo}";
         }
     }
 }

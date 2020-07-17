@@ -4,6 +4,7 @@ using System.Text;
 
 namespace Entidades
 {
+    [Serializable]
     public class ZonaConfinada : ElementoDeBorde
     {
         public override void CalculoCuantiaVolumetrica(float separacion, Diametro diametroestribo)

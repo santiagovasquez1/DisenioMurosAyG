@@ -4,6 +4,7 @@ using System.Text;
 
 namespace Entidades
 {
+    [Serializable]
     public class Estribos : Refuerzo
     {
         public Estribos(Diametro diametro, int cantidad, float separacion, TipoRefuerzo tipo, Traslapo traslapo)

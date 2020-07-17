@@ -52,6 +52,7 @@
             this.ViePageContainer = new Telerik.WinControls.UI.RadPageView();
             this.ViewPageAlzado = new Telerik.WinControls.UI.RadPageViewPage();
             this.ViewPageDespiece = new Telerik.WinControls.UI.RadPageViewPage();
+            this.cbGuardarComo = new Telerik.WinControls.UI.RadMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.radRibbonBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ListViewAlzados)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radGroupBox1)).BeginInit();
@@ -144,7 +145,7 @@
             // cbGuardar
             // 
             this.cbGuardar.Name = "cbGuardar";
-            this.cbGuardar.Text = "Cargar";
+            this.cbGuardar.Text = "Guardar";
             this.cbGuardar.UseCompatibleTextRendering = false;
             // 
             // radRibbonBar1
@@ -182,7 +183,8 @@
             this.radRibbonBar1.StartMenuItems.AddRange(new Telerik.WinControls.RadItem[] {
             this.cbNuevo,
             this.cbCargar,
-            this.cbGuardar});
+            this.cbGuardar,
+            this.cbGuardarComo});
             this.radRibbonBar1.TabIndex = 0;
             this.radRibbonBar1.Text = "InformacionAlzadoView1";
             this.radRibbonBar1.ThemeName = "Office2013Light";
@@ -281,7 +283,7 @@
             this.ViePageContainer.Enabled = false;
             this.ViePageContainer.Location = new System.Drawing.Point(0, 0);
             this.ViePageContainer.Name = "ViePageContainer";
-            this.ViePageContainer.SelectedPage = this.ViewPageDespiece;
+            this.ViePageContainer.SelectedPage = this.ViewPageAlzado;
             this.ViePageContainer.Size = new System.Drawing.Size(968, 443);
             this.ViePageContainer.TabIndex = 0;
             this.ViePageContainer.ThemeName = "Office2013Light";
@@ -303,6 +305,11 @@
             this.ViewPageDespiece.Name = "ViewPageDespiece";
             this.ViewPageDespiece.Size = new System.Drawing.Size(958, 407);
             this.ViewPageDespiece.Text = "Despiece";
+            // 
+            // cbGuardarComo
+            // 
+            this.cbGuardarComo.Name = "cbGuardarComo";
+            this.cbGuardarComo.Text = "Guardar Como";
             // 
             // ContextView
             // 
@@ -362,5 +369,6 @@
         public Telerik.WinControls.UI.RadPageView ViePageContainer;
         public Telerik.WinControls.UI.RadPageViewPage ViewPageDespiece;
         public Telerik.WinControls.UI.RadPageViewPage ViewPageAlzado;
+        public Telerik.WinControls.UI.RadMenuItem cbGuardarComo;
     }
 }

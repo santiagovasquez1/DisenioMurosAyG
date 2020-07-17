@@ -5,6 +5,7 @@ using System.Text;
 
 namespace Entidades
 {
+    [Serializable]
     public class RefuerzoLong : Refuerzo
     {
         public RefuerzoLong(Diametro diametro,CapaRefuerzo capa, float separacion, TipoRefuerzo tipo)

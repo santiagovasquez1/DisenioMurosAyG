@@ -37,6 +37,62 @@ namespace DisenioMurosAyG.Controller
             contextView.cbVariablesDibujo.Click += new EventHandler(VariablesDibujoClick);
             contextView.cbMAlla.Click += new EventHandler(MallaClick);
             contextView.ViePageContainer.SelectedPageChanged += new EventHandler(SelectPageCommand);
+            contextView.cbGuardar.Click += new EventHandler(GuardarCommand);
+            contextView.cbGuardarComo.Click += new EventHandler(GuardarComoCommand);
+            contextView.cbCargar.Click += new EventHandler(CargarCommand);
+        }
+
+        private void CargarCommand(object sender, EventArgs e)
+        {
+            using (OpenFileDialog File = new OpenFileDialog())
+            {
+                File.Title = "Cargar Proyecto de muros de concreto";
+                File.Filter = "AyG files (*.walls)|*.walls|All files (*.*)|*.*";
+                File.FilterIndex = 1;
+                File.RestoreDirectory = true;
+
+                if (File.ShowDialog() == DialogResult.OK)
+                {
+                    Program.RutaProyecto = File.FileName;
+                    var context = _context;
+                    ModeloSerialization.Deserealizar(Program.RutaProyecto, ref context);
+                    Program._context = context;
+                    _context = Program._context;
+                    ContextView.ListViewAlzados.DataSource = _context.Alzados;
+                    var DefaultItemSelect = ContextView.ListViewAlzados.Items[0];
+                    ContextView.ListViewAlzados.SelectedItem = DefaultItemSelect;
+
+                    ContextView.cbListMuros.Enabled = true;
+                    ContextView.ViePageContainer.Enabled = true;
+                }
+            }
+
+        }
+
+        private void GuardarComoCommand(object sender, EventArgs e)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "Diseño muros concreto |*.walls";
+            saveFileDialog.Title = "Guardar proyecto";
+            DialogResult dr = saveFileDialog.ShowDialog();
+
+            if (dr == DialogResult.OK)
+            {
+                Program.RutaProyecto = saveFileDialog.FileName;
+                ModeloSerialization.Serializar(Program.RutaProyecto, _context);
+            }
+        }
+
+        private void GuardarCommand(object sender, EventArgs e)
+        {
+            if (Program.RutaProyecto == null)
+            {
+                GuardarComoCommand(sender, e);
+            }
+            else
+            {
+                ModeloSerialization.Serializar(Program.RutaProyecto, _context);
+            }
         }
 
         private void SelectPageCommand(object sender, EventArgs e)

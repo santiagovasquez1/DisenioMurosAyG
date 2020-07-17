@@ -4,6 +4,7 @@ using System.Text;
 
 namespace Entidades
 {
+    [Serializable]
     public class ElementoBordeEspecial : ElementoDeBorde
     {
         public ElementoBordeEspecial(float bw, float lebe, float fc, float fy, GradoDisipacionEnergia disipacionEnergia)

@@ -4,6 +4,7 @@ using System.Text;
 
 namespace Entidades
 {
+    [Serializable]
     public abstract class Refuerzo
     {
         public string RefuerzoId { get; set; }

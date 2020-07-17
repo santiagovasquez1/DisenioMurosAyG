@@ -4,6 +4,7 @@ using System.Text;
 
 namespace Entidades
 {
+    [Serializable]
     public class Story
     {
         public string StoryId { get; set; }

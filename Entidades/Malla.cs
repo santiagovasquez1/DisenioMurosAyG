@@ -4,6 +4,7 @@ using System.Text;
 
 namespace Entidades
 {
+    [Serializable]
     public class Malla
     {
         public string MallaId { get; set; }

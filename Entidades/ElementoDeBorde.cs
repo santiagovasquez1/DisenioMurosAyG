@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Entidades
 {
-    public delegate void Notify();
+    [Serializable]
     public abstract class ElementoDeBorde
     {
         private float longEbe;
@@ -48,14 +49,9 @@ namespace Entidades
         /// </summary>
         public int RamasY { get; set; }
         public List<Refuerzo> Estribos { get; set; }
-        public event Notify ChangeEbe;
         public abstract void CalculoCuantiaVolumetrica(float separacion, Diametro diametroestribo);
         public abstract void CalculoSeparacionminima();
         public abstract int Cuantia_Volumetrica(float espesor, float recubrimiento, float separacion, float as_estribo);
 
-        protected virtual void OnChangeEbe()
-        {
-            ChangeEbe?.Invoke();
-        }
     }
 }

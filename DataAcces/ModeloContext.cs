@@ -14,14 +14,11 @@ using System.Windows.Forms;
 namespace DataAcces
 {
     [Serializable]
-    public class ModeloContext : ApplicationContext
+    public class ModeloContext
     {
         public BindingList<Alzado> Alzados { get; set; }
         public BindingList<Muro> Muros { get; set; }
-        public BindingList<Refuerzo> Refuerzos { get; set; }
-        public BindingList<Refuerzo> Estribos { get; set; }
         public BindingList<Malla> Mallas { get; set; }
-        public List<CapaRefuerzo> CapaRefuerzos { get; set; }
         public string RutaArchivoDisenio { get; set; }
         public string RutaArchivoDespiece { get; set; }
         public GradoDisipacionEnergia GradoDisipacionEnergia { get; set; }
