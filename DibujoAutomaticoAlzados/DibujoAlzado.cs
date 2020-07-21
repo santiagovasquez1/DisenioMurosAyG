@@ -53,13 +53,13 @@ namespace DibujoAutomaticoAlzados
                 dibujomuroi.DibujarCotasMuro(muro.Hw, muro.Story.StoryElevation);
                 dibujomuroi.DibujarCotasViga(HLosa, muro.Story.StoryElevation);
 
-                if (muro.EBE_Izq != null)
+                if (muro.EBE_Izq.LongEbe > 0)
                 {
                     dibujomuroi.CoordEBE = dibujomuroi.SetCoorPoligono(0f, muro.EBE_Izq.LongEbe, muro.Hw, muro.Story.StoryElevation);
                     dibujomuroi.DibujarEBE();
                 }
 
-                if (muro.EBE_Der != null)
+                if (muro.EBE_Der.LongEbe > 0)
                 {
                     var deltax = muro.Lw - muro.EBE_Der.LongEbe;
                     dibujomuroi.CoordEBE = dibujomuroi.SetCoorPoligono(deltax, muro.EBE_Der.LongEbe, muro.Hw, muro.Story.StoryElevation);

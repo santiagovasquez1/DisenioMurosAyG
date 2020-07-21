@@ -16,6 +16,7 @@ namespace DisenioMurosAyG
         public static ContextController ContextController { get; set; }
         public static List<string> LayersModelo { get; set; }
         public static string RutaProyecto { get; set; }
+        public static VariablesDibujoController VariablesDibujo { get; set; }
         /// <summary>
         /// Punto de entrada principal para la aplicación.
         /// </summary>
@@ -24,8 +25,6 @@ namespace DisenioMurosAyG
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            ThemeResolutionService.LoadPackageFile("Resources\\Prueba1.tssp", true);
-            RadMessageBox.SetThemeName("Prueba1.tssp");
             _context = new ModeloContext();
             var contextView = new ContextView();
             ContextController = new ContextController(contextView);

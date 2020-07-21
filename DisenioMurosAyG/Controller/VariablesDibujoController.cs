@@ -17,7 +17,7 @@ using Entidades.Factorias;
 namespace DisenioMurosAyG.Controller
 {
     public class VariablesDibujoController
-    { 
+    {
         public VariablesDibujoView VariablesDibujoView { get; set; }
         public List<string> LayersModelo { get; set; }
         public BindingList<Alzado> Alzados { get; set; }
@@ -58,7 +58,7 @@ namespace DisenioMurosAyG.Controller
                 VariablesDibujoView.listLayerRefuerzo.Text = "HIERROS";
             }
 
-            VariablesDibujoView.tbAlturaViga.DataBindings.Add("Text", this, "Hlosa",true, DataSourceUpdateMode.OnPropertyChanged);
+            VariablesDibujoView.tbAlturaViga.DataBindings.Add("Text", this, "Hlosa", true, DataSourceUpdateMode.OnPropertyChanged);
 
         }
 
@@ -80,7 +80,7 @@ namespace DisenioMurosAyG.Controller
             {
                 if (alzadoi.Dibujar)
                 {
-                    var DibujoAlzado = new DibujoAlzado(alzadoi, InsertionPoint, "SUBRAYADO1", "SUBRAYADO2",HLosa,LayerCoco,"SOLIDO-ZCON",LayerCota,LayerTexto);
+                    var DibujoAlzado = new DibujoAlzado(alzadoi, InsertionPoint, "SUBRAYADO1", "SUBRAYADO2", HLosa, LayerCoco, "SOLIDO-ZCON", LayerCota, LayerTexto);
                     DibujoAlzado.DibujarNombreMuro();
                     DibujoAlzado.CotaLongitudMuro();
                     DibujoAlzado.DibujarMuros();
@@ -98,7 +98,15 @@ namespace DisenioMurosAyG.Controller
                         DibujoRefuerzo.DibujarMuros();
                         DibujoRefuerzo.DibujoCambioResistencia();
                         DibujoRefuerzo.DibujarRefuerzoLongitudinal();
-                        InsertionPoint[0] += DibujoRefuerzo.LongitudCoco + 4.50f;
+
+                        var InsertionPoint2 = new double[] { InsertionPoint[0], InsertionPoint[1] - 2.40, InsertionPoint[2] };
+                        var DibujoSeccion = new DibujoSeccion(alzadoi, InsertionPoint2, "REFUERZO-SECCION", "COTAS-MUROS", "R60", "R-100", "BORDES", 6.70f, 0.04f);
+                        DibujoSeccion.DibujoCocoSeccion();
+
+                        if (DibujoSeccion.LongSeccion > DibujoRefuerzo.LongitudCoco)
+                            InsertionPoint[0] += DibujoSeccion.LongSeccion + 4.50f;
+                        else
+                            InsertionPoint[0] += DibujoRefuerzo.LongitudCoco + 4.50f;
                     }
 
                 }

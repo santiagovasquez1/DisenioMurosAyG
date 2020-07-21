@@ -59,25 +59,29 @@ namespace Entidades.Factorias
                     ? Story.StoryHeight
                     : Hw - Story.StoryElevation - Story.StoryElevation;
 
-                if (ZcIzq > 0)
-                {
-                    ElementoBordeEspecial EbeIzq = new ElementoBordeEspecial(Bw, ZcIzq, Fc, Fy, gradoDisipacionEnergia);
-                    EbeIzq.DiametroEstribo = Diametro.Num3;
-                    EbeIzq.CalculoSeparacionminima();
-                    EbeIzq.CalculoCuantiaVolumetrica(EbeIzq.SepEstribo, EbeIzq.DiametroEstribo);
-                    Muro.EBE_Izq = EbeIzq;
-                }
-                if (ZcDer > 0)
-                {
-                    ElementoBordeEspecial EbeDer = new ElementoBordeEspecial(Bw, ZcDer, Fc, Fy, gradoDisipacionEnergia);
-                    EbeDer.DiametroEstribo = Diametro.Num3;
-                    EbeDer.CalculoSeparacionminima();
-                    EbeDer.CalculoCuantiaVolumetrica(EbeDer.SepEstribo, EbeDer.DiametroEstribo);
-                    Muro.EBE_Der = EbeDer;
-                }
+                ElementoBordeEspecial EbeIzq = new ElementoBordeEspecial(Bw, ZcIzq, Fc, Fy, gradoDisipacionEnergia);
+                EbeIzq.DiametroEstribo = Diametro.Num3;
+                EbeIzq.CalculoSeparacionminima();
+                EbeIzq.CalculoCuantiaVolumetrica(EbeIzq.SepEstribo, EbeIzq.DiametroEstribo);
+                Muro.EBE_Izq = EbeIzq;
+
+                ElementoBordeEspecial EbeDer = new ElementoBordeEspecial(Bw, ZcDer, Fc, Fy, gradoDisipacionEnergia);
+                EbeDer.DiametroEstribo = Diametro.Num3;
+                EbeDer.CalculoSeparacionminima();
+                EbeDer.CalculoCuantiaVolumetrica(EbeDer.SepEstribo, EbeDer.DiametroEstribo);
+                Muro.EBE_Der = EbeDer;
 
                 Muro.CalcRhoH();
                 Muro.CalcRhoL();
+
+                if (Muro.RhoV >= 0.01)
+                {
+                    Muro.EBE_Izq.LongEbe = Muro.Lw;
+                    Muro.EBE_Izq.CalculoCuantiaVolumetrica(Muro.EBE_Izq.SepEstribo, Muro.EBE_Izq.DiametroEstribo);
+
+                    Muro.EBE_Der.LongEbe = 0;
+                    Muro.EBE_Izq.CalculoCuantiaVolumetrica(Muro.EBE_Izq.SepEstribo, Muro.EBE_Izq.DiametroEstribo);
+                }
 
                 Muros.Add(Muro);
             }

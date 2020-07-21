@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAcces", "DataAcces\Data
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DibujoAutomaticoAlzados", "DibujoAutomaticoAlzados\DibujoAutomaticoAlzados.csproj", "{94DCBE3F-8144-4989-BF41-AF647210048D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControlUsuariosProyectos", "..\ControlUsuariosProyectos\ControlUsuariosProyectos\ControlUsuariosProyectos.csproj", "{0EDA72E0-AAB9-487D-823E-ACE852D0FADD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{94DCBE3F-8144-4989-BF41-AF647210048D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{94DCBE3F-8144-4989-BF41-AF647210048D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{94DCBE3F-8144-4989-BF41-AF647210048D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0EDA72E0-AAB9-487D-823E-ACE852D0FADD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0EDA72E0-AAB9-487D-823E-ACE852D0FADD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0EDA72E0-AAB9-487D-823E-ACE852D0FADD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0EDA72E0-AAB9-487D-823E-ACE852D0FADD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

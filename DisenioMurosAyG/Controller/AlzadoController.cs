@@ -92,13 +92,13 @@ namespace DisenioMurosAyG.Controller
                 {
                     if (muro.EBE_Izq != null)
                     {
-                        dataRow[9] = $"#{DiccionariosRefuerzo.ReturnNombreDiametro(muro.EBE_Izq.DiametroEstribo,1)}";
+                        dataRow[9] = $"#{DiccionariosRefuerzo.ReturnNombreDiametro(muro.EBE_Izq.DiametroEstribo, 1)}";
                         dataRow[10] = muro.EBE_Izq.SepEstribo;
                     }
 
                     else if (muro.EBE_Der != null)
                     {
-                        dataRow[9] = $"#{DiccionariosRefuerzo.ReturnNombreDiametro(muro.EBE_Der.DiametroEstribo,1)}";
+                        dataRow[9] = $"#{DiccionariosRefuerzo.ReturnNombreDiametro(muro.EBE_Der.DiametroEstribo, 1)}";
                         dataRow[10] = muro.EBE_Der.SepEstribo;
                     }
 
@@ -204,7 +204,8 @@ namespace DisenioMurosAyG.Controller
             int column = e.ColumnIndex;
             var ColumnName = InformacionAlzadoView1.dgAlzado.Rows[indice].Cells[column].ColumnInfo.Name;
             List<Muro> MurosSeleccionados = new List<Muro>();
-            float LongEbe = 0;
+            float LongEbeIzq = 0;
+            float LongEbeDer = 0;
             Malla malla = null;
 
             MuroSeleccionado = AlzadoSeleccionado.Muros[indice];
@@ -239,39 +240,49 @@ namespace DisenioMurosAyG.Controller
                         muro.Hw = float.Parse(InformacionAlzadoView1.dgAlzado.Rows[indice].Cells[ColumnName].Value.ToString());
                     break;
                 case "Zc_Izq (m)":
-                    LongEbe = float.Parse(InformacionAlzadoView1.dgAlzado.Rows[indice].Cells[ColumnName].Value.ToString());
+                    LongEbeIzq = float.Parse(InformacionAlzadoView1.dgAlzado.Rows[indice].Cells["Zc_Izq (m)"].Value.ToString());
+                    LongEbeDer = float.Parse(InformacionAlzadoView1.dgAlzado.Rows[indice].Cells["Zc_Der (m)"].Value.ToString());
                     foreach (var muro in MurosSeleccionados)
                     {
-                        UploadEbe(indice, LongEbe, muro.EBE_Izq, "Ramas Izq");
+                        UploadEbe(indice, LongEbeIzq, muro.EBE_Izq, "Ramas Izq");
+                        UploadEbe(indice, LongEbeDer, muro.EBE_Der, "Ramas Der");
                         UploadAsLongMuroSeleccionado(muro, indice, "RefAdicional (cm²)");
                     }
                     break;
                 case "Zc_Der (m)":
-                    LongEbe = float.Parse(InformacionAlzadoView1.dgAlzado.Rows[indice].Cells[ColumnName].Value.ToString());
+                    LongEbeIzq = float.Parse(InformacionAlzadoView1.dgAlzado.Rows[indice].Cells["Zc_Izq (m)"].Value.ToString());
+                    LongEbeDer = float.Parse(InformacionAlzadoView1.dgAlzado.Rows[indice].Cells["Zc_Der (m)"].Value.ToString());
                     foreach (var muro in MurosSeleccionados)
                     {
-                        UploadEbe(indice, LongEbe, muro.EBE_Der, "Ramas Der");
+                        UploadEbe(indice, LongEbeIzq, muro.EBE_Izq, "Ramas Izq");
+                        UploadEbe(indice, LongEbeDer, muro.EBE_Der, "Ramas Der");
                         UploadAsLongMuroSeleccionado(muro, indice, "RefAdicional (cm²)");
                     }
                     break;
                 case "Estribo":
                     string Diametro = InformacionAlzadoView1.dgAlzado.Rows[indice].Cells[ColumnName].Value.ToString();
-                    UploadEbe(indice, Diametro, MuroSeleccionado.EBE_Izq, "Ramas Izq");
-                    UploadEbe(indice, Diametro, MuroSeleccionado.EBE_Der, "Ramas Der");
+                    foreach (var muro in MurosSeleccionados)
+                    {
+                        UploadEbe(indice, Diametro, muro.EBE_Izq, "Ramas Izq");
+                        UploadEbe(indice, Diametro, muro.EBE_Der, "Ramas Der");
+                    }
                     break;
                 case "Separacion (m)":
                     float separacion = float.Parse(InformacionAlzadoView1.dgAlzado.Rows[indice].Cells[ColumnName].Value.ToString());
-                    UploadEbe(indice, MuroSeleccionado.EBE_Izq, separacion, "Ramas Izq");
-                    UploadEbe(indice, MuroSeleccionado.EBE_Izq, separacion, "Ramas Der");
+                    foreach (var muro in MurosSeleccionados)
+                    {
+                        UploadEbe(indice, muro.EBE_Izq, separacion, "Ramas Izq");
+                        UploadEbe(indice, muro.EBE_Der, separacion, "Ramas Der");
+                    }
                     break;
                 case "Malla":
-                    var tempmalla =InformacionAlzadoView1.dgAlzado.Rows[indice].Cells[ColumnName].Value.ToString();
+                    var tempmalla = InformacionAlzadoView1.dgAlzado.Rows[indice].Cells[ColumnName].Value.ToString();
 
                     malla = (from mallai in _contex.Mallas
                              where mallai.DenomMallla == tempmalla
                              select mallai).FirstOrDefault();
 
-                    foreach(var muro in MurosSeleccionados)
+                    foreach (var muro in MurosSeleccionados)
                     {
                         muro.Malla = malla;
                     }
@@ -282,29 +293,28 @@ namespace DisenioMurosAyG.Controller
 
         private void UploadEbe(int indice, float LongEbe, ElementoDeBorde elementoBorde, string ColumnName)
         {
-            if (LongEbe > 0)
-            {
-                if (elementoBorde == null)
-                {
-                    elementoBorde = new ElementoBordeEspecial(MuroSeleccionado.Bw, LongEbe, MuroSeleccionado.Fc, MuroSeleccionado.Fy, _contex.GradoDisipacionEnergia);
-                    elementoBorde.DiametroEstribo = Diametro.Num3;
-                    DT_AlzadoSeleccionado.Rows[indice]["Separacion (m)"] = elementoBorde.SepEstribo;
-                }
-                else
-                    elementoBorde.LongEbe = LongEbe;
+            Diametro diametro = Diametro.Num3;
 
-                DT_AlzadoSeleccionado.Columns[ColumnName].ReadOnly = false;
-                DT_AlzadoSeleccionado.Rows[indice][ColumnName] = elementoBorde.RamasX;
-                DT_AlzadoSeleccionado.Columns[ColumnName].ReadOnly = true;
-            }
-            else if (elementoBorde != null)
+            switch (InformacionAlzadoView1.dgAlzado.Rows[indice].Cells["Estribo"].Value.ToString())
             {
-                elementoBorde.LongEbe = 0;
-                elementoBorde = null;
-                DT_AlzadoSeleccionado.Columns[ColumnName].ReadOnly = false;
-                DT_AlzadoSeleccionado.Rows[indice][ColumnName] = 0f;
-                DT_AlzadoSeleccionado.Columns[ColumnName].ReadOnly = true;
+                case "#3":
+                    diametro = Diametro.Num3;
+                    break;
+                case "#4":
+                    diametro = Diametro.Num4;
+                    break;
+                case "#5":
+                    diametro = Diametro.Num5;
+                    break;
             }
+
+            elementoBorde.LongEbe = LongEbe;
+            elementoBorde.DiametroEstribo = diametro;
+
+            DT_AlzadoSeleccionado.Columns[ColumnName].ReadOnly = false;
+            DT_AlzadoSeleccionado.Rows[indice][ColumnName] = elementoBorde.RamasX;
+            DT_AlzadoSeleccionado.Columns[ColumnName].ReadOnly = true;
+
         }
 
         private void UploadEbe(int indice, string DiametroEstribo, ElementoDeBorde elementoBorde, string ColumnName)
@@ -332,13 +342,12 @@ namespace DisenioMurosAyG.Controller
 
         private void UploadEbe(int indice, ElementoDeBorde elementoDeBorde, float separacion, string ColumnName)
         {
-            if (elementoDeBorde != null)
-            {
-                elementoDeBorde.SepEstribo = separacion;
-                DT_AlzadoSeleccionado.Columns[ColumnName].ReadOnly = false;
-                DT_AlzadoSeleccionado.Rows[indice][ColumnName] = elementoDeBorde.RamasX;
-                DT_AlzadoSeleccionado.Columns[ColumnName].ReadOnly = true;
-            }
+            elementoDeBorde.SepEstribo = separacion;
+
+            DT_AlzadoSeleccionado.Columns[ColumnName].ReadOnly = false;
+            DT_AlzadoSeleccionado.Rows[indice][ColumnName] = elementoDeBorde.RamasX;
+            DT_AlzadoSeleccionado.Columns[ColumnName].ReadOnly = true;
+
 
         }
 

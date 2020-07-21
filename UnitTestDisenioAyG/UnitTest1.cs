@@ -11,6 +11,7 @@ using FunctionsAutoCAD;
 using DataAcces;
 using B_Operaciones_Matricialesl;
 using DibujoAutomaticoAlzados;
+using DisenioMurosAyG.Context;
 
 namespace UnitTestDisenioAyG
 {
@@ -22,7 +23,7 @@ namespace UnitTestDisenioAyG
         [TestMethod]
         public void TestMethod1()
         {
-
+            //UserTest();
             string Ruta1 = "F:\\Proyectos Visual Studio\\Desarrollo_Software\\Programa Dibujo Muros ETAPA 1\\Programa Dibujo Muros ETAPA 1\\Muros.xlsx";
             string Ruta2 = "F:\\Proyectos Visual Studio\\Desarrollo_Software\\Programa Dibujo Muros ETAPA 1\\Programa Dibujo Muros ETAPA 1\\Refuerzo.xlsx";
             ModeloContext = new ModeloContext();
@@ -91,6 +92,17 @@ namespace UnitTestDisenioAyG
                     InsertionPoint[0] += alzadoi.Muros.FirstOrDefault().Lw + 4.50f;
                 }
             }
+        }
+
+        public void UserTest()
+        {
+            ControlContext controlContext = new ControlContext();
+
+            var Usuarios = controlContext.CrearUsuarios();
+            var Aplicaciones = controlContext.CrearAplicaciones();
+
+            var AplicacionDefault = Aplicaciones.FirstOrDefault();
+            var operaciones = controlContext.CrearOperaciones(Usuarios, AplicacionDefault);
 
         }
     }

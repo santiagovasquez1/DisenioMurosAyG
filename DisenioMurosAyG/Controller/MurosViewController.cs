@@ -29,22 +29,22 @@ namespace DisenioMurosAyG.Controller
             MurosView = murosView;
 
             MurosView.ListlMuros.CellEndEdit += new GridViewCellEventHandler(EditAlzadoCommand);
-            MurosView.ListlMuros.HeaderCellToggleStateChanged += new HeaderCellToggleStateChangedEventHandler(HeaderCellToggleStateChanged);
+            MurosView.cbAceptar.Click += new EventHandler(HeaderCellToggleStateChanged);
 
             Set_Columns_Data_Alzado();
             LoadMurosData();
             Cargar_DataGrid();
         }
 
-        private void HeaderCellToggleStateChanged(object sender, GridViewHeaderCellEventArgs e)
+        private void HeaderCellToggleStateChanged(object sender, EventArgs e)
         {
-            int column = e.ColumnIndex;
-            var ColumnName = e.Column.Name;
+            var ColumnName = "Dibujar";
 
             for (int i = 0; i < Alzados.Count; i++)
             {
-                EditData(i, column, ColumnName);
+                EditData(i, ColumnName);
             }
+            MurosView.Close();
         }
 
         private void Set_Columns_Data_Alzado()
@@ -113,12 +113,12 @@ namespace DisenioMurosAyG.Controller
             int indice = e.RowIndex;
             int column = e.ColumnIndex;
             var ColumnName = MurosView.ListlMuros.Rows[indice].Cells[column].ColumnInfo.Name;
-            EditData(indice, column, ColumnName);
+            EditData(indice, ColumnName);
 
             //LoadMurosData();
         }
 
-        private void EditData(int indice, int column, string ColumnName)
+        private void EditData(int indice, string ColumnName)
         {
             List<Alzado> AlzadosSeleccionados = new List<Alzado>();
 
@@ -140,9 +140,9 @@ namespace DisenioMurosAyG.Controller
                 case "NombreDef":
                     foreach (var alzado in AlzadosSeleccionados)
                     {
-                        alzado.NombreDef = MurosView.ListlMuros.Rows[indice].Cells[column].Value.ToString();
+                        alzado.NombreDef = MurosView.ListlMuros.Rows[indice].Cells[ColumnName].Value.ToString();
                         foreach (var muro in alzado.Muros)
-                            muro.LabelDef = MurosView.ListlMuros.Rows[indice].Cells[column].Value.ToString();
+                            muro.LabelDef = MurosView.ListlMuros.Rows[indice].Cells[ColumnName].Value.ToString();
                     }
                     break;
                 case "IsMaestro":
@@ -162,12 +162,12 @@ namespace DisenioMurosAyG.Controller
                 case "Padre":
                     var AlzadoPadre = (from alzado in Alzados
                                        where alzado.Padre != null
-                                       where alzado.Padre.NombreDef == MurosView.ListlMuros.Rows[indice].Cells[column].Value.ToString()
+                                       where alzado.Padre.NombreDef == MurosView.ListlMuros.Rows[indice].Cells[ColumnName].Value.ToString()
                                        select alzado).FirstOrDefault();
                     AlzadoSeleccionado.Padre = AlzadoPadre;
                     break;
                 case "Dibujar":
-                    AlzadoSeleccionado.Dibujar= (bool)MurosView.ListlMuros.Rows[indice].Cells["Dibujar"].Value;
+                    AlzadoSeleccionado.Dibujar = (bool)MurosView.ListlMuros.Rows[indice].Cells["Dibujar"].Value;
                     break;
             }
         }

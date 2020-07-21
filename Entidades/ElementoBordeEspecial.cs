@@ -23,11 +23,17 @@ namespace Entidades
                 RamasX = Cuantia_Volumetrica(LongEbe, recubrimiento: 0f, separacion, as_estribo);
                 RamasY = Cuantia_Volumetrica(Tw, recubrimiento: 0f, separacion, as_estribo);
             }
+            else
+            {
+                RamasX = 0;
+                RamasY = 0;
+            }
         }
 
         public override int Cuantia_Volumetrica(float espesor, float recubrimiento, float separacion, float as_estribo)
         {
             float ash = 0;
+            double Cant = 0;
 
             if (GradoDisipacionEnergia == GradoDisipacionEnergia.DMO | GradoDisipacionEnergia == GradoDisipacionEnergia.DMI)
             {
@@ -38,25 +44,33 @@ namespace Entidades
                 ash = 0.09f * SepEstribo * (espesor - 2 * recubrimiento) * Fc / Fy;
             }
 
-            var Cant = Math.Ceiling(ash * Math.Pow(100, 2) / as_estribo);
+            if (SepEstribo > 0)
+                Cant = Math.Ceiling(ash * Math.Pow(100, 2) / as_estribo);
+
             return (int)Cant;
         }
 
         public override void CalculoSeparacionminima()
         {
-
-            switch (GradoDisipacionEnergia)
+            if (LongEbe > 0)
             {
-                case GradoDisipacionEnergia.DMI:
-                case GradoDisipacionEnergia.DMO:
-                    SepEstribo = Tw / 2 < 0.075 ? 0.075f : Tw / 2;
-                    break;
-                case GradoDisipacionEnergia.DES:
-                    SepEstribo = Tw / 3 < 0.05 ? 0.05f : Tw / 3;
-                    break;
-                default:
-                    SepEstribo = 0.075f;
-                    break;
+                switch (GradoDisipacionEnergia)
+                {
+                    case GradoDisipacionEnergia.DMI:
+                    case GradoDisipacionEnergia.DMO:
+                        SepEstribo = Tw / 2 < 0.075 ? 0.075f : Tw / 2;
+                        break;
+                    case GradoDisipacionEnergia.DES:
+                        SepEstribo = Tw / 3 < 0.05 ? 0.05f : Tw / 3;
+                        break;
+                    default:
+                        SepEstribo = 0.075f;
+                        break;
+                }
+            }
+            else
+            {
+                SepEstribo = 0f;
             }
         }
 

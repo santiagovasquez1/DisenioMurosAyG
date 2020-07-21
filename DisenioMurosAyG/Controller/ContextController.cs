@@ -1,5 +1,6 @@
 ﻿using DataAcces;
 using DisenioMurosAyG.ClasesEstaticas;
+using DisenioMurosAyG.Context;
 using DisenioMurosAyG.Views;
 using Entidades;
 using System;
@@ -23,11 +24,13 @@ namespace DisenioMurosAyG.Controller
         public VariablesDibujoController VariablesDibujoController { get; set; }
         public Alzado AlzadoSeleccionado { get; set; }
         public RadForm ControlActivo { get; set; }
+        public UsuarioController UsuarioController { get; set; }
         public int TabIndex { get; set; }
         public ContextController(ContextView contextView)
         {
             _context = Program._context;
             ContextView = contextView;
+            LoadUsuarioController();
 
             contextView.radRibbonBar1.OptionsButton.Visibility = Telerik.WinControls.ElementVisibility.Hidden;
             contextView.cbNuevo.Click += new EventHandler(NuevoCommand);
@@ -40,6 +43,17 @@ namespace DisenioMurosAyG.Controller
             contextView.cbGuardar.Click += new EventHandler(GuardarCommand);
             contextView.cbGuardarComo.Click += new EventHandler(GuardarComoCommand);
             contextView.cbCargar.Click += new EventHandler(CargarCommand);
+            contextView.FormClosing += new FormClosingEventHandler(CerrarFormulario);
+            contextView.Load += new EventHandler(LoadFormulario);
+
+        }
+
+        private void LoadFormulario(object sender, EventArgs e)
+        {
+            if (UsuarioController.IpV4.Count >= 20)
+            {
+                ContextView.Close();
+            }
         }
 
         private void CargarCommand(object sender, EventArgs e)
@@ -64,9 +78,27 @@ namespace DisenioMurosAyG.Controller
 
                     ContextView.cbListMuros.Enabled = true;
                     ContextView.ViePageContainer.Enabled = true;
+
+                    var InformacionAlzado = new InformacionAlzadoView1();
+                    AlzadoController = new AlzadoController(InformacionAlzado, AlzadoSeleccionado);
+                    Cargar_Formularios.Open_From_Panel(ContextView.ViewPageAlzado, InformacionAlzado);
+                    ControlActivo = InformacionAlzado;
                 }
             }
 
+        }
+        private void LoadUsuarioController()
+        {
+            using(var db=new ControlContext())
+            {
+                UsuarioController = new UsuarioController(db);
+                UsuarioController.CreateOperacion();
+            }
+        }
+
+        private void CerrarFormulario(object sender, FormClosingEventArgs e)
+        {
+            UsuarioController.EndOperacion();            
         }
 
         private void GuardarComoCommand(object sender, EventArgs e)

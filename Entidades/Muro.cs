@@ -35,8 +35,11 @@ namespace Entidades
             MuroId = Guid.NewGuid().ToString();
         }
         public void CalcRhoH()
-        {
+        {            
             RhoH = (float)(AsH / (Bw * Math.Pow(100, 2)));
+
+            if (Lw > 4.00f && RhoH < 0.002f)
+                RhoH = 0.0020f;
         }
 
         public void CalcRhoL()

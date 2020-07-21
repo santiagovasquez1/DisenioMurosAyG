@@ -20,6 +20,7 @@ namespace DibujoAutomaticoAlzados
         public float Escala { get; set; }
         public float Recubrimiento { get; set; }
         public float Separacion { get; set; }
+        public float LongSeccion { get; set; }
         public int NumCapas { get; set; }
         public DibujoSeccion(Alzado alzado, double[] insertionpoint, string layerrefuerzo, string layercota, string layertexto, string layernombreseccion, string layercoco, float escala, float recubrimiento)
         {
@@ -60,55 +61,60 @@ namespace DibujoAutomaticoAlzados
             else
                 Separacion = 0.15f * Escala;
 
+            LongSeccion = Muroinicial.Lw * Escala;
+
             foreach (int seccioni in NumeroSecciones)
             {
-                var muroi = (from muro in Alzado.Muros
-                             where muro.BarrasMuros != null
-                             where muro.BarrasMuros.Count == seccioni
-                             select muro).LastOrDefault();
+                if (seccioni > 0)
+                {
+                    var muroi = (from muro in Alzado.Muros
+                                 where muro.BarrasMuros != null
+                                 where muro.BarrasMuros.Count == seccioni
+                                 select muro).LastOrDefault();
 
-                var NivelInicial = (from muro in Alzado.Muros
-                                    where muro.BarrasMuros != null
-                                    where muro.BarrasMuros.Count == seccioni
-                                    select muro.Story.StoryName).LastOrDefault();
+                    var NivelInicial = (from muro in Alzado.Muros
+                                        where muro.BarrasMuros != null
+                                        where muro.BarrasMuros.Count == seccioni
+                                        select muro.Story.StoryName).LastOrDefault();
 
-                var NivelFinal = (from muro in Alzado.Muros
-                                  where muro.BarrasMuros != null
-                                  where muro.BarrasMuros.Count == seccioni
-                                  select muro.Story.StoryName).FirstOrDefault();
+                    var NivelFinal = (from muro in Alzado.Muros
+                                      where muro.BarrasMuros != null
+                                      where muro.BarrasMuros.Count == seccioni
+                                      select muro.Story.StoryName).FirstOrDefault();
 
-                if (NivelInicial != NivelFinal)
-                    TextoSeccion = $"SECCION TRAMO {x} ({NivelInicial} a {NivelFinal})";
-                else
-                    TextoSeccion = $"SECCION TRAMO {x} ({NivelInicial})";
+                    if (NivelInicial != NivelFinal)
+                        TextoSeccion = $"SECCION TRAMO {x} ({NivelInicial} a {NivelFinal})";
+                    else
+                        TextoSeccion = $"SECCION TRAMO {x} ({NivelInicial})";
 
+                    var tempcoor = new double[] { 0, 0, 0, -muroi.Bw, muroi.Lw, -muroi.Bw, muroi.Lw, 0 };
 
-                var tempcoor = new double[] { 0, 0, 0, -muroi.Bw, muroi.Lw, -muroi.Bw, muroi.Lw, 0 };
+                    var CoordEscalada = B_Operaciones_Matricialesl.Operaciones.Escalar2(Escala, tempcoor);
 
-                var CoordEscalada = B_Operaciones_Matricialesl.Operaciones.Escalar2(Escala, tempcoor);
+                    var CoordDef = B_Operaciones_Matricialesl.Operaciones.TraslacionPoligono(Array.ConvertAll(InsertionPoint, y => (float)y), Array.ConvertAll(CoordEscalada, y => (float)y));
 
-                var CoordDef = B_Operaciones_Matricialesl.Operaciones.TraslacionPoligono(Array.ConvertAll(InsertionPoint, y => (float)y), Array.ConvertAll(CoordEscalada, y => (float)y));
+                    var X1 = (float)CoordDef[0];
+                    var X2 = (float)CoordDef[4];
+                    var Y1 = (float)CoordDef[1];
+                    var Y2 = (float)CoordDef[3];
 
-                var X1 = (float)CoordDef[0];
-                var X2 = (float)CoordDef[4];
-                var Y1 = (float)CoordDef[1];
-                var Y2 = (float)CoordDef[3];
+                    var TempCapas = (from barra in muroi.BarrasMuros
+                                     where barra != null
+                                     select barra.Cantidad).Sum() / 2;
 
-                var TempCapas = (from barra in muroi.BarrasMuros
-                                 where barra != null
-                                 select barra.Cantidad).Sum() / 2;
+                    FunctionsAutoCAD.FunctionsAutoCAD.AddPolyline2D(CoordDef, LayerCoco, true);
 
-                FunctionsAutoCAD.FunctionsAutoCAD.AddPolyline2D(CoordDef, LayerCoco, true);
+                    AgregarCota(X1, X2, Y1, Y1, 0.52f, 0f);
+                    AgregarCota(X1, X1, Y1, Y2, -0.43f, 0f);
+                    AgregarCota(X2, X2, Y1, Y2, 0.43f, 0f);
 
-                AgregarCota(X1, X2, Y1, Y1, 0.52f, 0f);
-                AgregarCota(X1, X1, Y1, Y2, -0.43f, -1.35f);
-                AgregarCota(X2, X2, Y1, Y2, 0.43f, -1.35f);
+                    DibujarRefuerzo(X1, X2, Y1, Y2, TempCapas);
+                    DibujarTextoSeccion(TextoSeccion, InsertionPoint, X1, X2);
+                    InsertionPoint = new double[] { InsertionPoint[0], InsertionPoint[1] + DeltaY, InsertionPoint[2] };
 
-                DibujarRefuerzo(X1, X2, Y1, Y2, TempCapas);
-                DibujarTextoSeccion(TextoSeccion, InsertionPoint, X1, X2);
-                InsertionPoint = new double[] { InsertionPoint[0], InsertionPoint[1] + DeltaY, InsertionPoint[2] };
+                    x++;
+                }
 
-                x++;
             }
 
         }

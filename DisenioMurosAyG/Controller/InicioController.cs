@@ -1,4 +1,5 @@
 ﻿using DataAcces;
+using DisenioMurosAyG.ClasesEstaticas;
 using DisenioMurosAyG.Views;
 using Entidades;
 using System;
@@ -40,7 +41,7 @@ namespace DisenioMurosAyG.Controller
 
         private void NuevoProyectoClick(object sender, EventArgs e)
         {
-            if (_contex.RutaArchivoDisenio != null && _contex.RutaArchivoDespiece!=null)
+            if (_contex.RutaArchivoDisenio != null && _contex.RutaArchivoDespiece != null)
             {
                 _contex.LoadDisenioContext();
                 _contex.LoadDespieceContext();
@@ -48,6 +49,11 @@ namespace DisenioMurosAyG.Controller
                 ContextController.ContextView.ListViewAlzados.DataSource = _contex.Alzados;
                 var DefaultItemSelect = ContextController.ContextView.ListViewAlzados.Items[0];
                 ContextController.ContextView.ListViewAlzados.SelectedItem = DefaultItemSelect;
+
+                var InformacionAlzado = new InformacionAlzadoView1();
+                ContextController.AlzadoController = new AlzadoController(InformacionAlzado, ContextController.AlzadoSeleccionado);
+                Cargar_Formularios.Open_From_Panel(ContextController.ContextView.ViewPageAlzado, InformacionAlzado);
+                ContextController.ControlActivo = InformacionAlzado;
 
                 InicioView.Close();
             }
