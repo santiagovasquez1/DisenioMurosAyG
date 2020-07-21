@@ -5,10 +5,12 @@ using DisenioMurosAyG.Views;
 using Entidades;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Telerik.WinControls;
 using Telerik.WinControls.UI;
 
 namespace DisenioMurosAyG.Controller
@@ -32,7 +34,6 @@ namespace DisenioMurosAyG.Controller
             ContextView = contextView;
             LoadUsuarioController();
 
-            contextView.radRibbonBar1.OptionsButton.Visibility = Telerik.WinControls.ElementVisibility.Hidden;
             contextView.cbNuevo.Click += new EventHandler(NuevoCommand);
             contextView.ListViewAlzados.MultiSelect = false;
             contextView.ListViewAlzados.SelectedIndexChanged += new EventHandler(SeleccionAlzadoCommand);
@@ -54,6 +55,12 @@ namespace DisenioMurosAyG.Controller
             {
                 ContextView.Close();
             }
+
+            if (Program.FicheroExterno.Contains(".walls"))
+            {
+                CargarFicheroExterno();
+            }
+
         }
 
         private void CargarCommand(object sender, EventArgs e)
@@ -67,29 +74,48 @@ namespace DisenioMurosAyG.Controller
 
                 if (File.ShowDialog() == DialogResult.OK)
                 {
-                    Program.RutaProyecto = File.FileName;
-                    var context = _context;
-                    ModeloSerialization.Deserealizar(Program.RutaProyecto, ref context);
-                    Program._context = context;
-                    _context = Program._context;
-                    ContextView.ListViewAlzados.DataSource = _context.Alzados;
-                    var DefaultItemSelect = ContextView.ListViewAlzados.Items[0];
-                    ContextView.ListViewAlzados.SelectedItem = DefaultItemSelect;
-
-                    ContextView.cbListMuros.Enabled = true;
-                    ContextView.ViePageContainer.Enabled = true;
-
-                    var InformacionAlzado = new InformacionAlzadoView1();
-                    AlzadoController = new AlzadoController(InformacionAlzado, AlzadoSeleccionado);
-                    Cargar_Formularios.Open_From_Panel(ContextView.ViewPageAlzado, InformacionAlzado);
-                    ControlActivo = InformacionAlzado;
+                    string RutaArchivo = File.FileName;
+                    AbrirProyecto(RutaArchivo);
                 }
+            }
+        }
+
+        private void AbrirProyecto(string RutaArchivo)
+        {
+            Program.RutaProyecto = RutaArchivo;
+            var context = _context;
+            ModeloSerialization.Deserealizar(Program.RutaProyecto, ref context);
+            Program._context = context;
+            _context = Program._context;
+
+            ContextView.ListViewAlzados.DataSource = _context.Alzados;
+            var DefaultItemSelect = ContextView.ListViewAlzados.Items[0];
+            ContextView.ListViewAlzados.SelectedItem = DefaultItemSelect;
+
+            ContextView.cbListMuros.Enabled = true;
+            ContextView.ViePageContainer.Enabled = true;
+
+            var InformacionAlzado = new InformacionAlzadoView1();
+            AlzadoController = new AlzadoController(InformacionAlzado, AlzadoSeleccionado);
+            Cargar_Formularios.Open_From_Panel(ContextView.ViewPageAlzado, InformacionAlzado);
+            ControlActivo = InformacionAlzado;
+        }
+
+        private void CargarFicheroExterno()
+        {
+            var Prueba = Program.FicheroExterno.Split(new char[] { '"' });
+
+            if (File.Exists(Prueba[3]))
+            {
+                string RutaArchivo = Prueba[3];
+                AbrirProyecto(RutaArchivo);
             }
 
         }
+
         private void LoadUsuarioController()
         {
-            using(var db=new ControlContext())
+            using (var db = new ControlContext())
             {
                 UsuarioController = new UsuarioController(db);
                 UsuarioController.CreateOperacion();
@@ -98,7 +124,7 @@ namespace DisenioMurosAyG.Controller
 
         private void CerrarFormulario(object sender, FormClosingEventArgs e)
         {
-            UsuarioController.EndOperacion();            
+            UsuarioController.EndOperacion();
         }
 
         private void GuardarComoCommand(object sender, EventArgs e)

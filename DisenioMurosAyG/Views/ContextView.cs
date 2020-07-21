@@ -26,5 +26,10 @@ namespace DisenioMurosAyG.Views
         {
 
         }
+
+        private void ContextView_Load(object sender, EventArgs e)
+        {
+            //Program.FicheroExterno = Environment.CommandLine;
+        }
     }
 }

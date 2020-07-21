@@ -42,23 +42,12 @@ namespace DisenioMurosAyG.Controller
                 Alzados = _context.Alzados;
                 VariablesDibujoView.cbDibujar.Enabled = true;
             }
-
             else
                 VariablesDibujoView.cbDibujar.Enabled = false;
 
-            if (LayersModelo != null)
-            {
-                VariablesDibujoView.listCotas.Items.AddRange(LayersModelo);
-                VariablesDibujoView.listCotas.Text = "COTAS";
-                VariablesDibujoView.listTextos.Items.AddRange(LayersModelo);
-                VariablesDibujoView.listTextos.Text = "R80";
-                VariablesDibujoView.listLayerMuro.Items.AddRange(LayersModelo);
-                VariablesDibujoView.listLayerMuro.Text = "MUROS-ELEV";
-                VariablesDibujoView.listLayerRefuerzo.Items.AddRange(LayersModelo);
-                VariablesDibujoView.listLayerRefuerzo.Text = "HIERROS";
-            }
-
             VariablesDibujoView.tbAlturaViga.DataBindings.Add("Text", this, "Hlosa", true, DataSourceUpdateMode.OnPropertyChanged);
+            VariablesDibujoView.tbHVigaFunda.DataBindings.Add("Text", this, "HVigaFundacion", true, DataSourceUpdateMode.OnPropertyChanged);
+            VariablesDibujoView.tbProfRefuerzo.DataBindings.Add("Text", this, "ProfRefuerzo", true, DataSourceUpdateMode.OnPropertyChanged);
 
         }
 
@@ -72,9 +61,9 @@ namespace DisenioMurosAyG.Controller
 
             FunctionsAutoCAD.FunctionsAutoCAD.GetPoint(ref InsertionPoint);
 
-            LayerCota = VariablesDibujoView.listCotas.Text;
-            LayerTexto = VariablesDibujoView.listTextos.Text;
-            LayerCoco = VariablesDibujoView.listLayerMuro.Text;
+            LayerCota ="COTA";
+            LayerTexto = "R80";
+            LayerCoco = "MUROS-ELEV";
 
             foreach (var alzadoi in Alzados)
             {
@@ -94,7 +83,7 @@ namespace DisenioMurosAyG.Controller
                     {
                         var RefuerzoFactory = new RefuerzoLongFactory(alzadoi, 1.00f);
                         RefuerzoFactory.SetRefuerzoMuro();
-                        var DibujoRefuerzo = new DibujoRefuerzo(alzadoi, InsertionPoint, 0.10f, 1.20f, 1.00f, "BORDES", "HIERROS", "R-60", "COTA");
+                        var DibujoRefuerzo = new DibujoRefuerzo(alzadoi, InsertionPoint, HLosa, HVigaFundacion, ProfRefuerzo, "BORDES", "HIERROS", "R-60", "COTA");
                         DibujoRefuerzo.DibujarMuros();
                         DibujoRefuerzo.DibujoCambioResistencia();
                         DibujoRefuerzo.DibujarRefuerzoLongitudinal();
@@ -117,16 +106,6 @@ namespace DisenioMurosAyG.Controller
         {
             FunctionsAutoCAD.FunctionsAutoCAD.OpenAutoCAD();
             LayersModelo = FunctionsAutoCAD.FunctionsAutoCAD.GetLayersModel();
-
-            VariablesDibujoView.listCotas.Items.AddRange(LayersModelo);
-            VariablesDibujoView.listCotas.Text = "COTAS";
-            VariablesDibujoView.listTextos.Items.AddRange(LayersModelo);
-            VariablesDibujoView.listTextos.Text = "R80";
-            VariablesDibujoView.listLayerMuro.Items.AddRange(LayersModelo);
-            VariablesDibujoView.listLayerMuro.Text = "MUROS-ELEV";
-            VariablesDibujoView.listLayerRefuerzo.Items.AddRange(LayersModelo);
-            VariablesDibujoView.listLayerRefuerzo.Text = "HIERROS";
-
             Program.LayersModelo = LayersModelo;
         }
     }

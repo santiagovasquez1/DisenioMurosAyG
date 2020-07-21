@@ -19,6 +19,7 @@ namespace DisenioMurosAyG.Context
             string ConnectionString = "Server=usuariossvg.cidxy8evidix.us-east-1.rds.amazonaws.com;" +
                 "Database=usuarios_svg;" +
                 "Uid=usuariosvg;Pwd=Bucefalo_1205;";
+
             if (!optionsBuilder.IsConfigured)
             {
                 optionsBuilder.UseMySql(ConnectionString);

@@ -28,5 +28,8 @@ namespace DataAcces
             modelo = proyectoDeserializado;
             streamReader.Close();
         }
+
     }
+
+
 }

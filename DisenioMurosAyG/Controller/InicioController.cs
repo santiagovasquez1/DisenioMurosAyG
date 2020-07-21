@@ -41,7 +41,7 @@ namespace DisenioMurosAyG.Controller
 
         private void NuevoProyectoClick(object sender, EventArgs e)
         {
-            if (_contex.RutaArchivoDisenio != null && _contex.RutaArchivoDespiece != null)
+            if (_contex.RutaArchivoDisenio != null || _contex.RutaArchivoDespiece != null)
             {
                 _contex.LoadDisenioContext();
                 _contex.LoadDespieceContext();

@@ -42,6 +42,7 @@
             this.cbCargar = new Telerik.WinControls.UI.RadMenuItem();
             this.cbGuardar = new Telerik.WinControls.UI.RadMenuItem();
             this.radRibbonBar1 = new Telerik.WinControls.UI.RadRibbonBar();
+            this.cbGuardarComo = new Telerik.WinControls.UI.RadMenuItem();
             this.office2013LightTheme1 = new Telerik.WinControls.Themes.Office2013LightTheme();
             this.PanelContainer = new Telerik.WinControls.UI.RadScrollablePanelContainer();
             this.ListViewAlzados = new Telerik.WinControls.UI.RadListView();
@@ -52,7 +53,6 @@
             this.ViePageContainer = new Telerik.WinControls.UI.RadPageView();
             this.ViewPageAlzado = new Telerik.WinControls.UI.RadPageViewPage();
             this.ViewPageDespiece = new Telerik.WinControls.UI.RadPageViewPage();
-            this.cbGuardarComo = new Telerik.WinControls.UI.RadMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.radRibbonBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ListViewAlzados)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radGroupBox1)).BeginInit();
@@ -189,6 +189,11 @@
             this.radRibbonBar1.Text = "InformacionAlzadoView1";
             this.radRibbonBar1.ThemeName = "Office2013Light";
             // 
+            // cbGuardarComo
+            // 
+            this.cbGuardarComo.Name = "cbGuardarComo";
+            this.cbGuardarComo.Text = "Guardar Como";
+            // 
             // PanelContainer
             // 
             this.PanelContainer.AutoScroll = false;
@@ -306,11 +311,6 @@
             this.ViewPageDespiece.Size = new System.Drawing.Size(958, 407);
             this.ViewPageDespiece.Text = "Despiece";
             // 
-            // cbGuardarComo
-            // 
-            this.cbGuardarComo.Name = "cbGuardarComo";
-            this.cbGuardarComo.Text = "Guardar Como";
-            // 
             // ContextView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -326,6 +326,7 @@
             this.RootElement.ApplyShapeToControl = true;
             this.Text = "InformacionAlzadoView1";
             this.ThemeName = "Office2013Light";
+            this.Load += new System.EventHandler(this.ContextView_Load);
             ((System.ComponentModel.ISupportInitialize)(this.radRibbonBar1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ListViewAlzados)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radGroupBox1)).EndInit();
