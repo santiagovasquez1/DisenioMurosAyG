@@ -34,7 +34,6 @@ namespace DisenioMurosAyG.Controller
             _context = Program._context;
             LayersModelo = Program.LayersModelo;
             VariablesDibujoView = variablesDibujoView;
-            VariablesDibujoView.cbVariables.Click += new EventHandler(CargarVariablesCommand);
             VariablesDibujoView.cbDibujar.Click += new EventHandler(DibujarAlzadoCommand);
 
             if (_context.Alzados != null)
@@ -81,7 +80,7 @@ namespace DisenioMurosAyG.Controller
 
                     if (ExisteDespiece)
                     {
-                        var RefuerzoFactory = new RefuerzoLongFactory(alzadoi, 1.00f);
+                        var RefuerzoFactory = new RefuerzoLongFactory(alzadoi, ProfRefuerzo);
                         RefuerzoFactory.SetRefuerzoMuro();
                         var DibujoRefuerzo = new DibujoRefuerzo(alzadoi, InsertionPoint, HLosa, HVigaFundacion, ProfRefuerzo, "BORDES", "HIERROS", "R-60", "COTA");
                         DibujoRefuerzo.DibujarMuros();

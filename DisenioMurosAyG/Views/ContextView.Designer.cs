@@ -37,7 +37,6 @@
             this.cbListMuros = new Telerik.WinControls.UI.RadButtonElement();
             this.radRibbonBarGroup2 = new Telerik.WinControls.UI.RadRibbonBarGroup();
             this.cbVariablesDibujo = new Telerik.WinControls.UI.RadButtonElement();
-            this.cbDibujo = new Telerik.WinControls.UI.RadButtonElement();
             this.cbNuevo = new Telerik.WinControls.UI.RadMenuItem();
             this.cbCargar = new Telerik.WinControls.UI.RadMenuItem();
             this.cbGuardar = new Telerik.WinControls.UI.RadMenuItem();
@@ -112,8 +111,7 @@
             // radRibbonBarGroup2
             // 
             this.radRibbonBarGroup2.Items.AddRange(new Telerik.WinControls.RadItem[] {
-            this.cbVariablesDibujo,
-            this.cbDibujo});
+            this.cbVariablesDibujo});
             this.radRibbonBarGroup2.MaxSize = new System.Drawing.Size(0, 144);
             this.radRibbonBarGroup2.MinSize = new System.Drawing.Size(70, 144);
             this.radRibbonBarGroup2.Name = "radRibbonBarGroup2";
@@ -123,12 +121,7 @@
             // cbVariablesDibujo
             // 
             this.cbVariablesDibujo.Name = "cbVariablesDibujo";
-            this.cbVariablesDibujo.Text = "Varibales Dibujo";
-            // 
-            // cbDibujo
-            // 
-            this.cbDibujo.Name = "cbDibujo";
-            this.cbDibujo.Text = "Dibujar Alzado";
+            this.cbVariablesDibujo.Text = "Dibujar Muro";
             // 
             // cbNuevo
             // 
@@ -359,7 +352,6 @@
         public Telerik.WinControls.UI.RadButtonElement cbListMuros;
         public Telerik.WinControls.UI.RadRibbonBarGroup radRibbonBarGroup2;
         public Telerik.WinControls.UI.RadButtonElement cbVariablesDibujo;
-        public Telerik.WinControls.UI.RadButtonElement cbDibujo;
         private Telerik.WinControls.Themes.Office2013LightTheme office2013LightTheme1;
         private Telerik.WinControls.UI.RadScrollablePanelContainer PanelContainer;
         public Telerik.WinControls.UI.RadListView ListViewAlzados;

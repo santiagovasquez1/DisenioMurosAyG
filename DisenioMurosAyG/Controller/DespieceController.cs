@@ -4,6 +4,7 @@ using Entidades;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Telerik.WinControls.UI;
@@ -24,6 +25,7 @@ namespace DisenioMurosAyG.Controller
         public DataTable DT_AyudaAlzadoSeleccionado { get; set; }
         public string ColumnaSeleccionadaName { get; set; }
         public bool ExisteDespiece { get; set; }
+        private GridViewCellStyle defaultStyle;
 
         public DespieceController(DespieceView despieceView, Alzado alzadoi)
         {
@@ -32,7 +34,7 @@ namespace DisenioMurosAyG.Controller
             AlzadoSeleccionado = alzadoi;
 
             DespieceView.gvDespieceMuro.CellEndEdit += new GridViewCellEventHandler(EditMuroCommand);
-            despieceView.gvDespieceMuro.ContextMenuOpening += new ContextMenuOpeningEventHandler(ColumnContextMenuOpening);
+            DespieceView.gvDespieceMuro.ContextMenuOpening += new ContextMenuOpeningEventHandler(ColumnContextMenuOpening);
 
             Set_Columns_Data_Alzado();
             LoadAlzadoData();
@@ -55,7 +57,7 @@ namespace DisenioMurosAyG.Controller
                 DataGridController.CrearColumna("Nivel (m)",typeof(string),true),
                 DataGridController.CrearColumna("Muro",typeof(string),true),
                 DataGridController.CrearColumna("Nombre Definitivo",typeof(string),true),
-                DataGridController.CrearColumna("AsReq",typeof(float),true),
+                DataGridController.CrearColumna("AsReq",typeof(float),false),
                 DataGridController.CrearColumna("AsTotal",typeof(float),false),
             };
 
@@ -90,6 +92,7 @@ namespace DisenioMurosAyG.Controller
 
         private void LoadAlzadoData()
         {
+            
             if (DT_AlzadoSeleccionado.Rows.Count > 0)
                 DT_AlzadoSeleccionado.Rows.Clear();
 
@@ -135,6 +138,7 @@ namespace DisenioMurosAyG.Controller
             DespieceView.gvDespieceMuro.AutoGenerateColumns = false;
             DespieceView.gvDespieceMuro.DataSource = DT_AlzadoSeleccionado;
             AddColumns(DespieceView.gvDespieceMuro);
+            defaultStyle = DespieceView.gvDespieceMuro.Rows[0].Cells["AsTotal"].Style;
 
             DespieceView.gvDespieceMuro.Columns["AsReq"].FormatString = "{0:F2}";
             DespieceView.gvDespieceMuro.Columns["AsTotal"].FormatString = "{0:F2}";
@@ -147,6 +151,12 @@ namespace DisenioMurosAyG.Controller
             DespieceView.gvDespieceMuro.MultiSelect = true;
 
             DespieceView.gvDespieceMuro.TableElement.TableHeaderHeight = 80;
+
+            for (int i = 0; i < DespieceView.gvDespieceMuro.RowCount; i++)
+            {
+                WarningAs(AlzadoSeleccionado.Muros[i], i);
+            }
+
         }
 
         private void AddColumns(RadGridView gridView)
@@ -155,8 +165,8 @@ namespace DisenioMurosAyG.Controller
             DataGridController.AddGridViewColumn(gridView, typeof(GridViewTextBoxColumn), typeof(string), "Nivel (m)", "Nivel (m)", "Nivel (m)", true);
             DataGridController.AddGridViewColumn(gridView, typeof(GridViewTextBoxColumn), typeof(string), "Muro", "Muro", "Muro", true);
             DataGridController.AddGridViewColumn(gridView, typeof(GridViewTextBoxColumn), typeof(string), "Nombre Definitivo", "Nombre Definitivo", "Nombre Definitivo", true);
-            DataGridController.AddGridViewColumn(gridView, typeof(GridViewTextBoxColumn), typeof(string), "AsReq", "AsReq", "AsReq", true);
-            DataGridController.AddGridViewColumn(gridView, typeof(GridViewTextBoxColumn), typeof(string), "AsTotal", "AsTotal", "AsTotal", true);
+            DataGridController.AddGridViewColumn(gridView, typeof(GridViewTextBoxColumn), typeof(float), "AsReq", "AsReq", "AsReq", true);
+            DataGridController.AddGridViewColumn(gridView, typeof(GridViewTextBoxColumn), typeof(float), "AsTotal", "AsTotal", "AsTotal", true);
 
             if (ExisteDespiece == true)
             {
@@ -235,9 +245,9 @@ namespace DisenioMurosAyG.Controller
                     muro.BarrasMuros.Remove(barrai);
                     muro.CalcAsTotal();
 
-                    var indice = AlzadoSeleccionado.Muros.FindIndex(x=>x.MuroId==muro.MuroId);
+                    var indice = AlzadoSeleccionado.Muros.FindIndex(x => x.MuroId == muro.MuroId);
                     if (indice >= 0)
-                        DespieceView.gvDespieceMuro.Rows[indice].Cells["AsTotal"].Value=muro.AsTotalAdicional;
+                        DespieceView.gvDespieceMuro.Rows[indice].Cells["AsTotal"].Value = muro.AsTotalAdicional;
                 }
             }
 
@@ -390,6 +400,8 @@ namespace DisenioMurosAyG.Controller
                     }
                 }
             }
+
+            WarningAs(MuroSeleccionado, indice);
         }
 
         private BarraMuro EditBarraMuro(string ColumnName, CapaRefuerzo CapaRefuerzo, int Diametro, Muro muroi, int indice)
@@ -418,6 +430,33 @@ namespace DisenioMurosAyG.Controller
             muroi.CalcAsTotal();
             DespieceView.gvDespieceMuro.Rows[indice].Cells["AsTotal"].Value = muroi.AsTotalAdicional;
             return barra;
+        }
+
+        private void WarningAs(Muro muro, int indice)
+        {
+            if (muro.AsTotalAdicional > 0)
+            {
+                if (muro.AsTotalAdicional / muro.AsAdicional < 0.95)
+                {
+                    DespieceView.gvDespieceMuro.Rows[indice].Cells["AsTotal"].Style.CustomizeFill = true;
+                    DespieceView.gvDespieceMuro.Rows[indice].Cells["AsTotal"].Style.BackColor = Color.FromArgb(221, 79, 67);
+                    DespieceView.gvDespieceMuro.Rows[indice].Cells["AsTotal"].Style.BackColor2 = Color.FromArgb(221, 79, 67);
+                    DespieceView.gvDespieceMuro.Rows[indice].Cells["AsTotal"].Style.ForeColor = Color.FromArgb(139, 0, 0);
+                    DespieceView.gvDespieceMuro.Rows[indice].Cells["AsTotal"].Style.DrawFill = true;
+                }
+                else
+                {
+                    DespieceView.gvDespieceMuro.Rows[indice].Cells["AsTotal"].Style.CustomizeFill = false;
+                    DespieceView.gvDespieceMuro.Rows[indice].Cells["AsTotal"].Style.ForeColor = defaultStyle.ForeColor;
+                }
+            }
+            else
+            {
+                DespieceView.gvDespieceMuro.Rows[indice].Cells["AsTotal"].Style.CustomizeFill = false;
+                DespieceView.gvDespieceMuro.Rows[indice].Cells["AsTotal"].Style.ForeColor = defaultStyle.ForeColor;
+
+            }
+
         }
     }
 }

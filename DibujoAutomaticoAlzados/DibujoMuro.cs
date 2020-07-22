@@ -20,7 +20,7 @@ namespace DibujoAutomaticoAlzados
         public string LayerTexto { get; set; }
         public string LayerCota { get; set; }
         public float HLosa { get; set; }
-        public DibujoMuro(Muro muro, double[] insertionpoint, float hlosa, string layercoco, string layerebe, string layertexto,string layerCota)
+        public DibujoMuro(Muro muro, double[] insertionpoint, float hlosa, string layercoco, string layerebe, string layertexto, string layerCota)
         {
             Muro = muro;
             InsertionPoint = insertionpoint;
@@ -45,7 +45,7 @@ namespace DibujoAutomaticoAlzados
             CoordCoco = SetCoorPoligono(0, LwCoco, muro.Hw, muro.Story.StoryElevation);
             CoordLosa = SetCoorPoligono(0, LwCoco, 0f, muro.Story.StoryElevation - HLosa);
             CoordNivel = SetCoorPoligono(-1.78f, 1.54f, 0f, muro.Story.StoryElevation);
-            InsertionPointText = new double[] { -1.78f + insertionpoint[0],insertionpoint[1]+ muro.Story.StoryElevation + 0.25f, 0f };
+            InsertionPointText = new double[] { -1.78f + insertionpoint[0], insertionpoint[1] + muro.Story.StoryElevation + 0.25f, 0f };
         }
 
         public double[] SetCoorPoligono(float DeltaX, float longitud, float altitud, float nivel)
@@ -88,6 +88,19 @@ namespace DibujoAutomaticoAlzados
             FunctionsAutoCAD.FunctionsAutoCAD.AddCota(P1, P2, LayerCota, "ROMANS", 0.75f, TextHeight: 1.50, ArrowheadSize: 0.85f, DeplazaTextX: 0.40f);
         }
 
+        public void DibujarMalla(float altitud, float nivel)
+        {
+            var niveltemp = nivel - altitud;
+            var TextString = Muro.Malla.DenomMallla;
+            var TextInsertion = new double[] { InsertionPoint[0] - 0.50 + Muro.Lw / 2, InsertionPoint[1] + niveltemp + (Muro.Hw / 2), 0 };
+            var RectCoord = new double[] {TextInsertion[0]-0.05,TextInsertion[1]-0.25,
+                                                               TextInsertion[0]+1.05,TextInsertion[1]-0.25,
+                                                               TextInsertion[0]+1.05 ,TextInsertion[1]+0.05,
+                                                               TextInsertion[0]-0.05,TextInsertion[1]+0.05};
+
+            FunctionsAutoCAD.FunctionsAutoCAD.AddText(TextString, TextInsertion, 0.20f, 0.20f, LayerTexto, "ROMANS", 0f, Width2: 1.05f);
+            FunctionsAutoCAD.FunctionsAutoCAD.AddPolyline2D(RectCoord, "LINEA-CORTE", true);
+        }
 
     }
 }

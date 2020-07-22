@@ -14,7 +14,6 @@ namespace DisenioMurosAyG.Controller
     {
         public static void Set_Columns_Data(DataTable dataTable, List<DataColumn> columns)
         {
-            //dataTable.Columns.Clear();
             foreach (var column in columns)
             {
                 dataTable.Columns.Add(column);
@@ -86,8 +85,16 @@ namespace DisenioMurosAyG.Controller
             GridViewTextBoxColumn textBoxColumn = new GridViewTextBoxColumn();
             SetPropertiesColumn(typevalue, columnName, headerText, fieldName, isreadonly, textBoxColumn);
             textBoxColumn.DataType = typevalue;
-            //textBoxColumn.DataSourceNullValue = "Error";
             return textBoxColumn;
+        }
+
+        private static GridViewDecimalColumn DecimalColumn(Type typevalue, string columnName, string headerText, string fieldName, bool isreadonly)
+        {
+            GridViewDecimalColumn DecimalBox= new GridViewDecimalColumn();
+            SetPropertiesColumn(typevalue, columnName, headerText, fieldName, isreadonly, DecimalBox);
+            DecimalBox.DataType = typevalue;
+            DecimalBox.DecimalPlaces = 3;
+            return DecimalBox;
         }
 
         private static GridViewCheckBoxColumn CheckBoxColumn(Type typevalue, string columnName, string headerText, string fieldName, bool isreadonly)
@@ -102,15 +109,9 @@ namespace DisenioMurosAyG.Controller
         private static GridViewComboBoxColumn ComboBoxColumn<T>(Type typevalue, string columnName, string headerText, string fieldName, bool isreadonly, List<T> dataSource)
         {
             GridViewComboBoxColumn gridViewComboBox = new GridViewComboBoxColumn();
-            gridViewComboBox.PropertyChanged += new PropertyChangedEventHandler(UpdateDataCommand);
             SetPropertiesColumn(typevalue, columnName, headerText, fieldName, isreadonly, gridViewComboBox);
             gridViewComboBox.DataSource = dataSource;
             return gridViewComboBox;
-        }
-
-        private static void UpdateDataCommand(object sender, PropertyChangedEventArgs e)
-        {
-            //throw new NotImplementedException();
         }
 
         private static void SetPropertiesColumn(Type typevalue, string columnName, string headerText, string fieldName, bool isreadonly, GridViewDataColumn boxColumn)
