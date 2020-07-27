@@ -18,7 +18,7 @@ namespace DataAcces
     {
         public BindingList<Alzado> Alzados { get; set; }
         public BindingList<Muro> Muros { get; set; }
-        public BindingList<Malla> Mallas { get; set; }
+        public List<Malla> Mallas { get; set; }
         public string RutaArchivoDisenio { get; set; }
         public string RutaArchivoDespiece { get; set; }
         public GradoDisipacionEnergia GradoDisipacionEnergia { get; set; }
@@ -39,7 +39,7 @@ namespace DataAcces
             if (File.Exists(RutaArchivoDisenio))
             {
                 ImportarExcel Modelo = new ImportarDisenio(RutaArchivoDisenio);
-                Modelo.ExtraerInformacion(GradoDisipacionEnergia);
+                Modelo.ExtraerInformacion(GradoDisipacionEnergia,Mallas);
                 Modelo.CerrarExcel();
 
                 var AlzadosBuilder = new AlzadosFactory(Modelo.MuroFactory.Muros);
@@ -102,17 +102,16 @@ namespace DataAcces
             {
                 new Malla("M10-1", Diametro.Num2,2, 0.25f,0.25f, 0.10f),
                 new Malla("M10-2", Diametro.Num2,1, 0.25f,0.25f, 0.10f),
-                new Malla("M10-3", Diametro.Num2,1, 0.125f,0.125f, 0.10f),
                 new Malla("M12-1", Diametro.Num2,2, 0.20f,0.20f, 0.125f),
                 new Malla("M12-2", Diametro.Num2,2, 0.35f,0.35f, 0.125f),
                 new Malla("M12-3", Diametro.Num2,2, 0.35f,0.20f, 0.125f),
                 new Malla("M15-1", Diametro.Num2,2, 0.175f,0.175f, 0.15f),
                 new Malla("M15-2", Diametro.Num2,2, 0.35f,0.35f, 0.15f),
                 new Malla("M15-3", Diametro.Num2,2, 0.35f,0.175f, 0.15f),
-                new Malla("M20-1", Diametro.Num2,2, 0.25f,0.25f, 0.20f),
+                new Malla("M20-1", Diametro.Num3,2, 0.25f,0.25f, 0.20f),
             };
 
-            Mallas = new BindingList<Malla>(MallasTemp);
+            Mallas = MallasTemp;
         }
     }
 }

@@ -18,7 +18,7 @@ namespace Entidades.LecturaExcel
             Datos = LeerDatos();
         }
 
-        public override void ExtraerInformacion(GradoDisipacionEnergia disipacionEnergia)
+        public override void ExtraerInformacion(GradoDisipacionEnergia disipacionEnergia,List<Malla>mallas)
         {
             int Filas = Datos.GetLength(0);
 
@@ -27,7 +27,7 @@ namespace Entidades.LecturaExcel
 
             StoryFactory = new StoryFactory();
             StoryFactory.BuildStories(pisos, DatosGeometria);
-            MuroFactory = new MuroFactory(StoryFactory.Stories);
+            MuroFactory = new MuroFactory(StoryFactory.Stories,mallas);
             MuroFactory.BuildMuros(Datos, disipacionEnergia);
 
         }

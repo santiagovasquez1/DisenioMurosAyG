@@ -37,7 +37,7 @@ namespace UnitTestDisenioAyG
                 ModeloContext.LoadDespieceContext();
             }
 
-            ProbarDespiece(ModeloContext.Alzados.FirstOrDefault());
+            //ProbarDespiece(ModeloContext.Alzados.FirstOrDefault());
             //AutocadController();
         }
 

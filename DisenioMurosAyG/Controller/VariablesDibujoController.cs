@@ -47,7 +47,6 @@ namespace DisenioMurosAyG.Controller
             VariablesDibujoView.tbAlturaViga.DataBindings.Add("Text", this, "Hlosa", true, DataSourceUpdateMode.OnPropertyChanged);
             VariablesDibujoView.tbHVigaFunda.DataBindings.Add("Text", this, "HVigaFundacion", true, DataSourceUpdateMode.OnPropertyChanged);
             VariablesDibujoView.tbProfRefuerzo.DataBindings.Add("Text", this, "ProfRefuerzo", true, DataSourceUpdateMode.OnPropertyChanged);
-
         }
 
         private void DibujarAlzadoCommand(object sender, EventArgs e)
@@ -60,7 +59,7 @@ namespace DisenioMurosAyG.Controller
 
             FunctionsAutoCAD.FunctionsAutoCAD.GetPoint(ref InsertionPoint);
 
-            LayerCota ="COTA";
+            LayerCota = "COTA";
             LayerTexto = "R80";
             LayerCoco = "MUROS-ELEV";
 

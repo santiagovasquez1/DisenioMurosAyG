@@ -31,6 +31,7 @@ namespace DisenioMurosAyG.Controller
             EditarMallaView.lbDiametros.DataBindings.Add("Text", Malla, "Diametro", true, DataSourceUpdateMode.OnPropertyChanged);
             EditarMallaView.tbSeparacionHorizontal.DataBindings.Add("Text", Malla, "SeparacionHorizontal", true, DataSourceUpdateMode.OnPropertyChanged);
             EditarMallaView.tbSeparacionVertical.DataBindings.Add("Text", Malla, "SeparacionVertical", true, DataSourceUpdateMode.OnPropertyChanged);
+            EditarMallaView.tbCapas.DataBindings.Add("Text", Malla, "Capas", true, DataSourceUpdateMode.OnPropertyChanged);
             EditarMallaView.tbEspesor.DataBindings.Add("Text", Malla, "Espesor", true, DataSourceUpdateMode.OnPropertyChanged);
             EditarMallaView.tbAsHorizontal.DataBindings.Add("Text", Malla, "AsHorizontal", true, DataSourceUpdateMode.OnPropertyChanged);
             EditarMallaView.tbAsVertical.DataBindings.Add("Text", Malla, "AsVertical", true, DataSourceUpdateMode.OnPropertyChanged);
@@ -56,8 +57,10 @@ namespace DisenioMurosAyG.Controller
             }
             else
             {
-                _context.Mallas = new BindingList<Malla>();
-                _context.Mallas.Add(Malla);
+                _context.Mallas = new List<Malla>
+                {
+                    Malla
+                };
             }
 
             MallaView.Visible = true;

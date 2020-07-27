@@ -49,7 +49,7 @@ namespace Entidades.ImportarInformacion
             return datos as object[,];
         }
 
-        public abstract void ExtraerInformacion(GradoDisipacionEnergia disipacionEnergia);
+        public abstract void ExtraerInformacion(GradoDisipacionEnergia disipacionEnergia,List<Malla>mallas);
         public abstract void ExtraerInformacion();
 
         public void CerrarExcel()

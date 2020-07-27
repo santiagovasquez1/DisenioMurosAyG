@@ -47,7 +47,7 @@ namespace Entidades.ImportarInformacion
 
         }
 
-        public override void ExtraerInformacion(GradoDisipacionEnergia disipacionEnergia)
+        public override void ExtraerInformacion(GradoDisipacionEnergia disipacionEnergia,List<Malla>mallas)
         {
 
         }

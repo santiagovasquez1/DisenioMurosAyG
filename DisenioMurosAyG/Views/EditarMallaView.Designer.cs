@@ -31,6 +31,12 @@
             this.radThemeManager1 = new Telerik.WinControls.RadThemeManager();
             this.office2013LightTheme1 = new Telerik.WinControls.Themes.Office2013LightTheme();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.tbAsVertical = new Telerik.WinControls.UI.RadTextBox();
+            this.radLabel9 = new Telerik.WinControls.UI.RadLabel();
+            this.tbRhoMallaVertical = new Telerik.WinControls.UI.RadTextBox();
+            this.radLabel8 = new Telerik.WinControls.UI.RadLabel();
+            this.tbSeparacionVertical = new Telerik.WinControls.UI.RadTextBox();
+            this.radLabel7 = new Telerik.WinControls.UI.RadLabel();
             this.tbRhoMallaHorizontal = new Telerik.WinControls.UI.RadTextBox();
             this.radLabel6 = new Telerik.WinControls.UI.RadLabel();
             this.tbAsHorizontal = new Telerik.WinControls.UI.RadTextBox();
@@ -45,13 +51,15 @@
             this.radLabel1 = new Telerik.WinControls.UI.RadLabel();
             this.cbAceptar = new Telerik.WinControls.UI.RadButton();
             this.cbCancelar = new Telerik.WinControls.UI.RadButton();
-            this.tbSeparacionVertical = new Telerik.WinControls.UI.RadTextBox();
-            this.radLabel7 = new Telerik.WinControls.UI.RadLabel();
-            this.tbRhoMallaVertical = new Telerik.WinControls.UI.RadTextBox();
-            this.radLabel8 = new Telerik.WinControls.UI.RadLabel();
-            this.tbAsVertical = new Telerik.WinControls.UI.RadTextBox();
-            this.radLabel9 = new Telerik.WinControls.UI.RadLabel();
+            this.tbCapas = new Telerik.WinControls.UI.RadTextBox();
+            this.radLabel10 = new Telerik.WinControls.UI.RadLabel();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.tbAsVertical)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel9)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tbRhoMallaVertical)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel8)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tbSeparacionVertical)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel7)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbRhoMallaHorizontal)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbAsHorizontal)).BeginInit();
@@ -66,17 +74,15 @@
             ((System.ComponentModel.ISupportInitialize)(this.radLabel1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbAceptar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbCancelar)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tbSeparacionVertical)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel7)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tbRhoMallaVertical)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel8)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tbAsVertical)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel9)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tbCapas)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel10)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.tbCapas);
+            this.groupBox1.Controls.Add(this.radLabel10);
             this.groupBox1.Controls.Add(this.tbAsVertical);
             this.groupBox1.Controls.Add(this.radLabel9);
             this.groupBox1.Controls.Add(this.tbRhoMallaVertical);
@@ -97,22 +103,75 @@
             this.groupBox1.Controls.Add(this.radLabel1);
             this.groupBox1.Location = new System.Drawing.Point(13, 7);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(312, 396);
+            this.groupBox1.Size = new System.Drawing.Size(312, 430);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
+            // 
+            // tbAsVertical
+            // 
+            this.tbAsVertical.Enabled = false;
+            this.tbAsVertical.Location = new System.Drawing.Point(157, 299);
+            this.tbAsVertical.Name = "tbAsVertical";
+            this.tbAsVertical.Size = new System.Drawing.Size(126, 21);
+            this.tbAsVertical.TabIndex = 8;
+            this.tbAsVertical.ThemeName = "Office2013Light";
+            // 
+            // radLabel9
+            // 
+            this.radLabel9.Location = new System.Drawing.Point(16, 301);
+            this.radLabel9.Name = "radLabel9";
+            this.radLabel9.Size = new System.Drawing.Size(117, 19);
+            this.radLabel9.TabIndex = 9;
+            this.radLabel9.Text = "As Vertical (cm²/m) :";
+            this.radLabel9.ThemeName = "Office2013Light";
+            // 
+            // tbRhoMallaVertical
+            // 
+            this.tbRhoMallaVertical.Enabled = false;
+            this.tbRhoMallaVertical.Location = new System.Drawing.Point(157, 377);
+            this.tbRhoMallaVertical.Name = "tbRhoMallaVertical";
+            this.tbRhoMallaVertical.Size = new System.Drawing.Size(126, 21);
+            this.tbRhoMallaVertical.TabIndex = 10;
+            this.tbRhoMallaVertical.ThemeName = "Office2013Light";
+            // 
+            // radLabel8
+            // 
+            this.radLabel8.Location = new System.Drawing.Point(16, 379);
+            this.radLabel8.Name = "radLabel8";
+            this.radLabel8.Size = new System.Drawing.Size(80, 19);
+            this.radLabel8.TabIndex = 11;
+            this.radLabel8.Text = "Cuantia Vcal :";
+            this.radLabel8.ThemeName = "Office2013Light";
+            // 
+            // tbSeparacionVertical
+            // 
+            this.tbSeparacionVertical.Location = new System.Drawing.Point(157, 182);
+            this.tbSeparacionVertical.Name = "tbSeparacionVertical";
+            this.tbSeparacionVertical.Size = new System.Drawing.Size(126, 21);
+            this.tbSeparacionVertical.TabIndex = 5;
+            this.tbSeparacionVertical.ThemeName = "Office2013Light";
+            // 
+            // radLabel7
+            // 
+            this.radLabel7.Location = new System.Drawing.Point(16, 184);
+            this.radLabel7.Name = "radLabel7";
+            this.radLabel7.Size = new System.Drawing.Size(120, 19);
+            this.radLabel7.TabIndex = 11;
+            this.radLabel7.Text = "Separación Vcal (m) :";
+            this.radLabel7.ThemeName = "Office2013Light";
             // 
             // tbRhoMallaHorizontal
             // 
             this.tbRhoMallaHorizontal.Enabled = false;
-            this.tbRhoMallaHorizontal.Location = new System.Drawing.Point(157, 313);
+            this.tbRhoMallaHorizontal.Location = new System.Drawing.Point(157, 338);
             this.tbRhoMallaHorizontal.Name = "tbRhoMallaHorizontal";
             this.tbRhoMallaHorizontal.Size = new System.Drawing.Size(126, 21);
-            this.tbRhoMallaHorizontal.TabIndex = 8;
+            this.tbRhoMallaHorizontal.TabIndex = 9;
             this.tbRhoMallaHorizontal.ThemeName = "Office2013Light";
             // 
             // radLabel6
             // 
-            this.radLabel6.Location = new System.Drawing.Point(16, 315);
+            this.radLabel6.Location = new System.Drawing.Point(16, 340);
             this.radLabel6.Name = "radLabel6";
             this.radLabel6.Size = new System.Drawing.Size(80, 19);
             this.radLabel6.TabIndex = 9;
@@ -122,15 +181,15 @@
             // tbAsHorizontal
             // 
             this.tbAsHorizontal.Enabled = false;
-            this.tbAsHorizontal.Location = new System.Drawing.Point(157, 231);
+            this.tbAsHorizontal.Location = new System.Drawing.Point(157, 260);
             this.tbAsHorizontal.Name = "tbAsHorizontal";
             this.tbAsHorizontal.Size = new System.Drawing.Size(126, 21);
-            this.tbAsHorizontal.TabIndex = 6;
+            this.tbAsHorizontal.TabIndex = 7;
             this.tbAsHorizontal.ThemeName = "Office2013Light";
             // 
             // radLabel5
             // 
-            this.radLabel5.Location = new System.Drawing.Point(16, 233);
+            this.radLabel5.Location = new System.Drawing.Point(16, 262);
             this.radLabel5.Name = "radLabel5";
             this.radLabel5.Size = new System.Drawing.Size(133, 19);
             this.radLabel5.TabIndex = 7;
@@ -139,15 +198,15 @@
             // 
             // tbEspesor
             // 
-            this.tbEspesor.Location = new System.Drawing.Point(157, 190);
+            this.tbEspesor.Location = new System.Drawing.Point(157, 221);
             this.tbEspesor.Name = "tbEspesor";
             this.tbEspesor.Size = new System.Drawing.Size(126, 21);
-            this.tbEspesor.TabIndex = 5;
+            this.tbEspesor.TabIndex = 6;
             this.tbEspesor.ThemeName = "Office2013Light";
             // 
             // radLabel4
             // 
-            this.radLabel4.Location = new System.Drawing.Point(16, 192);
+            this.radLabel4.Location = new System.Drawing.Point(16, 223);
             this.radLabel4.Name = "radLabel4";
             this.radLabel4.Size = new System.Drawing.Size(109, 19);
             this.radLabel4.TabIndex = 6;
@@ -156,15 +215,15 @@
             // 
             // tbSeparacionHorizontal
             // 
-            this.tbSeparacionHorizontal.Location = new System.Drawing.Point(157, 108);
+            this.tbSeparacionHorizontal.Location = new System.Drawing.Point(157, 143);
             this.tbSeparacionHorizontal.Name = "tbSeparacionHorizontal";
             this.tbSeparacionHorizontal.Size = new System.Drawing.Size(126, 21);
-            this.tbSeparacionHorizontal.TabIndex = 2;
+            this.tbSeparacionHorizontal.TabIndex = 4;
             this.tbSeparacionHorizontal.ThemeName = "Office2013Light";
             // 
             // radLabel3
             // 
-            this.radLabel3.Location = new System.Drawing.Point(16, 110);
+            this.radLabel3.Location = new System.Drawing.Point(16, 145);
             this.radLabel3.Name = "radLabel3";
             this.radLabel3.Size = new System.Drawing.Size(120, 19);
             this.radLabel3.TabIndex = 4;
@@ -173,16 +232,16 @@
             // 
             // lbDiametros
             // 
-            this.lbDiametros.Location = new System.Drawing.Point(157, 67);
+            this.lbDiametros.Location = new System.Drawing.Point(157, 65);
             this.lbDiametros.Name = "lbDiametros";
             this.lbDiametros.Size = new System.Drawing.Size(126, 21);
-            this.lbDiametros.TabIndex = 3;
+            this.lbDiametros.TabIndex = 2;
             this.lbDiametros.Text = "radDropDownList1";
             this.lbDiametros.ThemeName = "Office2013Light";
             // 
             // radLabel2
             // 
-            this.radLabel2.Location = new System.Drawing.Point(16, 69);
+            this.radLabel2.Location = new System.Drawing.Point(16, 67);
             this.radLabel2.Name = "radLabel2";
             this.radLabel2.Size = new System.Drawing.Size(95, 19);
             this.radLabel2.TabIndex = 2;
@@ -208,7 +267,7 @@
             // 
             // cbAceptar
             // 
-            this.cbAceptar.Location = new System.Drawing.Point(13, 420);
+            this.cbAceptar.Location = new System.Drawing.Point(13, 443);
             this.cbAceptar.Name = "cbAceptar";
             this.cbAceptar.Size = new System.Drawing.Size(313, 32);
             this.cbAceptar.TabIndex = 1;
@@ -217,71 +276,35 @@
             // 
             // cbCancelar
             // 
-            this.cbCancelar.Location = new System.Drawing.Point(14, 477);
+            this.cbCancelar.Location = new System.Drawing.Point(14, 500);
             this.cbCancelar.Name = "cbCancelar";
             this.cbCancelar.Size = new System.Drawing.Size(313, 32);
             this.cbCancelar.TabIndex = 2;
             this.cbCancelar.Text = "Cancelar";
             this.cbCancelar.ThemeName = "Office2013Light";
             // 
-            // tbSeparacionVertical
+            // tbCapas
             // 
-            this.tbSeparacionVertical.Location = new System.Drawing.Point(157, 149);
-            this.tbSeparacionVertical.Name = "tbSeparacionVertical";
-            this.tbSeparacionVertical.Size = new System.Drawing.Size(126, 21);
-            this.tbSeparacionVertical.TabIndex = 10;
-            this.tbSeparacionVertical.ThemeName = "Office2013Light";
+            this.tbCapas.Location = new System.Drawing.Point(157, 104);
+            this.tbCapas.Name = "tbCapas";
+            this.tbCapas.Size = new System.Drawing.Size(126, 21);
+            this.tbCapas.TabIndex = 3;
+            this.tbCapas.ThemeName = "Office2013Light";
             // 
-            // radLabel7
+            // radLabel10
             // 
-            this.radLabel7.Location = new System.Drawing.Point(16, 151);
-            this.radLabel7.Name = "radLabel7";
-            this.radLabel7.Size = new System.Drawing.Size(120, 19);
-            this.radLabel7.TabIndex = 11;
-            this.radLabel7.Text = "Separación Vcal (m) :";
-            this.radLabel7.ThemeName = "Office2013Light";
-            // 
-            // tbRhoMallaVertical
-            // 
-            this.tbRhoMallaVertical.Enabled = false;
-            this.tbRhoMallaVertical.Location = new System.Drawing.Point(157, 354);
-            this.tbRhoMallaVertical.Name = "tbRhoMallaVertical";
-            this.tbRhoMallaVertical.Size = new System.Drawing.Size(126, 21);
-            this.tbRhoMallaVertical.TabIndex = 10;
-            this.tbRhoMallaVertical.ThemeName = "Office2013Light";
-            // 
-            // radLabel8
-            // 
-            this.radLabel8.Location = new System.Drawing.Point(16, 356);
-            this.radLabel8.Name = "radLabel8";
-            this.radLabel8.Size = new System.Drawing.Size(80, 19);
-            this.radLabel8.TabIndex = 11;
-            this.radLabel8.Text = "Cuantia Vcal :";
-            this.radLabel8.ThemeName = "Office2013Light";
-            // 
-            // tbAsVertical
-            // 
-            this.tbAsVertical.Enabled = false;
-            this.tbAsVertical.Location = new System.Drawing.Point(157, 272);
-            this.tbAsVertical.Name = "tbAsVertical";
-            this.tbAsVertical.Size = new System.Drawing.Size(126, 21);
-            this.tbAsVertical.TabIndex = 8;
-            this.tbAsVertical.ThemeName = "Office2013Light";
-            // 
-            // radLabel9
-            // 
-            this.radLabel9.Location = new System.Drawing.Point(16, 274);
-            this.radLabel9.Name = "radLabel9";
-            this.radLabel9.Size = new System.Drawing.Size(117, 19);
-            this.radLabel9.TabIndex = 9;
-            this.radLabel9.Text = "As Vertical (cm²/m) :";
-            this.radLabel9.ThemeName = "Office2013Light";
+            this.radLabel10.Location = new System.Drawing.Point(16, 106);
+            this.radLabel10.Name = "radLabel10";
+            this.radLabel10.Size = new System.Drawing.Size(111, 19);
+            this.radLabel10.TabIndex = 13;
+            this.radLabel10.Text = "Capas de refuerzo :";
+            this.radLabel10.ThemeName = "Office2013Light";
             // 
             // EditarMallaView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(337, 524);
+            this.ClientSize = new System.Drawing.Size(337, 571);
             this.Controls.Add(this.cbCancelar);
             this.Controls.Add(this.cbAceptar);
             this.Controls.Add(this.groupBox1);
@@ -297,6 +320,12 @@
             this.ThemeName = "Office2013Light";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.tbAsVertical)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel9)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tbRhoMallaVertical)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel8)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tbSeparacionVertical)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel7)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbRhoMallaHorizontal)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbAsHorizontal)).EndInit();
@@ -311,12 +340,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.radLabel1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbAceptar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbCancelar)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tbSeparacionVertical)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel7)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tbRhoMallaVertical)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel8)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tbAsVertical)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel9)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tbCapas)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel10)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
 
@@ -347,5 +372,7 @@
         public Telerik.WinControls.UI.RadLabel radLabel8;
         public Telerik.WinControls.UI.RadTextBox tbAsVertical;
         public Telerik.WinControls.UI.RadLabel radLabel9;
+        public Telerik.WinControls.UI.RadTextBox tbCapas;
+        public Telerik.WinControls.UI.RadLabel radLabel10;
     }
 }

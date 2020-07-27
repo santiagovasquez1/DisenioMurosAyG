@@ -9,10 +9,12 @@ namespace Entidades.Factorias
     {
         public Muro Muro { get; set; }
         public List<Muro> Muros { get; set; }
+        public List<Malla> Mallas { get; set; }
         public List<Story> Stories { get; set; }
 
-        public MuroFactory(List<Story> stories)
+        public MuroFactory(List<Story> stories, List<Malla> mallas)
         {
+            Mallas = mallas;
             Stories = stories;
         }
 
@@ -82,11 +84,26 @@ namespace Entidades.Factorias
                     Muro.EBE_Der.LongEbe = 0;
                     Muro.EBE_Izq.CalculoCuantiaVolumetrica(Muro.EBE_Izq.SepEstribo, Muro.EBE_Izq.DiametroEstribo);
                 }
+                else
+                {
+                    AsignarMalla(Muro, Mallas);
+                }
 
                 Muros.Add(Muro);
             }
 
         }
 
+        public void AsignarMalla(Muro muro, List<Malla> mallas)
+        {
+            var MallaProbable = (from malla in mallas
+                                 where malla.Espesor == muro.Bw
+                                 where malla.RhoHorizontal >= 0.95 * muro.RhoH
+                                 select malla).FirstOrDefault();
+
+            if (MallaProbable != null)
+                muro.Malla = MallaProbable;
+
+        }
     }
 }

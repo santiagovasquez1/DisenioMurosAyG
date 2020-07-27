@@ -179,7 +179,7 @@
             this.cbGuardar,
             this.cbGuardarComo});
             this.radRibbonBar1.TabIndex = 0;
-            this.radRibbonBar1.Text = "InformacionAlzadoView1";
+            this.radRibbonBar1.Text = "Diseño de muros AyG";
             this.radRibbonBar1.ThemeName = "Office2013Light";
             // 
             // cbGuardarComo
@@ -285,8 +285,10 @@
             this.ViePageContainer.Size = new System.Drawing.Size(968, 443);
             this.ViePageContainer.TabIndex = 0;
             this.ViePageContainer.ThemeName = "Office2013Light";
+            ((Telerik.WinControls.UI.RadPageViewStripElement)(this.ViePageContainer.GetChildAt(0))).ShowItemPinButton = false;
             ((Telerik.WinControls.UI.RadPageViewStripElement)(this.ViePageContainer.GetChildAt(0))).ItemFitMode = Telerik.WinControls.UI.StripViewItemFitMode.None;
             ((Telerik.WinControls.UI.RadPageViewStripElement)(this.ViePageContainer.GetChildAt(0))).StripAlignment = Telerik.WinControls.UI.StripViewAlignment.Top;
+            ((Telerik.WinControls.UI.RadPageViewStripElement)(this.ViePageContainer.GetChildAt(0))).ShowItemCloseButton = false;
             // 
             // ViewPageAlzado
             // 
@@ -317,7 +319,7 @@
             // 
             // 
             this.RootElement.ApplyShapeToControl = true;
-            this.Text = "InformacionAlzadoView1";
+            this.Text = "Diseño de muros AyG";
             this.ThemeName = "Office2013Light";
             this.Load += new System.EventHandler(this.ContextView_Load);
             ((System.ComponentModel.ISupportInitialize)(this.radRibbonBar1)).EndInit();
