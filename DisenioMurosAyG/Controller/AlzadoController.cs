@@ -9,7 +9,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Telerik.WinControls.UI;
-using static System.Windows.Forms.DataGridViewComboBoxCell;
 
 namespace DisenioMurosAyG.Controller
 {
@@ -61,7 +60,7 @@ namespace DisenioMurosAyG.Controller
                 DataGridController.CrearColumna("RhoV",typeof(float),true),
                 DataGridController.CrearColumna("RefHoriz (cm²/m)",typeof(float),true),
                 DataGridController.CrearColumna("RefVert (cm²/m)",typeof(float),true),
-                DataGridController.CrearColumna("RefAdicional (cm²)",typeof(float),true),
+                DataGridController.CrearColumna("RefAdicional (cm²)",typeof(float),false),
                 DataGridController.CrearColumna("Malla",typeof(string),false),
             };
 
@@ -151,6 +150,7 @@ namespace DisenioMurosAyG.Controller
             InformacionAlzadoView1.dgAlzado.AllowDragToGroup = false;
             InformacionAlzadoView1.dgAlzado.SelectionMode = GridViewSelectionMode.CellSelect;
             InformacionAlzadoView1.dgAlzado.MultiSelect = true;
+            InformacionAlzadoView1.dgAlzado.EnterKeyMode = RadGridViewEnterKeyMode.EnterMovesToNextRow;
         }
 
         private void AddColumns(RadGridView gridView)
@@ -282,6 +282,8 @@ namespace DisenioMurosAyG.Controller
                              where mallai.DenomMallla == tempmalla
                              select mallai).FirstOrDefault();
 
+                    UploadAsLongMuroSeleccionado(MuroSeleccionado, indice, "RefAdicional (cm²)");
+
                     foreach (var muro in MurosSeleccionados)
                     {
                         muro.Malla = malla;
@@ -354,9 +356,7 @@ namespace DisenioMurosAyG.Controller
         private void UploadAsLongMuroSeleccionado(Muro muroseleccionado, int Indice, string ColumnName)
         {
             muroseleccionado.UploadAsLong();
-            DT_AlzadoSeleccionado.Columns[ColumnName].ReadOnly = false;
             DT_AlzadoSeleccionado.Rows[Indice][ColumnName] = muroseleccionado.AsAdicional;
-            DT_AlzadoSeleccionado.Columns[ColumnName].ReadOnly = true;
         }
     }
 }

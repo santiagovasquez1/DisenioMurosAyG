@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             Telerik.WinControls.UI.TableViewDefinition tableViewDefinition1 = new Telerik.WinControls.UI.TableViewDefinition();
-            this.materialBlueGreyTheme1 = new Telerik.WinControls.Themes.MaterialBlueGreyTheme();
             this.radGroupBox1 = new Telerik.WinControls.UI.RadGroupBox();
             this.ListlMuros = new Telerik.WinControls.UI.RadGridView();
             this.office2013LightTheme1 = new Telerik.WinControls.Themes.Office2013LightTheme();
@@ -106,7 +105,6 @@
 
         #endregion
         public Telerik.WinControls.UI.RadGridView ListlMuros;
-        private Telerik.WinControls.Themes.MaterialBlueGreyTheme materialBlueGreyTheme1;
         private Telerik.WinControls.UI.RadGroupBox radGroupBox1;
         private Telerik.WinControls.Themes.Office2013LightTheme office2013LightTheme1;
         public Telerik.WinControls.UI.RadButton cbAceptar;

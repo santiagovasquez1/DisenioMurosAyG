@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 
@@ -12,6 +13,7 @@ namespace Entidades
         private static Dictionary<string, Diametro> NombreRefuerzo { get; set; }
         private static Dictionary<Diametro, float> TraslapoRefuerzo { get; set; }
         private static Dictionary<Diametro, float> LongitudGancho90 { get; set; }
+        private static Dictionary<Diametro, Color> ColorRefuerzo { get; set; }
 
         private static Dictionary<Diametro, float> SetAreasRefuerzo()
         {
@@ -122,6 +124,18 @@ namespace Entidades
             LongGancho.Add(Diametro.Num8, 0.36f);
             return LongGancho;
         }
+        private static Dictionary<Diametro, Color> SetColoresRefuerzo()
+        {
+            var ColorRefuerzo = new Dictionary<Diametro, Color>();
+            ColorRefuerzo.Add(Diametro.Num45mm, Color.FromArgb(215, 78, 34));
+            ColorRefuerzo.Add(Diametro.Num3, Color.FromArgb(229, 106, 9));
+            ColorRefuerzo.Add(Diametro.Num4, Color.FromArgb(197, 194, 10));
+            ColorRefuerzo.Add(Diametro.Num5, Color.FromArgb(173, 229, 14));
+            ColorRefuerzo.Add(Diametro.Num6, Color.FromArgb(6, 176, 12));
+            ColorRefuerzo.Add(Diametro.Num7, Color.FromArgb(12, 198, 192));
+            ColorRefuerzo.Add(Diametro.Num8, Color.FromArgb(10, 104, 218));
+            return ColorRefuerzo;
+        }
 
         public static float ReturnAsi(Diametro diametro)
         {
@@ -161,6 +175,12 @@ namespace Entidades
             LongitudGancho90 = SetLongGancho90();
             var LongGancho = LongitudGancho90[diametro];
             return LongGancho;
+        }
+        public static Color ReturnColorRefuerzo(Diametro diametro)
+        {
+            ColorRefuerzo = SetColoresRefuerzo();
+            var color = ColorRefuerzo[diametro];
+            return color;
         }
     }
 }

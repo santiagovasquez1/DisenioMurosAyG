@@ -71,12 +71,10 @@ namespace Entidades
                 RhoHorizontal = GetRho(AsHorizontal, espesor);
             }
         }
-
+        private float asiVertical;
         /// <summary>
         /// Area de refuerzo por m de malla
         /// </summary>
-        private float asiVertical;
-
         public float AsVertical
         {
             get { return asiVertical; }

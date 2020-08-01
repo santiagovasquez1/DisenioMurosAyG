@@ -35,6 +35,7 @@
             this.radRibbonBarGroup1 = new Telerik.WinControls.UI.RadRibbonBarGroup();
             this.cbMAlla = new Telerik.WinControls.UI.RadButtonElement();
             this.cbListMuros = new Telerik.WinControls.UI.RadButtonElement();
+            this.bVistaAlzadoMuro = new Telerik.WinControls.UI.RadButtonElement();
             this.radRibbonBarGroup2 = new Telerik.WinControls.UI.RadRibbonBarGroup();
             this.cbVariablesDibujo = new Telerik.WinControls.UI.RadButtonElement();
             this.cbNuevo = new Telerik.WinControls.UI.RadMenuItem();
@@ -90,7 +91,8 @@
             // 
             this.radRibbonBarGroup1.Items.AddRange(new Telerik.WinControls.RadItem[] {
             this.cbMAlla,
-            this.cbListMuros});
+            this.cbListMuros,
+            this.bVistaAlzadoMuro});
             this.radRibbonBarGroup1.MaxSize = new System.Drawing.Size(0, 144);
             this.radRibbonBarGroup1.MinSize = new System.Drawing.Size(70, 144);
             this.radRibbonBarGroup1.Name = "radRibbonBarGroup1";
@@ -107,6 +109,11 @@
             this.cbListMuros.Enabled = false;
             this.cbListMuros.Name = "cbListMuros";
             this.cbListMuros.Text = "Lista Muros";
+            // 
+            // bVistaAlzadoMuro
+            // 
+            this.bVistaAlzadoMuro.Name = "bVistaAlzadoMuro";
+            this.bVistaAlzadoMuro.Text = "Vista Alzado Muro";
             // 
             // radRibbonBarGroup2
             // 
@@ -365,5 +372,6 @@
         public Telerik.WinControls.UI.RadPageViewPage ViewPageDespiece;
         public Telerik.WinControls.UI.RadPageViewPage ViewPageAlzado;
         public Telerik.WinControls.UI.RadMenuItem cbGuardarComo;
+        public Telerik.WinControls.UI.RadButtonElement bVistaAlzadoMuro;
     }
 }

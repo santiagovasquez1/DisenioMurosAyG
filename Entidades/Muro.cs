@@ -7,6 +7,8 @@ namespace Entidades
     [Serializable]
     public class Muro
     {
+        private Malla malla;
+
         public string MuroId { get; set; }
         public string Label { get; set; }
         public string LabelDef { get; set; }
@@ -24,7 +26,15 @@ namespace Entidades
         public float Fc { get; set; }
         public float Fy { get; set; }
         public Story Story { get; set; }
-        public Malla Malla { get; set; }
+        public Malla Malla
+        {
+            get => malla;
+            set
+            {
+                malla = value;
+                UploadAsLong();
+            }
+        }
         public List<BarraMuro> BarrasMuros { get; set; }
         public ElementoDeBorde EBE_Izq { get; set; }
         public ElementoDeBorde EBE_Der { get; set; }
@@ -35,7 +45,7 @@ namespace Entidades
             MuroId = Guid.NewGuid().ToString();
         }
         public void CalcRhoH()
-        {            
+        {
             RhoH = (float)(AsH / (Bw * Math.Pow(100, 2)));
 
             if (Lw > 4.00f && RhoH < 0.002f)
@@ -66,9 +76,20 @@ namespace Entidades
             if (EBE_Der != null)
                 Long_Der = EBE_Der.LongEbe;
 
-            var AsTotal = RhoV * Bw * Lw * Math.Pow(100, 2);
-            var AsMalla = AsV * (Lw - Long_Izq - Long_Der);
-            var asAdicional = AsTotal - AsMalla;
+            float AsTotal = RhoV * Bw * Lw * (float)Math.Pow(100, 2);
+
+            float AsMalla;
+            if (Malla != null)
+                AsMalla = Malla.AsVertical * (Lw - Long_Izq - Long_Der);
+            else
+                AsMalla = 0;
+
+                float asAdicional;
+            if (AsTotal - AsMalla < 0)
+                asAdicional = 0;
+            else
+                asAdicional = AsTotal - AsMalla;
+
             AsAdicional = (float)asAdicional;
         }
 

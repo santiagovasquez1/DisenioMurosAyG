@@ -8,7 +8,7 @@ namespace Entidades
     [Serializable]
     public class RefuerzoLong : Refuerzo
     {
-        public RefuerzoLong(Diametro diametro,CapaRefuerzo capa, float separacion, TipoRefuerzo tipo)
+        public RefuerzoLong(Diametro diametro, CapaRefuerzo capa, float separacion, TipoRefuerzo tipo)
         {
             RefuerzoId = Guid.NewGuid().ToString();
             CapaRefuerzo = capa;
@@ -35,7 +35,7 @@ namespace Entidades
             double dist;
             double longitud = 0;
 
-            for (int i = 0; i < Coordenadas.Count()-2; i += 2)
+            for (int i = 0; i < Coordenadas.Count() - 2; i += 2)
             {
                 float x1 = Coordenadas[i];
                 float y1 = Coordenadas[i + 1];
@@ -51,7 +51,7 @@ namespace Entidades
 
         public override string ToString()
         {
-            return $"{Cantidad}#{DiccionariosRefuerzo.ReturnNombreDiametro(Diametro,1)}L={Longitud}";
+            return $"{Cantidad}#{DiccionariosRefuerzo.ReturnNombreDiametro(Diametro, 1)}L={string.Format("{0:F2}", Longitud)}";
         }
     }
 }

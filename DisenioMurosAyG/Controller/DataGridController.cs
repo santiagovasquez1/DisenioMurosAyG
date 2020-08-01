@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Telerik.WinControls;
 using Telerik.WinControls.UI;
 
 namespace DisenioMurosAyG.Controller
@@ -111,6 +112,7 @@ namespace DisenioMurosAyG.Controller
             GridViewComboBoxColumn gridViewComboBox = new GridViewComboBoxColumn();
             SetPropertiesColumn(typevalue, columnName, headerText, fieldName, isreadonly, gridViewComboBox);
             gridViewComboBox.DataSource = dataSource;
+            gridViewComboBox.DropDownStyle = RadDropDownStyle.DropDownList;            
             return gridViewComboBox;
         }
 

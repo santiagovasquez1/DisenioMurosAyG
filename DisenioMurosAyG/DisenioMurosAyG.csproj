@@ -71,6 +71,10 @@
     </StartupObject>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="B_Operaciones_Matricialesl, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\B_Operaciones_Matricialesl\B_Operaciones_Matricialesl\bin\Debug\B_Operaciones_Matricialesl.dll</HintPath>
+    </Reference>
     <Reference Include="FunctionsAutoCAD, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\FunctionsAutoCAD\bin\Debug\FunctionsAutoCAD.dll</HintPath>
@@ -182,99 +186,67 @@
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Telerik.WinControls, Version=2020.2.616.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
-      <HintPath>..\lib\RCWF\2020.2.616.40.Trial\Telerik.WinControls.dll</HintPath>
+      <HintPath>..\lib\RCWF\2020.2.616.40\Telerik.WinControls.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Telerik.WinControls.ChartView, Version=2020.2.616.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
-      <HintPath>..\lib\RCWF\2020.2.616.40.Trial\Telerik.WinControls.ChartView.dll</HintPath>
+      <HintPath>..\lib\RCWF\2020.2.616.40\Telerik.WinControls.ChartView.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Telerik.WinControls.GridView, Version=2020.2.616.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
-      <HintPath>..\lib\RCWF\2020.2.616.40.Trial\Telerik.WinControls.GridView.dll</HintPath>
+      <HintPath>..\lib\RCWF\2020.2.616.40\Telerik.WinControls.GridView.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Telerik.WinControls.RadDiagram, Version=2020.2.616.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <HintPath>..\lib\RCWF\2020.2.616.40\Telerik.WinControls.RadDiagram.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Telerik.WinControls.RadDock, Version=2020.2.616.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
-      <HintPath>..\lib\RCWF\2020.2.616.40.Trial\Telerik.WinControls.RadDock.dll</HintPath>
+      <HintPath>..\lib\RCWF\2020.2.616.40\Telerik.WinControls.RadDock.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Telerik.WinControls.RadSpreadsheet, Version=2020.2.616.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
-      <HintPath>..\lib\RCWF\2020.2.616.40.Trial\Telerik.WinControls.RadSpreadsheet.dll</HintPath>
+      <HintPath>..\lib\RCWF\2020.2.616.40\Telerik.WinControls.RadSpreadsheet.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Telerik.WinControls.Scheduler, Version=2020.2.616.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
-      <HintPath>..\lib\RCWF\2020.2.616.40.Trial\Telerik.WinControls.Scheduler.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Telerik.WinControls.Themes.Aqua, Version=2020.2.616.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
-      <HintPath>..\lib\RCWF\2020.2.616.40.Trial\Telerik.WinControls.Themes.Aqua.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Telerik.WinControls.Themes.Breeze, Version=2020.2.616.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
-      <HintPath>..\lib\RCWF\2020.2.616.40.Trial\Telerik.WinControls.Themes.Breeze.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Telerik.WinControls.Themes.Crystal, Version=2020.2.616.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
-      <HintPath>..\lib\RCWF\2020.2.616.40.Trial\Telerik.WinControls.Themes.Crystal.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Telerik.WinControls.Themes.Desert, Version=2020.2.616.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
-      <HintPath>..\lib\RCWF\2020.2.616.40.Trial\Telerik.WinControls.Themes.Desert.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Telerik.WinControls.Themes.Fluent, Version=2020.2.616.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
-      <HintPath>..\lib\RCWF\2020.2.616.40.Trial\Telerik.WinControls.Themes.Fluent.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Telerik.WinControls.Themes.FluentDark, Version=2020.2.616.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
-      <HintPath>..\lib\RCWF\2020.2.616.40.Trial\Telerik.WinControls.Themes.FluentDark.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Telerik.WinControls.Themes.MaterialBlueGrey, Version=2020.2.616.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
-      <HintPath>..\lib\RCWF\2020.2.616.40.Trial\Telerik.WinControls.Themes.MaterialBlueGrey.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Telerik.WinControls.Themes.Office2013Dark, Version=2020.2.616.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
-      <HintPath>..\lib\RCWF\2020.2.616.40.Trial\Telerik.WinControls.Themes.Office2013Dark.dll</HintPath>
+      <HintPath>..\lib\RCWF\2020.2.616.40\Telerik.WinControls.Scheduler.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Telerik.WinControls.Themes.Office2013Light, Version=2020.2.616.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
-      <HintPath>..\lib\RCWF\2020.2.616.40.Trial\Telerik.WinControls.Themes.Office2013Light.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Telerik.WinControls.Themes.TelerikMetroBlue, Version=2020.2.616.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
-      <HintPath>..\lib\RCWF\2020.2.616.40.Trial\Telerik.WinControls.Themes.TelerikMetroBlue.dll</HintPath>
+      <HintPath>..\lib\RCWF\2020.2.616.40\Telerik.WinControls.Themes.Office2013Light.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Telerik.WinControls.UI, Version=2020.2.616.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
-      <HintPath>..\lib\RCWF\2020.2.616.40.Trial\Telerik.WinControls.UI.dll</HintPath>
+      <HintPath>..\lib\RCWF\2020.2.616.40\Telerik.WinControls.UI.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Telerik.Windows.Documents.Core, Version=2020.2.615.40, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
-      <HintPath>..\lib\RCWF\2020.2.616.40.Trial\Telerik.Windows.Documents.Core.dll</HintPath>
+      <HintPath>..\lib\RCWF\2020.2.616.40\Telerik.Windows.Documents.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Telerik.Windows.Documents.Fixed, Version=2020.2.615.40, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
-      <HintPath>..\lib\RCWF\2020.2.616.40.Trial\Telerik.Windows.Documents.Fixed.dll</HintPath>
+      <HintPath>..\lib\RCWF\2020.2.616.40\Telerik.Windows.Documents.Fixed.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Telerik.Windows.Documents.Spreadsheet, Version=2020.2.615.40, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
-      <HintPath>..\lib\RCWF\2020.2.616.40.Trial\Telerik.Windows.Documents.Spreadsheet.dll</HintPath>
+      <HintPath>..\lib\RCWF\2020.2.616.40\Telerik.Windows.Documents.Spreadsheet.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Telerik.Windows.Documents.Spreadsheet.FormatProviders.OpenXml, Version=2020.2.615.40, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
-      <HintPath>..\lib\RCWF\2020.2.616.40.Trial\Telerik.Windows.Documents.Spreadsheet.FormatProviders.OpenXml.dll</HintPath>
+      <HintPath>..\lib\RCWF\2020.2.616.40\Telerik.Windows.Documents.Spreadsheet.FormatProviders.OpenXml.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Telerik.Windows.Documents.Spreadsheet.FormatProviders.Pdf, Version=2020.2.615.40, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
-      <HintPath>..\lib\RCWF\2020.2.616.40.Trial\Telerik.Windows.Documents.Spreadsheet.FormatProviders.Pdf.dll</HintPath>
+      <HintPath>..\lib\RCWF\2020.2.616.40\Telerik.Windows.Documents.Spreadsheet.FormatProviders.Pdf.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Telerik.Windows.Zip, Version=2020.2.615.40, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
-      <HintPath>..\lib\RCWF\2020.2.616.40.Trial\Telerik.Windows.Zip.dll</HintPath>
+      <HintPath>..\lib\RCWF\2020.2.616.40\Telerik.Windows.Zip.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="TelerikCommon, Version=2020.2.616.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
-      <HintPath>..\lib\RCWF\2020.2.616.40.Trial\TelerikCommon.dll</HintPath>
+      <HintPath>..\lib\RCWF\2020.2.616.40\TelerikCommon.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="WindowsBase" />
@@ -283,10 +255,12 @@
     <Compile Include="ClasesEstaticas\Cargar_Formularios.cs" />
     <Compile Include="Context\ControlContext.cs" />
     <Compile Include="Controller\AlzadoController.cs" />
+    <Compile Include="Controller\AlzadoDespieceController.cs" />
     <Compile Include="Controller\ContextController.cs" />
     <Compile Include="Controller\DespieceController.cs" />
     <Compile Include="Controller\EditarCapaController.cs" />
     <Compile Include="Controller\EditarMallaController.cs" />
+    <Compile Include="Controller\InfoRefuerzoController.cs" />
     <Compile Include="Controller\InicioController.cs" />
     <Compile Include="Controller\DataGridController.cs" />
     <Compile Include="Controller\MallaController.cs" />
@@ -296,6 +270,12 @@
     <Compile Include="Controller\VariablesDibujoController.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Views\AlzadoDespieceView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\AlzadoDespieceView.Designer.cs">
+      <DependentUpon>AlzadoDespieceView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\EditarCapaView.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -307,6 +287,12 @@
     </Compile>
     <Compile Include="Views\EditarMallaView.Designer.cs">
       <DependentUpon>EditarMallaView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\InfoRefuerzoView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\InfoRefuerzoView.Designer.cs">
+      <DependentUpon>InfoRefuerzoView.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\MallaViews.cs">
       <SubType>Form</SubType>
@@ -367,11 +353,17 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="Views\AlzadoDespieceView.resx">
+      <DependentUpon>AlzadoDespieceView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\EditarCapaView.resx">
       <DependentUpon>EditarCapaView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\EditarMallaView.resx">
       <DependentUpon>EditarMallaView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\InfoRefuerzoView.resx">
+      <DependentUpon>InfoRefuerzoView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\MallaViews.resx">
       <DependentUpon>MallaViews.cs</DependentUpon>
@@ -457,4 +449,9 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Microsoft.EntityFrameworkCore.Design.3.1.6\build\net461\Microsoft.EntityFrameworkCore.Design.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.EntityFrameworkCore.Design.3.1.6\build\net461\Microsoft.EntityFrameworkCore.Design.props'))" />
   </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties ShouldAddDPIScalingManifest="False" />
+    </VisualStudio>
+  </ProjectExtensions>
 </Project>

@@ -23,16 +23,16 @@ namespace DisenioMurosAyG.Controller
         public AlzadoController AlzadoController { get; set; }
         public MallaController MallaController { get; set; }
         public MurosViewController MurosViewController { get; set; }
-        public VariablesDibujoController VariablesDibujoController { get; set; }
         public Alzado AlzadoSeleccionado { get; set; }
         public RadForm ControlActivo { get; set; }
         public UsuarioController UsuarioController { get; set; }
+        public AlzadoDespieceController AlzadoDespieceController { get; set; }
         public int TabIndex { get; set; }
         public ContextController(ContextView contextView)
         {
             _context = Program._context;
             ContextView = contextView;
-            LoadUsuarioController();
+            //LoadUsuarioController();
 
             contextView.cbNuevo.Click += new EventHandler(NuevoCommand);
             contextView.ListViewAlzados.MultiSelect = false;
@@ -46,15 +46,22 @@ namespace DisenioMurosAyG.Controller
             contextView.cbCargar.Click += new EventHandler(CargarCommand);
             contextView.FormClosing += new FormClosingEventHandler(CerrarFormulario);
             contextView.Load += new EventHandler(LoadFormulario);
+            contextView.bVistaAlzadoMuro.Click += new EventHandler(LoadVistaAlzado);
+        }
 
+        private void LoadVistaAlzado(object sender, EventArgs e)
+        {
+            AlzadoDespieceView alzadoDespieceView = new AlzadoDespieceView();
+            AlzadoDespieceController = new AlzadoDespieceController(AlzadoSeleccionado, alzadoDespieceView);
+            alzadoDespieceView.Show();
         }
 
         private void LoadFormulario(object sender, EventArgs e)
         {
-            if (UsuarioController.IpV4.Count >= 20)
-            {
-                ContextView.Close();
-            }
+            //if (UsuarioController.IpV4.Count >= 20)
+            //{
+            //    ContextView.Close();
+            //}
 
             if (Program.FicheroExterno.Contains(".walls"))
             {
@@ -124,7 +131,7 @@ namespace DisenioMurosAyG.Controller
 
         private void CerrarFormulario(object sender, FormClosingEventArgs e)
         {
-            UsuarioController.EndOperacion();
+            //UsuarioController.EndOperacion();
         }
 
         private void GuardarComoCommand(object sender, EventArgs e)
@@ -178,7 +185,7 @@ namespace DisenioMurosAyG.Controller
         private void VariablesDibujoClick(object sender, EventArgs e)
         {
             var variablesdibujoView = new VariablesDibujoView();
-            VariablesDibujoController = new VariablesDibujoController(variablesdibujoView);
+            Program.VariablesDibujoController = new VariablesDibujoController(variablesdibujoView);
             variablesdibujoView.ShowDialog();
         }
 

@@ -37,7 +37,6 @@ namespace DisenioMurosAyG.Controller
             EditarMallaView.tbAsVertical.DataBindings.Add("Text", Malla, "AsVertical", true, DataSourceUpdateMode.OnPropertyChanged);
             EditarMallaView.tbRhoMallaHorizontal.DataBindings.Add("Text", Malla, "RhoHorizontal", true, DataSourceUpdateMode.OnPropertyChanged);
             EditarMallaView.tbRhoMallaVertical.DataBindings.Add("Text", Malla, "RhoVertical", true, DataSourceUpdateMode.OnPropertyChanged);
-
             EditarMallaView.cbAceptar.Click += new EventHandler(AceptarMallaClick);
             EditarMallaView.cbCancelar.Click += new EventHandler(CancelarClick);
         }
