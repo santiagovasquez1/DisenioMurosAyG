@@ -34,26 +34,29 @@ namespace DisenioMurosAyG.Controller
             ContextView = contextView;
             //LoadUsuarioController();
 
-            contextView.cbNuevo.Click += new EventHandler(NuevoCommand);
-            contextView.ListViewAlzados.MultiSelect = false;
-            contextView.ListViewAlzados.SelectedIndexChanged += new EventHandler(SeleccionAlzadoCommand);
-            contextView.cbListMuros.Click += new EventHandler(OpenListMurosClick);
-            contextView.cbVariablesDibujo.Click += new EventHandler(VariablesDibujoClick);
-            contextView.cbMAlla.Click += new EventHandler(MallaClick);
-            contextView.ViePageContainer.SelectedPageChanged += new EventHandler(SelectPageCommand);
-            contextView.cbGuardar.Click += new EventHandler(GuardarCommand);
-            contextView.cbGuardarComo.Click += new EventHandler(GuardarComoCommand);
-            contextView.cbCargar.Click += new EventHandler(CargarCommand);
-            contextView.FormClosing += new FormClosingEventHandler(CerrarFormulario);
-            contextView.Load += new EventHandler(LoadFormulario);
-            contextView.bVistaAlzadoMuro.Click += new EventHandler(LoadVistaAlzado);
+            ContextView.cbNuevo.Click += new EventHandler(NuevoCommand);
+            ContextView.ListViewAlzados.MultiSelect = false;
+            ContextView.ListViewAlzados.SelectedIndexChanged += new EventHandler(SeleccionAlzadoCommand);
+            ContextView.cbListMuros.Click += new EventHandler(OpenListMurosClick);
+            ContextView.cbVariablesDibujo.Click += new EventHandler(VariablesDibujoClick);
+            ContextView.cbMAlla.Click += new EventHandler(MallaClick);
+            ContextView.ViePageContainer.SelectedPageChanged += new EventHandler(SelectPageCommand);
+            ContextView.cbGuardar.Click += new EventHandler(GuardarCommand);
+            ContextView.cbGuardarComo.Click += new EventHandler(GuardarComoCommand);
+            ContextView.cbCargar.Click += new EventHandler(CargarCommand);
+            ContextView.FormClosing += new FormClosingEventHandler(CerrarFormulario);
+            ContextView.Load += new EventHandler(LoadFormulario);
+            ContextView.bVistaAlzadoMuro.Click += new EventHandler(LoadVistaAlzado);
         }
 
         private void LoadVistaAlzado(object sender, EventArgs e)
         {
-            AlzadoDespieceView alzadoDespieceView = new AlzadoDespieceView();
-            AlzadoDespieceController = new AlzadoDespieceController(AlzadoSeleccionado, alzadoDespieceView);
-            alzadoDespieceView.Show();
+            if (_context.Alzados != null)
+            {
+                AlzadoDespieceView alzadoDespieceView = new AlzadoDespieceView();
+                AlzadoDespieceController = new AlzadoDespieceController(AlzadoSeleccionado, alzadoDespieceView);
+                alzadoDespieceView.Show();
+            }
         }
 
         private void LoadFormulario(object sender, EventArgs e)
@@ -233,6 +236,12 @@ namespace DisenioMurosAyG.Controller
         private void SeleccionAlzadoCommand(object sender, EventArgs e)
         {
             LoadInfoAlzado();
+
+            if (AlzadoDespieceController != null)
+            {
+                AlzadoDespieceController.AlzadoSeleccionado = AlzadoSeleccionado;
+                AlzadoDespieceController.AlzadoDespieceView.pbAlzadoDespiece.Invalidate();
+            }
         }
 
         private void LoadInfoAlzado()

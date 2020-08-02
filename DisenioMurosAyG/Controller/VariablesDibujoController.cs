@@ -29,6 +29,10 @@ namespace DisenioMurosAyG.Controller
         public float HLosa { get; set; }
         public float HVigaFundacion { get; set; }
         public float ProfRefuerzo { get; set; }
+        public VariablesDibujoController()
+        {
+
+        }
         public VariablesDibujoController(VariablesDibujoView variablesDibujoView)
         {
             _context = Program._context;

@@ -208,7 +208,7 @@
             this.ListViewAlzados.ItemSize = new System.Drawing.Size(200, 36);
             this.ListViewAlzados.Location = new System.Drawing.Point(2, 18);
             this.ListViewAlzados.Name = "ListViewAlzados";
-            this.ListViewAlzados.Size = new System.Drawing.Size(242, 423);
+            this.ListViewAlzados.Size = new System.Drawing.Size(386, 423);
             this.ListViewAlzados.TabIndex = 0;
             this.ListViewAlzados.ThemeName = "Office2013Light";
             this.ListViewAlzados.SelectedItemChanged += new System.EventHandler(this.ListViewAlzados_SelectedItemChanged);
@@ -223,7 +223,7 @@
             this.radGroupBox1.HeaderText = "Lista de muros";
             this.radGroupBox1.Location = new System.Drawing.Point(0, 0);
             this.radGroupBox1.Name = "radGroupBox1";
-            this.radGroupBox1.Size = new System.Drawing.Size(246, 443);
+            this.radGroupBox1.Size = new System.Drawing.Size(390, 443);
             this.radGroupBox1.TabIndex = 2;
             this.radGroupBox1.Text = "Lista de muros";
             this.radGroupBox1.ThemeName = "Office2013Light";
@@ -254,9 +254,9 @@
             // 
             // 
             this.splitPanel1.RootElement.MinSize = new System.Drawing.Size(25, 25);
-            this.splitPanel1.Size = new System.Drawing.Size(246, 443);
-            this.splitPanel1.SizeInfo.AutoSizeScale = new System.Drawing.SizeF(-0.2975309F, 0F);
-            this.splitPanel1.SizeInfo.SplitterCorrection = new System.Drawing.Size(-362, 0);
+            this.splitPanel1.Size = new System.Drawing.Size(390, 443);
+            this.splitPanel1.SizeInfo.AutoSizeScale = new System.Drawing.SizeF(-0.1786601F, 0F);
+            this.splitPanel1.SizeInfo.SplitterCorrection = new System.Drawing.Size(-218, 0);
             this.splitPanel1.TabIndex = 0;
             this.splitPanel1.TabStop = false;
             this.splitPanel1.Text = "splitPanel1";
@@ -265,15 +265,15 @@
             // splitPanel2
             // 
             this.splitPanel2.Controls.Add(this.ViePageContainer);
-            this.splitPanel2.Location = new System.Drawing.Point(251, 0);
+            this.splitPanel2.Location = new System.Drawing.Point(395, 0);
             this.splitPanel2.Name = "splitPanel2";
             // 
             // 
             // 
             this.splitPanel2.RootElement.MinSize = new System.Drawing.Size(25, 25);
-            this.splitPanel2.Size = new System.Drawing.Size(968, 443);
-            this.splitPanel2.SizeInfo.AutoSizeScale = new System.Drawing.SizeF(0.2975309F, 0F);
-            this.splitPanel2.SizeInfo.SplitterCorrection = new System.Drawing.Size(362, 0);
+            this.splitPanel2.Size = new System.Drawing.Size(824, 443);
+            this.splitPanel2.SizeInfo.AutoSizeScale = new System.Drawing.SizeF(0.1712159F, 0F);
+            this.splitPanel2.SizeInfo.SplitterCorrection = new System.Drawing.Size(209, 0);
             this.splitPanel2.TabIndex = 1;
             this.splitPanel2.TabStop = false;
             this.splitPanel2.Text = "splitPanel2";
@@ -289,7 +289,7 @@
             this.ViePageContainer.Location = new System.Drawing.Point(0, 0);
             this.ViePageContainer.Name = "ViePageContainer";
             this.ViePageContainer.SelectedPage = this.ViewPageAlzado;
-            this.ViePageContainer.Size = new System.Drawing.Size(968, 443);
+            this.ViePageContainer.Size = new System.Drawing.Size(824, 443);
             this.ViePageContainer.TabIndex = 0;
             this.ViePageContainer.ThemeName = "Office2013Light";
             ((Telerik.WinControls.UI.RadPageViewStripElement)(this.ViePageContainer.GetChildAt(0))).ShowItemPinButton = false;
@@ -302,7 +302,7 @@
             this.ViewPageAlzado.ItemSize = new System.Drawing.SizeF(52F, 27F);
             this.ViewPageAlzado.Location = new System.Drawing.Point(5, 31);
             this.ViewPageAlzado.Name = "ViewPageAlzado";
-            this.ViewPageAlzado.Size = new System.Drawing.Size(958, 407);
+            this.ViewPageAlzado.Size = new System.Drawing.Size(814, 407);
             this.ViewPageAlzado.Text = "Alzado";
             // 
             // ViewPageDespiece

@@ -34,6 +34,12 @@ namespace DisenioMurosAyG.Controller
             InfoRefuerzoView = new InfoRefuerzoView();
             AlzadoDespieceView.pbAlzadoDespiece.Paint += new PaintEventHandler(AlzadoPaint);
             AlzadoDespieceView.pbAlzadoDespiece.MouseMove += new MouseEventHandler(Grafica_MouseMove);
+
+            if (Program.VariablesDibujoController == null)
+            {
+                Program.VariablesDibujoController = new VariablesDibujoController();
+                Program.VariablesDibujoController.ProfRefuerzo = 0.8f;
+            }
         }
 
         private void Grafica_MouseMove(object sender, MouseEventArgs e)
@@ -41,7 +47,7 @@ namespace DisenioMurosAyG.Controller
             if (MouseOverPoligono(e.Location))
             {
                 InfoRefuerzoController = new InfoRefuerzoController(InfoRefuerzoView, InfoRefuerzoSeleccionado);
-                InfoRefuerzoView.Location = new Point(Cursor.Position.X, Cursor.Position.Y);
+                InfoRefuerzoView.Location = new Point(Cursor.Position.X + 20, Cursor.Position.Y);
                 InfoRefuerzoView.Visible = true;
             }
             else
@@ -151,22 +157,21 @@ namespace DisenioMurosAyG.Controller
 
             foreach (var tupla in InfoRefuerzo)
             {
-                if (tupla.Item1.IsVisible(Temp))
+                if (tupla.Item1.PointCount == 2)
+                {
+                    if (Temp.X >= 0.95 * tupla.Item1.PathPoints[0].X && Temp.X <= 1.05 * tupla.Item1.PathPoints[0].X &&
+                        Temp.Y >= tupla.Item1.PathPoints[1].Y && Temp.Y <= tupla.Item1.PathPoints[0].Y)
+                    {
+                        InfoRefuerzoSeleccionado = tupla.Item2;
+                        return true;
+                    }
+                }
+                else if (tupla.Item1.IsVisible(Temp))
                 {
                     InfoRefuerzoSeleccionado = tupla.Item2;
                     return true;
                 }
             }
-
-            //if (GraphicsPathRefuerzo.IsVisible(Temp))
-            //{
-            //    InfoRefuerzoSeleccionado = (from tupla in InfoRefuerzo
-            //                  where tupla.Item1.IsVisible(Temp)==true
-            //                  select tupla.Item2).FirstOrDefault();
-
-            //    return true;
-            //}
-
             return false;
         }
 
