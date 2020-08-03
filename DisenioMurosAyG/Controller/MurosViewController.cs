@@ -28,22 +28,63 @@ namespace DisenioMurosAyG.Controller
             Alzados = _context.Alzados;
             MurosView = murosView;
 
+            MurosView.MaximizeBox = false;
+            MurosView.MinimizeBox = false;
             MurosView.ListlMuros.CellEndEdit += new GridViewCellEventHandler(EditAlzadoCommand);
             MurosView.cbAceptar.Click += new EventHandler(HeaderCellToggleStateChanged);
+            MurosView.ListlMuros.ValueChanged += new EventHandler(ValueChangedCommand);
+            MurosView.ListlMuros.HeaderCellToggleStateChanged += new HeaderCellToggleStateChangedEventHandler(HeaderstateChangedCommand);
 
             Set_Columns_Data_Alzado();
             LoadMurosData();
             Cargar_DataGrid();
         }
 
+        private void HeaderstateChangedCommand(object sender, GridViewHeaderCellEventArgs e)
+        {
+            var columnName = e.Column.Name;
+            var estado = e.State;
+            int x = 0;
+
+            if (columnName == "IsMaestro")
+            {
+                foreach (var alzado in Alzados)
+                {
+                    if (estado == ToggleState.On)
+                    {
+                        MurosView.ListlMuros.Rows[x].Cells["Padre"].Value = string.Empty;
+                        MurosView.ListlMuros.Columns["Padre"].ReadOnly = true;
+                    }
+                    else if (estado == ToggleState.Off)
+                    {
+                        MurosView.ListlMuros.Columns["Padre"].ReadOnly = false;
+                    }
+                    x++;
+                }
+            }
+        }
+
+        private void ValueChangedCommand(object sender, EventArgs e)
+        {
+            if (MurosView.ListlMuros.CurrentCell != null)
+            {
+                var columnName = MurosView.ListlMuros.CurrentCell.ColumnInfo.Name;
+                var indice = MurosView.ListlMuros.CurrentCell.RowIndex;
+                EditData(indice, columnName);
+            }
+        }
+
         private void HeaderCellToggleStateChanged(object sender, EventArgs e)
         {
             var ColumnName = "Dibujar";
+            var ColumnName2 = "IsMaestro";
 
             for (int i = 0; i < Alzados.Count; i++)
             {
                 EditData(i, ColumnName);
+                EditData(i, ColumnName2);
             }
+
             MurosView.Close();
         }
 
@@ -153,7 +194,7 @@ namespace DisenioMurosAyG.Controller
                         if (AlzadoSeleccionado.Padre != null)
                             AlzadoSeleccionado.Padre = null;
 
-                        MurosView.ListlMuros.Rows[indice].Cells["Padre"].Value = "";
+                        MurosView.ListlMuros.Rows[indice].Cells["Padre"].Value = string.Empty;
                         MurosView.ListlMuros.Columns["Padre"].ReadOnly = true;
                     }
                     else
@@ -170,11 +211,6 @@ namespace DisenioMurosAyG.Controller
                     AlzadoSeleccionado.Dibujar = (bool)MurosView.ListlMuros.Rows[indice].Cells["Dibujar"].Value;
                     break;
             }
-        }
-
-        private void ToggleStateChanged(object sender, StateChangedEventArgs args)
-        {
-            MurosView.ListlMuros.MasterTemplate.AllowAddNewRow = args.ToggleState == ToggleState.On;
         }
 
     }

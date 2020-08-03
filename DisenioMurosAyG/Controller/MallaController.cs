@@ -23,6 +23,9 @@ namespace DisenioMurosAyG.Controller
             MallaView = mallaView;
             _context = Program._context;
 
+            MallaView.MinimizeBox = false;
+            MallaView.MaximizeBox = false;
+
             MallaView.cbNuevaMalla.Click += new EventHandler(CrearMallaClick);
             MallaView.cbEditar.Click += new EventHandler(EditarMallaClick);
             MallaView.cbEliminar.Click += new EventHandler(EliminarMallaClick);

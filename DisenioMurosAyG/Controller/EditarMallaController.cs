@@ -25,6 +25,8 @@ namespace DisenioMurosAyG.Controller
             MallaView = mallaViews;
             Malla = malla;
 
+            EditarMallaView.MinimizeBox = false;
+            EditarMallaView.MaximizeBox = false;
             EditarMallaView.lbDiametros.DataSource = Enum.GetValues(typeof(Diametro));
 
             EditarMallaView.tbDenominacion.DataBindings.Add("Text", Malla, "DenomMallla", true, DataSourceUpdateMode.OnPropertyChanged);

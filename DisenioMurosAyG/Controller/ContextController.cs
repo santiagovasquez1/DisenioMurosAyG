@@ -28,6 +28,7 @@ namespace DisenioMurosAyG.Controller
         public UsuarioController UsuarioController { get; set; }
         public AlzadoDespieceController AlzadoDespieceController { get; set; }
         public int TabIndex { get; set; }
+        public VariablesDibujoView VariablesDibujoView { get; set; }
         public ContextController(ContextView contextView)
         {
             _context = Program._context;
@@ -187,9 +188,19 @@ namespace DisenioMurosAyG.Controller
 
         private void VariablesDibujoClick(object sender, EventArgs e)
         {
-            var variablesdibujoView = new VariablesDibujoView();
-            Program.VariablesDibujoController = new VariablesDibujoController(variablesdibujoView);
-            variablesdibujoView.ShowDialog();
+            if (Program.VariablesDibujoController == null)
+            {
+                VariablesDibujoView = new VariablesDibujoView();
+                Program.VariablesDibujoController = new VariablesDibujoController(VariablesDibujoView);
+            }
+
+            if (VariablesDibujoView == null)
+            {
+                VariablesDibujoView = new VariablesDibujoView();
+                Program.VariablesDibujoController = new VariablesDibujoController(VariablesDibujoView);
+            }
+
+            VariablesDibujoView.ShowDialog();
         }
 
         private void OpenListMurosClick(object sender, EventArgs e)

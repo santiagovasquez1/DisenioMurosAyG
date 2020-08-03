@@ -39,6 +39,7 @@
             this.tbAlturaViga = new Telerik.WinControls.UI.RadTextBox();
             this.radLabel1 = new Telerik.WinControls.UI.RadLabel();
             this.office2013LightTheme1 = new Telerik.WinControls.Themes.Office2013LightTheme();
+            this.cbAceptar = new Telerik.WinControls.UI.RadButton();
             ((System.ComponentModel.ISupportInitialize)(this.radGroupBox1)).BeginInit();
             this.radGroupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tbProfRefuerzo)).BeginInit();
@@ -49,12 +50,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.cbDibujar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbAlturaViga)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cbAceptar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
             // radGroupBox1
             // 
             this.radGroupBox1.AccessibleRole = System.Windows.Forms.AccessibleRole.Grouping;
+            this.radGroupBox1.Controls.Add(this.cbAceptar);
             this.radGroupBox1.Controls.Add(this.tbProfRefuerzo);
             this.radGroupBox1.Controls.Add(this.radLabel7);
             this.radGroupBox1.Controls.Add(this.tbHVigaFunda);
@@ -73,7 +76,7 @@
             // 
             // tbProfRefuerzo
             // 
-            this.tbProfRefuerzo.Location = new System.Drawing.Point(156, 143);
+            this.tbProfRefuerzo.Location = new System.Drawing.Point(156, 137);
             this.tbProfRefuerzo.Name = "tbProfRefuerzo";
             this.tbProfRefuerzo.Size = new System.Drawing.Size(151, 21);
             this.tbProfRefuerzo.TabIndex = 3;
@@ -81,7 +84,7 @@
             // 
             // radLabel7
             // 
-            this.radLabel7.Location = new System.Drawing.Point(22, 145);
+            this.radLabel7.Location = new System.Drawing.Point(22, 139);
             this.radLabel7.Name = "radLabel7";
             this.radLabel7.Size = new System.Drawing.Size(132, 19);
             this.radLabel7.TabIndex = 2;
@@ -90,7 +93,7 @@
             // 
             // tbHVigaFunda
             // 
-            this.tbHVigaFunda.Location = new System.Drawing.Point(156, 92);
+            this.tbHVigaFunda.Location = new System.Drawing.Point(156, 91);
             this.tbHVigaFunda.Name = "tbHVigaFunda";
             this.tbHVigaFunda.Size = new System.Drawing.Size(151, 21);
             this.tbHVigaFunda.TabIndex = 2;
@@ -98,7 +101,7 @@
             // 
             // radLabel6
             // 
-            this.radLabel6.Location = new System.Drawing.Point(22, 94);
+            this.radLabel6.Location = new System.Drawing.Point(22, 93);
             this.radLabel6.Name = "radLabel6";
             this.radLabel6.Size = new System.Drawing.Size(134, 19);
             this.radLabel6.TabIndex = 1;
@@ -107,19 +110,19 @@
             // 
             // cbCancel
             // 
-            this.cbCancel.Location = new System.Drawing.Point(5, 262);
+            this.cbCancel.Location = new System.Drawing.Point(5, 279);
             this.cbCancel.Name = "cbCancel";
             this.cbCancel.Size = new System.Drawing.Size(319, 36);
-            this.cbCancel.TabIndex = 12;
+            this.cbCancel.TabIndex = 6;
             this.cbCancel.Text = "Cancelar";
             this.cbCancel.ThemeName = "Office2013Light";
             // 
             // cbDibujar
             // 
-            this.cbDibujar.Location = new System.Drawing.Point(5, 204);
+            this.cbDibujar.Location = new System.Drawing.Point(5, 227);
             this.cbDibujar.Name = "cbDibujar";
             this.cbDibujar.Size = new System.Drawing.Size(319, 36);
-            this.cbDibujar.TabIndex = 11;
+            this.cbDibujar.TabIndex = 5;
             this.cbDibujar.Text = "Dibujar Muros";
             this.cbDibujar.ThemeName = "Office2013Light";
             // 
@@ -140,11 +143,20 @@
             this.radLabel1.Text = "Altura losa: ";
             this.radLabel1.ThemeName = "Office2013Light";
             // 
+            // cbAceptar
+            // 
+            this.cbAceptar.Location = new System.Drawing.Point(5, 175);
+            this.cbAceptar.Name = "cbAceptar";
+            this.cbAceptar.Size = new System.Drawing.Size(319, 36);
+            this.cbAceptar.TabIndex = 4;
+            this.cbAceptar.Text = "Aceptar Variables";
+            this.cbAceptar.ThemeName = "Office2013Light";
+            // 
             // VariablesDibujoView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(347, 330);
+            this.ClientSize = new System.Drawing.Size(347, 344);
             this.Controls.Add(this.radGroupBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "VariablesDibujoView";
@@ -166,6 +178,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.cbDibujar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbAlturaViga)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cbAceptar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
 
@@ -184,5 +197,6 @@
         public Telerik.WinControls.UI.RadLabel radLabel7;
         public Telerik.WinControls.UI.RadTextBox tbHVigaFunda;
         public Telerik.WinControls.UI.RadLabel radLabel6;
+        public Telerik.WinControls.UI.RadButton cbAceptar;
     }
 }

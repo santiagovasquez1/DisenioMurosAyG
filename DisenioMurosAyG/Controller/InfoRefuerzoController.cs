@@ -17,6 +17,8 @@ namespace DisenioMurosAyG.Controller
         {
             InfoRefuerzoView = infoRefuerzoView;
             Refuerzo = refuerzo;
+            InfoRefuerzoView.MaximizeBox = false;
+            InfoRefuerzoView.MinimizeBox = false;
 
             infoRefuerzoView.Num_Barras.Text = Refuerzo.CapaRefuerzo.Cantidad.ToString();
             infoRefuerzoView.D_Barra.Text = DiccionariosRefuerzo.ReturnNombreDiametro(Refuerzo.Diametro, 0);

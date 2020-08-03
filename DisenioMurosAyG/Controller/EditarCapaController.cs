@@ -28,6 +28,9 @@ namespace DisenioMurosAyG.Controller
             DespieceController = despieceController;
             TipoEdicionCapa = tipoEdicionCapa;
 
+            EditarCapaView.MaximizeBox = false;
+            EditarCapaView.MinimizeBox = false;
+
             EditarCapaView.ListTraslapo.DataSource = Enum.GetValues(typeof(Traslapo));
             EditarCapaView.tbNombreCapa.DataBindings.Add("Text", CapaRefuerzo, "CapaNombre", true, DataSourceUpdateMode.OnPropertyChanged);
             EditarCapaView.tbNumeroCapas.DataBindings.Add("Text", CapaRefuerzo, "Cantidad", true, DataSourceUpdateMode.OnPropertyChanged);

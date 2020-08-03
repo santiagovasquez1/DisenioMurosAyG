@@ -104,6 +104,7 @@ namespace DisenioMurosAyG.Controller
             SetPropertiesColumn(typevalue, columnName, headerText, fieldName, isreadonly, checkBoxColumn);
             checkBoxColumn.FieldName = "";
             checkBoxColumn.EditMode = EditMode.OnValueChange;
+            checkBoxColumn.EnableHeaderCheckBox = true;
             return checkBoxColumn;
         }
 

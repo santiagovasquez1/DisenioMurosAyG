@@ -37,8 +37,15 @@ namespace DisenioMurosAyG.Controller
         {
             _context = Program._context;
             LayersModelo = Program.LayersModelo;
+
             VariablesDibujoView = variablesDibujoView;
+            VariablesDibujoView.MinimizeBox = false;
+            VariablesDibujoView.MaximizeBox = false;
+            VariablesDibujoView.ShowIcon = false;
+
+            VariablesDibujoView.cbAceptar.Click += new EventHandler(AcceptCommand);
             VariablesDibujoView.cbDibujar.Click += new EventHandler(DibujarAlzadoCommand);
+            VariablesDibujoView.cbCancel.Click += new EventHandler(CancelVariables);
 
             if (_context.Alzados != null)
             {
@@ -51,6 +58,18 @@ namespace DisenioMurosAyG.Controller
             VariablesDibujoView.tbAlturaViga.DataBindings.Add("Text", this, "Hlosa", true, DataSourceUpdateMode.OnPropertyChanged);
             VariablesDibujoView.tbHVigaFunda.DataBindings.Add("Text", this, "HVigaFundacion", true, DataSourceUpdateMode.OnPropertyChanged);
             VariablesDibujoView.tbProfRefuerzo.DataBindings.Add("Text", this, "ProfRefuerzo", true, DataSourceUpdateMode.OnPropertyChanged);
+
+        }
+
+        private void AcceptCommand(object sender, EventArgs e)
+        {
+            VariablesDibujoView.Close();
+        }
+
+        private void CancelVariables(object sender, EventArgs e)
+        {
+            Program.VariablesDibujoController = null;
+            VariablesDibujoView.Close();
         }
 
         private void DibujarAlzadoCommand(object sender, EventArgs e)
