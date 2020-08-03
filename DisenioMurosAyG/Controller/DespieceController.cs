@@ -33,7 +33,7 @@ namespace DisenioMurosAyG.Controller
             DespieceView = despieceView;
             AlzadoSeleccionado = alzadoi;
 
-            DespieceView.gvDespieceMuro.CellEndEdit += new GridViewCellEventHandler(EditMuroCommand);
+           DespieceView.gvDespieceMuro.CellEndEdit += new GridViewCellEventHandler(EditMuroCommand);
             DespieceView.gvDespieceMuro.ContextMenuOpening += new ContextMenuOpeningEventHandler(ColumnContextMenuOpening);
 
             Set_Columns_Data_Alzado();
@@ -92,7 +92,7 @@ namespace DisenioMurosAyG.Controller
 
         private void LoadAlzadoData()
         {
-            
+
             if (DT_AlzadoSeleccionado.Rows.Count > 0)
                 DT_AlzadoSeleccionado.Rows.Clear();
 
@@ -110,7 +110,6 @@ namespace DisenioMurosAyG.Controller
                 {
                     if (muro.BarrasMuros != null)
                     {
-                        int x = 6;
                         string ColumnName = string.Empty;
 
                         foreach (var barra in muro.BarrasMuros)
@@ -184,7 +183,7 @@ namespace DisenioMurosAyG.Controller
         }
 
 
-        private void ColumnContextMenuOpening(object sender, Telerik.WinControls.UI.ContextMenuOpeningEventArgs e)
+        private void ColumnContextMenuOpening(object sender, ContextMenuOpeningEventArgs e)
         {
             var controlprovider = e.ContextMenuProvider as GridHeaderCellElement;
 
@@ -274,7 +273,7 @@ namespace DisenioMurosAyG.Controller
         }
         public void AddCapaDespiece()
         {
-            if (EditarCapaController.CapaRefuerzo.CapaNombre != string.Empty)
+            if (EditarCapaController.CapaRefuerzo.CapaNombre != string.Empty && EditarCapaController.CapaRefuerzo.CapaNombre != null)
             {
                 var ColumnHeaderText = $"{ EditarCapaController.CapaRefuerzo.CapaNombre}\nCantidad: {EditarCapaController.CapaRefuerzo.Cantidad}\nTraslapo: {EditarCapaController.CapaRefuerzo.Traslapo}";
                 if (AlzadoSeleccionado.Muros.LastOrDefault().BarrasMuros == null)

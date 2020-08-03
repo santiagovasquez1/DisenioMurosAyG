@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Telerik.WinControls;
 using Telerik.WinControls.UI;
 
 namespace DisenioMurosAyG.Controller
@@ -27,6 +28,7 @@ namespace DisenioMurosAyG.Controller
 
             if (AlzadoSeleccionado != null)
             {
+                InformacionAlzadoView1.dgAlzado.ValueChanged += new EventHandler(MallaValueChanged);
                 InformacionAlzadoView1.dgAlzado.CellEndEdit += new GridViewCellEventHandler(EditMuroCommand);
                 Set_Columns_Data_Alzado();
                 LoadAlzadoData();
@@ -34,6 +36,41 @@ namespace DisenioMurosAyG.Controller
             }
 
         }
+
+        private void MallaValueChanged(object sender, EventArgs e)
+        {
+            var columName = InformacionAlzadoView1.dgAlzado.CurrentCell.ColumnInfo.Name;
+            var indice = InformacionAlzadoView1.dgAlzado.CurrentCell.RowIndex;
+
+            if (columName == "Malla")
+            {
+                MuroSeleccionado = AlzadoSeleccionado.Muros[indice];
+                List<Muro> MurosSeleccionados = new List<Muro>();
+
+                if (AlzadoSeleccionado.IsMaestro)
+                {
+                    MurosSeleccionados = (from Alzado in _contex.Alzados
+                                          where Alzado.PadreId == AlzadoSeleccionado.AlzadoId | Alzado.AlzadoId == AlzadoSeleccionado.AlzadoId
+                                          select Alzado.Muros[indice]).ToList();
+                }
+                else
+                    MurosSeleccionados.Add(MuroSeleccionado);
+
+                var CurrentCell = InformacionAlzadoView1.dgAlzado.CurrentCell as GridComboBoxCellElement;
+                var dropDownListElement = CurrentCell.Children.FirstOrDefault() as RadDropDownListEditorElement;
+
+                var tempmalla = dropDownListElement.SelectedItem.Value as Malla;
+                MuroSeleccionado.Malla = tempmalla;
+                UploadAsLongMuroSeleccionado(MuroSeleccionado, indice, "RefAdicional (cm²)");
+
+                foreach (Muro muro in MurosSeleccionados)
+                {
+                    muro.Malla = tempmalla;
+                }
+            }
+
+        }
+
 
         private void Set_Columns_Data_Alzado()
         {
@@ -71,7 +108,6 @@ namespace DisenioMurosAyG.Controller
         {
             if (DT_AlzadoSeleccionado.Rows.Count > 0)
                 DT_AlzadoSeleccionado.Rows.Clear();
-
 
             foreach (var muro in AlzadoSeleccionado.Muros)
             {
@@ -117,6 +153,7 @@ namespace DisenioMurosAyG.Controller
                 dataRow[17] = muro.AsH;
                 dataRow[18] = muro.AsV;
                 dataRow[19] = muro.AsAdicional;
+
                 if (muro.Malla != null)
                     dataRow[20] = muro.Malla.ToString();
                 else
@@ -273,20 +310,6 @@ namespace DisenioMurosAyG.Controller
                     {
                         UploadEbe(indice, muro.EBE_Izq, separacion, "Ramas Izq");
                         UploadEbe(indice, muro.EBE_Der, separacion, "Ramas Der");
-                    }
-                    break;
-                case "Malla":
-                    var tempmalla = InformacionAlzadoView1.dgAlzado.Rows[indice].Cells[ColumnName].Value.ToString();
-
-                    malla = (from mallai in _contex.Mallas
-                             where mallai.DenomMallla == tempmalla
-                             select mallai).FirstOrDefault();
-
-                    UploadAsLongMuroSeleccionado(MuroSeleccionado, indice, "RefAdicional (cm²)");
-
-                    foreach (var muro in MurosSeleccionados)
-                    {
-                        muro.Malla = malla;
                     }
                     break;
             }

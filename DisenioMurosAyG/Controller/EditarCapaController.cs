@@ -37,7 +37,7 @@ namespace DisenioMurosAyG.Controller
             EditarCapaView.ListTraslapo.DataBindings.Add("Text", CapaRefuerzo, "Traslapo", true, DataSourceUpdateMode.OnPropertyChanged);
 
             EditarCapaView.cbAceptar.Click += new EventHandler(AceptarCapaClick);
-            editarCapaView.FormClosing += new FormClosingEventHandler(SendInfo);
+            EditarCapaView.FormClosing += new FormClosingEventHandler(SendInfo);
         }
 
         private void SendInfo(object sender, FormClosingEventArgs e)

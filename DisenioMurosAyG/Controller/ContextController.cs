@@ -33,7 +33,7 @@ namespace DisenioMurosAyG.Controller
         {
             _context = Program._context;
             ContextView = contextView;
-            //LoadUsuarioController();
+            LoadUsuarioController();
 
             ContextView.cbNuevo.Click += new EventHandler(NuevoCommand);
             ContextView.ListViewAlzados.MultiSelect = false;
@@ -62,10 +62,10 @@ namespace DisenioMurosAyG.Controller
 
         private void LoadFormulario(object sender, EventArgs e)
         {
-            //if (UsuarioController.IpV4.Count >= 20)
-            //{
-            //    ContextView.Close();
-            //}
+            if (UsuarioController.IpV4.Count >= 20)
+            {
+                ContextView.Close();
+            }
 
             if (Program.FicheroExterno.Contains(".walls"))
             {
@@ -135,7 +135,7 @@ namespace DisenioMurosAyG.Controller
 
         private void CerrarFormulario(object sender, FormClosingEventArgs e)
         {
-            //UsuarioController.EndOperacion();
+            UsuarioController.EndOperacion();
         }
 
         private void GuardarComoCommand(object sender, EventArgs e)
