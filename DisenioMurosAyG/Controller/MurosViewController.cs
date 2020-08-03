@@ -32,12 +32,18 @@ namespace DisenioMurosAyG.Controller
             MurosView.MinimizeBox = false;
             MurosView.ListlMuros.CellEndEdit += new GridViewCellEventHandler(EditAlzadoCommand);
             MurosView.cbAceptar.Click += new EventHandler(HeaderCellToggleStateChanged);
+            MurosView.cbCancelar.Click += new EventHandler(CancelCommand);
             MurosView.ListlMuros.ValueChanged += new EventHandler(ValueChangedCommand);
             MurosView.ListlMuros.HeaderCellToggleStateChanged += new HeaderCellToggleStateChangedEventHandler(HeaderstateChangedCommand);
 
             Set_Columns_Data_Alzado();
             LoadMurosData();
             Cargar_DataGrid();
+        }
+
+        private void CancelCommand(object sender, EventArgs e)
+        {
+            MurosView.Close();
         }
 
         private void HeaderstateChangedCommand(object sender, GridViewHeaderCellEventArgs e)
@@ -84,7 +90,6 @@ namespace DisenioMurosAyG.Controller
                 EditData(i, ColumnName);
                 EditData(i, ColumnName2);
             }
-
             MurosView.Close();
         }
 
@@ -137,6 +142,21 @@ namespace DisenioMurosAyG.Controller
             MurosView.ListlMuros.AllowDragToGroup = false;
             MurosView.ListlMuros.SelectionMode = GridViewSelectionMode.CellSelect;
             MurosView.ListlMuros.MultiSelect = true;
+
+            int x = 0;
+            foreach(var alzado in Alzados)
+            {
+                if (alzado.IsMaestro)
+                {
+                    MurosView.ListlMuros.Rows[x].Cells["Padre"].Value = string.Empty;
+                    MurosView.ListlMuros.Columns["Padre"].ReadOnly = true;
+                }
+                else
+                {
+                    MurosView.ListlMuros.Columns["Padre"].ReadOnly = false;
+                }
+            }
+
         }
 
         private void AddColumns(RadGridView gridView)
