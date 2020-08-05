@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Telerik.WinControls.UI;
 
 namespace DisenioMurosAyG.Controller
 {
@@ -45,7 +46,6 @@ namespace DisenioMurosAyG.Controller
 
         private void CancelarClick(object sender, EventArgs e)
         {
-            //MallaView.Visible = true;
             EditarMallaView.Close();
         }
 
@@ -54,7 +54,11 @@ namespace DisenioMurosAyG.Controller
             if (_context.Mallas != null)
             {
                 if (_context.Mallas.ToList().Exists(x => x.MallaId == Malla.MallaId) == false)
+                {
                     _context.Mallas.Add(Malla);
+                    RadListDataItem dataItem = new RadListDataItem(Malla.ToString(), Malla);
+                    MallaView.ListaMallas.Items.Add(dataItem);
+                }
             }
             else
             {
@@ -64,7 +68,10 @@ namespace DisenioMurosAyG.Controller
                 };
             }
 
-            MallaView.Visible = true;
+            MallaView.ListaMallas.DataSource = Program._context.Mallas;
+            var p = MallaView.ListaMallas.DataBindings;
+            //MallaView.ListaMallas.Update();
+            //MallaView.Visible = true;
             EditarMallaView.Close();
         }
     }

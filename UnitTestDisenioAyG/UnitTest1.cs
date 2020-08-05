@@ -37,7 +37,7 @@ namespace UnitTestDisenioAyG
                 ModeloContext.LoadDespieceContext();
             }
 
-            //ProbarDespiece(ModeloContext.Alzados.FirstOrDefault());
+            ProbarDespiece(ModeloContext.Alzados.FirstOrDefault());
             //AutocadController();
         }
 
@@ -46,8 +46,6 @@ namespace UnitTestDisenioAyG
             var RefuerzoFactory = new RefuerzoLongFactory(alzado, 1.00f);
             RefuerzoFactory.SetRefuerzoMuro();
             DibujarRefuerzo(alzado);
-
-
         }
 
         public void DibujarRefuerzo(Alzado alzado)

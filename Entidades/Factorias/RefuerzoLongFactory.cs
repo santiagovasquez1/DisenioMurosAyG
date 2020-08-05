@@ -39,6 +39,8 @@ namespace Entidades.Factorias
 
         public void SetRefuerzoMuro()
         {
+            var NivelMax = Alzado.Muros.FirstOrDefault().Story.StoryElevation;
+
             var NumBarrasMax = (from muro in Alzado.Muros
                                 where muro.BarrasMuros != null
                                 select muro.BarrasMuros.Count).ToList().Max();
@@ -54,7 +56,7 @@ namespace Entidades.Factorias
             {
                 float NivelInicial;
                 float NivelFinal;
-                float deltax = 0;
+                float deltax = 0f;
                 float LongTraslapo = 0f;
                 float fc = 0;
 
@@ -65,52 +67,144 @@ namespace Entidades.Factorias
                                    from barra in muro.BarrasMuros
                                    where barra.CapaRefuerzo.CapaId == denominacion
                                    select barra).ToList();
+                BarrasDenom.Reverse();
 
                 int x = 0;
 
-                for (int i = BarrasDenom.Count - 1; i >= 0; i--)
+                foreach (var barrai in BarrasDenom)
                 {
-                    var Barrai = BarrasDenom[i];
+                    //var Indice = BarrasDenom.FindIndex(xi => xi.BarraId == barrai.BarraId)+1;
+                    BarraMuro BarraSiguiente = null;
+                    if (x + 1 < BarrasDenom.Count)
+                        BarraSiguiente = BarrasDenom[x + 1];
 
-                    fc = FindFc(BarrasDenom, i);
+                    BarraMuro BarraAnterior = null;
+                    if (x - 1 >= 0)
+                        BarraAnterior = BarrasDenom[x - 1];
 
-                    LongTraslapo = DiccionariosRefuerzo.ReturnTraslapo(BarrasDenom[i].Diametro, fc);
+                    fc = BarraSiguiente != null ? BarraSiguiente.Muro.Fc : barrai.Muro.Fc;
 
-                    if (x % 2 == 0 && Barrai.Traslapo == Traslapo.Impar)
+                    if (x % 2 != 0 && barrai.Traslapo == Traslapo.Par)
                     {
+                        if (barrai.Diametro == BarraAnterior.Diametro)
+                        {
+                            LongTraslapo = DiccionariosRefuerzo.ReturnTraslapo(barrai.Diametro, fc);
+                            NivelInicial = BarraAnterior.Muro.Story.StoryElevation - BarraAnterior.Muro.Hw;
 
-                        VariablesImpar(out NivelInicial, out NivelFinal, LongTraslapo, fc, out tipoBarra, BarrasDenom, i);
-                        deltax = deltax == 0 ? 0.10f : 0f;
+                            if (barrai.Muro.Story.StoryElevation < NivelMax)
+                                NivelFinal = barrai.Muro.Story.StoryElevation + LongTraslapo;
+                            else
+                                NivelFinal = barrai.Muro.Story.StoryElevation;
 
-                        var Refuerzoi = SetRefuerzo(NivelInicial, NivelFinal, BarrasDenom[i].CapaRefuerzo, BarrasDenom[i].Diametro, BarrasDenom[i].Cantidad, Barrai.Traslapo, PosX + deltax, tipoBarra, LongTraslapo);
-                        Alzado.RefuerzosLongitudinales.Add(Refuerzoi);
+                            tipoBarra = GetTipoBarra(NivelMax, NivelInicial, NivelFinal);
+
+                            deltax = deltax == 0 ? 0.10f : 0f;
+                            var Refuerzoi = SetRefuerzo(NivelInicial, NivelFinal, barrai.CapaRefuerzo, barrai.Diametro, barrai.Cantidad, Traslapo.Par, PosX + deltax, tipoBarra, LongTraslapo);
+                            Alzado.RefuerzosLongitudinales.Add(Refuerzoi);
+                        }
+                        else
+                        {
+                            //Dibujo Barra Anterior
+                            LongTraslapo = DiccionariosRefuerzo.ReturnTraslapo(BarraAnterior.Diametro, barrai.Muro.Fc);
+                            NivelInicial = BarraAnterior.Muro.Story.StoryElevation - BarraAnterior.Muro.Hw;
+
+                            if (BarraAnterior.Muro.Story.StoryElevation < NivelMax)
+                                NivelFinal = BarraAnterior.Muro.Story.StoryElevation + LongTraslapo;
+                            else
+                                NivelFinal = BarraAnterior.Muro.Story.StoryElevation;
+
+                            tipoBarra = GetTipoBarra(NivelMax, NivelInicial, NivelFinal);
+
+                            deltax = deltax == 0 ? 0.10f : 0f;
+                            var RefuerzoAnterior = SetRefuerzo(NivelInicial, NivelFinal, barrai.CapaRefuerzo, barrai.Diametro, barrai.Cantidad, Traslapo.Par, PosX + deltax, tipoBarra, LongTraslapo);
+                            Alzado.RefuerzosLongitudinales.Add(RefuerzoAnterior);
+
+                            //Dibujo Barra Actual
+                            LongTraslapo = DiccionariosRefuerzo.ReturnTraslapo(barrai.Diametro, fc);
+                            NivelInicial = barrai.Muro.Story.StoryElevation - barrai.Muro.Hw;
+
+                            if (barrai.Muro.Story.StoryElevation < NivelMax)
+                                NivelFinal = barrai.Muro.Story.StoryElevation + LongTraslapo;
+                            else
+                                NivelFinal = barrai.Muro.Story.StoryElevation;
+
+                            tipoBarra = GetTipoBarra(NivelMax, NivelInicial, NivelFinal);
+
+                            deltax = deltax == 0 ? 0.10f : 0f;
+                            var Refuerzoi = SetRefuerzo(NivelInicial, NivelFinal, barrai.CapaRefuerzo, barrai.Diametro, barrai.Cantidad, Traslapo.Par, PosX + deltax, tipoBarra, LongTraslapo);
+                            Alzado.RefuerzosLongitudinales.Add(Refuerzoi);
+
+                        }
                     }
-                    else if (x % 2 > 0 && Barrai.Traslapo == Traslapo.Par)
-                    {
-                        VariablesPar(out NivelInicial, out NivelFinal, LongTraslapo, fc, out tipoBarra, BarrasDenom, i);
-                        deltax = deltax == 0 ? 0.10f : 0f;
-
-                        var Refuerzoi = SetRefuerzo(NivelInicial, NivelFinal, BarrasDenom[i].CapaRefuerzo, BarrasDenom[i].Diametro, BarrasDenom[i].Cantidad, Barrai.Traslapo, PosX + deltax, tipoBarra, LongTraslapo);
-                        Alzado.RefuerzosLongitudinales.Add(Refuerzoi);
-
-                    }
-                    else if (x % 2 > 0 && Barrai.Traslapo == Traslapo.Impar && i == 0 || x % 2 == 0 && Barrai.Traslapo == Traslapo.Par && i == 0)
-                    {
-                        NivelInicial = BarrasDenom[i].Muro.Story.StoryElevation - BarrasDenom[i].Muro.Hw;
-                        NivelFinal = fc > 0
-                            ? BarrasDenom[i].Muro.Story.StoryElevation + LongTraslapo
-                            : BarrasDenom[i].Muro.Story.StoryElevation;
-
-                        tipoBarra = fc == 0 ? TipoBarra.Tipo3 : TipoBarra.Tipo1;
-                        deltax = deltax == 0 ? 0.10f : 0f;
-                        var Refuerzoi = SetRefuerzo(NivelInicial, NivelFinal, BarrasDenom[i].CapaRefuerzo, BarrasDenom[i].Diametro, BarrasDenom[i].Cantidad, Barrai.Traslapo, PosX + deltax, tipoBarra, LongTraslapo);
-                        Alzado.RefuerzosLongitudinales.Add(Refuerzoi);
-                    }
-
                     x++;
                 }
+
+                //for (int i = BarrasDenom.Count - 1; i >= 0; i--)
+                //{
+                //    var Barrai = BarrasDenom[i];
+
+                //    fc = FindFc(BarrasDenom, i);
+
+                //    LongTraslapo = DiccionariosRefuerzo.ReturnTraslapo(BarrasDenom[i].Diametro, fc);
+
+                //    if (x % 2 == 0 && Barrai.Traslapo == Traslapo.Impar)
+                //    {
+
+                //        VariablesImpar(out NivelInicial, out NivelFinal, LongTraslapo, fc, out tipoBarra, BarrasDenom, i);
+                //        deltax = deltax == 0 ? 0.10f : 0f;
+
+                //        var Refuerzoi = SetRefuerzo(NivelInicial, NivelFinal, BarrasDenom[i].CapaRefuerzo, BarrasDenom[i].Diametro, BarrasDenom[i].Cantidad, Barrai.Traslapo, PosX + deltax, tipoBarra, LongTraslapo);
+                //        Alzado.RefuerzosLongitudinales.Add(Refuerzoi);
+                //    }
+                //    else if (x % 2 > 0 && Barrai.Traslapo == Traslapo.Par)
+                //    {
+                //        VariablesPar(out NivelInicial, out NivelFinal, LongTraslapo, fc, out tipoBarra, BarrasDenom, i);
+                //        deltax = deltax == 0 ? 0.10f : 0f;
+
+                //        var Refuerzoi = SetRefuerzo(NivelInicial, NivelFinal, BarrasDenom[i].CapaRefuerzo, BarrasDenom[i].Diametro, BarrasDenom[i].Cantidad, Barrai.Traslapo, PosX + deltax, tipoBarra, LongTraslapo);
+                //        Alzado.RefuerzosLongitudinales.Add(Refuerzoi);
+
+                //    }
+                //    else if (x % 2 > 0 && Barrai.Traslapo == Traslapo.Impar && i == 0 || x % 2 == 0 && Barrai.Traslapo == Traslapo.Par && i == 0)
+                //    {
+                //        NivelInicial = BarrasDenom[i].Muro.Story.StoryElevation - BarrasDenom[i].Muro.Hw;
+                //        NivelFinal = fc > 0
+                //            ? BarrasDenom[i].Muro.Story.StoryElevation + LongTraslapo
+                //            : BarrasDenom[i].Muro.Story.StoryElevation;
+
+                //        tipoBarra = fc == 0 ? TipoBarra.Tipo3 : TipoBarra.Tipo1;
+                //        deltax = deltax == 0 ? 0.10f : 0f;
+                //        var Refuerzoi = SetRefuerzo(NivelInicial, NivelFinal, BarrasDenom[i].CapaRefuerzo, BarrasDenom[i].Diametro, BarrasDenom[i].Cantidad, Barrai.Traslapo, PosX + deltax, tipoBarra, LongTraslapo);
+                //        Alzado.RefuerzosLongitudinales.Add(Refuerzoi);
+                //    }
+
+                //    x++;
+                //}
                 PosX += 1.45f;
             }
+        }
+
+        private static TipoBarra GetTipoBarra(float NivelMax, float NivelInicial, float NivelFinal)
+        {
+            TipoBarra tipoBarra;
+            if (NivelInicial == 0 && NivelFinal < NivelMax)
+            {
+                tipoBarra = TipoBarra.Tipo2;
+            }
+            else if (NivelInicial == 0 && NivelFinal == NivelMax)
+            {
+                tipoBarra = TipoBarra.Tipo4;
+            }
+            else if (NivelInicial > 0 && NivelFinal < NivelMax)
+            {
+                tipoBarra = TipoBarra.Tipo1;
+            }
+            else
+            {
+                tipoBarra = TipoBarra.Tipo3;
+            }
+
+            return tipoBarra;
         }
 
         private static void VariablesPar(out float NivelInicial, out float NivelFinal, float LongTraslapo, float fc, out TipoBarra tipoBarra, List<BarraMuro> BarrasDenom, int i)

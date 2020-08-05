@@ -95,7 +95,7 @@ namespace Entidades
             set
             {
                 asHorizontal = value;
-                RhoHorizontal= GetRho(asHorizontal, espesor);
+                RhoHorizontal = GetRho(asHorizontal, espesor);
             }
         }
         public float RhoHorizontal { get; set; }
@@ -104,7 +104,7 @@ namespace Entidades
         {
             MallaId = Guid.NewGuid().ToString();
         }
-        public Malla(string denomMalla, Diametro diametro, int capas, float separacionVertical,float separacionHorizontal, float espesor)
+        public Malla(string denomMalla, Diametro diametro, int capas, float separacionVertical, float separacionHorizontal, float espesor)
         {
             DenomMallla = denomMalla;
             MallaId = Guid.NewGuid().ToString();
@@ -138,7 +138,7 @@ namespace Entidades
 
         public override string ToString()
         {
-            return $"{DenomMallla}";
+            return $"{DenomMallla} #{DiccionariosRefuerzo.ReturnNombreDiametro(Diametro, 1)}  V{SeparacionVertical}m H{SeparacionHorizontal}m";
         }
     }
 }

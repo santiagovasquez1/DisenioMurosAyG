@@ -33,7 +33,6 @@ namespace DisenioMurosAyG.Controller
             MallaView.ListaMallas.DataSource = _context.Mallas;
             MallaSeleccionada = _context.Mallas[0];
 
-            MallaView.ListaMallas.DataBindings.Add("Text", this, "MallaSeleccionada", true, DataSourceUpdateMode.OnPropertyChanged);
             MallaView.ListaMallas.SelectedIndexChanged += new PositionChangedEventHandler(SeleccionMallaCommand);
         }
 
@@ -51,7 +50,7 @@ namespace DisenioMurosAyG.Controller
         private void EditarMallaClick(object sender, EventArgs e)
         {
             var editarMallaView = new EditarMallaView();
-            EditarMallaController = new EditarMallaController(editarMallaView,MallaView, MallaSeleccionada);
+            EditarMallaController = new EditarMallaController(editarMallaView, MallaView, MallaSeleccionada);
             editarMallaView.ShowDialog();
         }
 
@@ -59,7 +58,6 @@ namespace DisenioMurosAyG.Controller
         {
             var editarMallaView = new EditarMallaView();
             EditarMallaController = new EditarMallaController(editarMallaView, MallaView, new Malla());
-            MallaView.Visible = false;
             editarMallaView.ShowDialog();
         }
     }
