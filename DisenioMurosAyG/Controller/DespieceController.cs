@@ -33,12 +33,22 @@ namespace DisenioMurosAyG.Controller
             DespieceView = despieceView;
             AlzadoSeleccionado = alzadoi;
 
-           DespieceView.gvDespieceMuro.CellEndEdit += new GridViewCellEventHandler(EditMuroCommand);
+            DespieceView.gvDespieceMuro.CellEndEdit += new GridViewCellEventHandler(EditMuroCommand);
             DespieceView.gvDespieceMuro.ContextMenuOpening += new ContextMenuOpeningEventHandler(ColumnContextMenuOpening);
+            DespieceView.gvDespieceMuro.PastingCellClipboardContent += new GridViewCellValueEventHandler(PasteCellCommand);
 
             Set_Columns_Data_Alzado();
             LoadAlzadoData();
             Cargar_DataGrid();
+        }
+
+        private void PasteCellCommand(object sender, GridViewCellValueEventArgs e)
+        {
+            var rowIndex = e.RowIndex;
+            var columnIndex = e.ColumnIndex;
+            var valorCelda = e.Value.ToString();
+
+            EditMuro(rowIndex, columnIndex, valorCelda);
         }
 
         private void AceptarCapaClick(object sender, EventArgs e)
@@ -148,8 +158,8 @@ namespace DisenioMurosAyG.Controller
             DespieceView.gvDespieceMuro.AllowDragToGroup = false;
             DespieceView.gvDespieceMuro.SelectionMode = GridViewSelectionMode.CellSelect;
             DespieceView.gvDespieceMuro.MultiSelect = true;
-
             DespieceView.gvDespieceMuro.TableElement.TableHeaderHeight = 80;
+            DespieceView.gvDespieceMuro.AllowDeleteRow = false;
 
             for (int i = 0; i < DespieceView.gvDespieceMuro.RowCount; i++)
             {
@@ -223,30 +233,44 @@ namespace DisenioMurosAyG.Controller
 
             }
 
+
         }
 
         private void EliminarCapaDespiece(object sender, EventArgs e)
         {
-            var barras = (from prueba in AlzadoSeleccionado.Muros
-                          where prueba.BarrasMuros != null
-                          from barra in prueba.BarrasMuros
-                          where barra.CapaRefuerzo.CapaId == CapaRefuerzoSeleccionada.CapaId
-                          select barra).ToList();
 
-            foreach (var muro in AlzadoSeleccionado.Muros)
+            List<Alzado> AlzadosSeleccionados = new List<Alzado>();
+
+            AlzadosSeleccionados = (from alzadoi in _contex.Alzados
+                                    where alzadoi.PadreId == AlzadoSeleccionado.AlzadoId || alzadoi.AlzadoId == AlzadoSeleccionado.AlzadoId
+                                    select alzadoi).ToList();
+
+            foreach (var alzadoi in AlzadosSeleccionados)
             {
-                if (muro.BarrasMuros != null)
+                var barras = (from prueba in alzadoi.Muros
+                              where prueba.BarrasMuros != null
+                              from barra in prueba.BarrasMuros
+                              where barra.CapaRefuerzo.CapaId == CapaRefuerzoSeleccionada.CapaId
+                              select barra).ToList();
+
+                foreach (var muro in alzadoi.Muros)
                 {
-                    var barrai = (from prueba in barras
-                                  where prueba.Muro.MuroId == muro.MuroId
-                                  select prueba).FirstOrDefault();
+                    if (muro.BarrasMuros != null)
+                    {
+                        var barrai = (from prueba in barras
+                                      where prueba.Muro.MuroId == muro.MuroId
+                                      select prueba).FirstOrDefault();
 
-                    muro.BarrasMuros.Remove(barrai);
-                    muro.CalcAsTotal();
+                        muro.BarrasMuros.Remove(barrai);
+                        muro.CalcAsTotal();
 
-                    var indice = AlzadoSeleccionado.Muros.FindIndex(x => x.MuroId == muro.MuroId);
-                    if (indice >= 0)
-                        DespieceView.gvDespieceMuro.Rows[indice].Cells["AsTotal"].Value = muro.AsTotalAdicional;
+                        if (alzadoi.AlzadoId == AlzadoSeleccionado.AlzadoId)
+                        {
+                            var indice = alzadoi.Muros.FindIndex(x => x.MuroId == muro.MuroId);
+                            if (indice >= 0)
+                                DespieceView.gvDespieceMuro.Rows[indice].Cells["AsTotal"].Value = muro.AsTotalAdicional;
+                        }
+                    }
                 }
             }
 
@@ -271,6 +295,7 @@ namespace DisenioMurosAyG.Controller
             EditarCapaController = new EditarCapaController(EditarCapaView, capaRefuerzo, AlzadoSeleccionado, this, TipoEdicionCapa.Nuevo);
             EditarCapaView.ShowDialog();
         }
+
         public void AddCapaDespiece()
         {
             if (EditarCapaController.CapaRefuerzo.CapaNombre != string.Empty && EditarCapaController.CapaRefuerzo.CapaNombre != null)
@@ -287,8 +312,9 @@ namespace DisenioMurosAyG.Controller
                     var barra = new BarraMuro(AlzadoSeleccionado.Muros.LastOrDefault().Label, AlzadoSeleccionado.Muros.LastOrDefault(), EditarCapaController.CapaRefuerzo);
                     AlzadoSeleccionado.Muros.LastOrDefault().BarrasMuros.Add(barra);
                 }
+
                 var Columnas = new List<DataColumn>(){
-                DataGridController.CrearColumna(EditarCapaController.CapaRefuerzo.CapaNombre, typeof(string), false)};
+                DataGridController.CrearColumna(EditarCapaController.CapaRefuerzo.CapaId, typeof(string), false)};
                 DataGridController.Set_Columns_Data(DT_AlzadoSeleccionado, Columnas);
                 DataGridController.AddGridViewColumn(DespieceView.gvDespieceMuro, typeof(GridViewTextBoxColumn), typeof(string), EditarCapaController.CapaRefuerzo.CapaId, ColumnHeaderText, EditarCapaController.CapaRefuerzo.CapaId, false);
             }
@@ -306,42 +332,58 @@ namespace DisenioMurosAyG.Controller
             var ColumnHeaderText = $"{ CapaRefuerzoSeleccionada.CapaNombre}\nCantidad: {CapaRefuerzoSeleccionada.Cantidad}\nTraslapo: {CapaRefuerzoSeleccionada.Traslapo}";
             DespieceView.gvDespieceMuro.Columns[ColumnaSeleccionadaName].HeaderText = ColumnHeaderText;
 
-            var barras = (from prueba in AlzadoSeleccionado.Muros
-                          where prueba.BarrasMuros != null
-                          from barra in prueba.BarrasMuros
-                          where barra.CapaRefuerzo.CapaId == CapaRefuerzoSeleccionada.CapaId
-                          select barra).ToList();
+            List<Alzado> AlzadosSeleccionados = new List<Alzado>();
 
-            foreach (var barrai in barras)
+            AlzadosSeleccionados = (from alzadoi in _contex.Alzados
+                                    where alzadoi.PadreId == AlzadoSeleccionado.AlzadoId || alzadoi.AlzadoId == AlzadoSeleccionado.AlzadoId
+                                    select alzadoi).ToList();
+
+            foreach (var alzadoi in AlzadosSeleccionados)
             {
-                barrai.CapaRefuerzo = CapaRefuerzoSeleccionada;
-                barrai.Cantidad = CapaRefuerzoSeleccionada.Cantidad;
-                barrai.Traslapo = CapaRefuerzoSeleccionada.Traslapo;
+                var barras = (from prueba in alzadoi.Muros
+                              where prueba.BarrasMuros != null
+                              from barra in prueba.BarrasMuros
+                              where barra.CapaRefuerzo.CapaId == CapaRefuerzoSeleccionada.CapaId
+                              select barra).ToList();
 
-                barrai.Muro.CalcAsTotal();
-                var x = AlzadoSeleccionado.Muros.FindIndex(y => y.MuroId == barrai.Muro.MuroId);
-                DespieceView.gvDespieceMuro.Rows[x].Cells["AsTotal"].Value = barrai.Muro.AsTotalAdicional;
-                x++;
+                foreach (var barrai in barras)
+                {
+                    barrai.CapaRefuerzo = CapaRefuerzoSeleccionada;
+                    barrai.Cantidad = CapaRefuerzoSeleccionada.Cantidad;
+                    barrai.Traslapo = CapaRefuerzoSeleccionada.Traslapo;
+
+                    barrai.Muro.CalcAsTotal();
+                    var x = alzadoi.Muros.FindIndex(y => y.MuroId == barrai.Muro.MuroId);
+
+                    if (alzadoi.AlzadoId == AlzadoSeleccionado.AlzadoId)
+                        DespieceView.gvDespieceMuro.Rows[x].Cells["AsTotal"].Value = barrai.Muro.AsTotalAdicional;
+                }
+
             }
-
         }
 
         private void EditMuroCommand(object sender, GridViewCellEventArgs e)
         {
-            var ValorCelda = string.Empty;
-            int indice = e.RowIndex;
-            int column = e.ColumnIndex;
-            var ColumnName = DespieceView.gvDespieceMuro.Rows[indice].Cells[column].ColumnInfo.Name;
-            BarraMuro barra = null;
+            var rowIndex = e.RowIndex;
+            var columnIndex = e.ColumnIndex;
+            var valorCelda = e.Value.ToString();
+
+            EditMuro(rowIndex, columnIndex, valorCelda);
+
+        }
+
+        private void EditMuro(int rowIndex, int columnIndex, string ValorCelda)
+        {
+            var ColumnName = DespieceView.gvDespieceMuro.Rows[rowIndex].Cells[columnIndex].ColumnInfo.Name;
             List<Muro> MurosSeleccionados = new List<Muro>();
 
-            MuroSeleccionado = AlzadoSeleccionado.Muros[indice];
+            MuroSeleccionado = AlzadoSeleccionado.Muros[rowIndex];
 
             if (AlzadoSeleccionado.IsMaestro)
             {
                 MurosSeleccionados = (from Alzado in _contex.Alzados
                                       where Alzado.PadreId == AlzadoSeleccionado.AlzadoId | Alzado.AlzadoId == AlzadoSeleccionado.AlzadoId
-                                      select Alzado.Muros[indice]).ToList();
+                                      select Alzado.Muros[rowIndex]).ToList();
             }
             else
                 MurosSeleccionados.Add(MuroSeleccionado);
@@ -355,8 +397,8 @@ namespace DisenioMurosAyG.Controller
                 if (CapaRefuerzo == null)
                     CapaRefuerzo = EditarCapaController.CapaRefuerzo;
 
-                if (DespieceView.gvDespieceMuro.Rows[indice].Cells[column].Value != null)
-                    ValorCelda = DespieceView.gvDespieceMuro.Rows[indice].Cells[column].Value.ToString();
+                //if (DespieceView.gvDespieceMuro.Rows[rowIndex].Cells[columnIndex].Value != null)
+                //    ValorCelda = DespieceView.gvDespieceMuro.Rows[rowIndex].Cells[columnIndex].Value.ToString();
 
                 int Diametro = 0;
 
@@ -368,17 +410,17 @@ namespace DisenioMurosAyG.Controller
                         {
                             foreach (var muroi in MurosSeleccionados)
                             {
-                                barra = EditBarraMuro(ColumnName, CapaRefuerzo, Diametro, muroi, indice);
+                                EditBarraMuro(ColumnName, CapaRefuerzo, Diametro, muroi, rowIndex);
                             }
                         }
                         else
                         {
-                            DespieceView.gvDespieceMuro.Rows[indice].Cells[column].Value = "Error";
+                            DespieceView.gvDespieceMuro.Rows[rowIndex].Cells[columnIndex].Value = "Error";
                         }
                     }
                     else
                     {
-                        DespieceView.gvDespieceMuro.Rows[indice].Cells[column].Value = "Error";
+                        DespieceView.gvDespieceMuro.Rows[rowIndex].Cells[columnIndex].Value = "Error";
                     }
                 }
                 else
@@ -392,7 +434,7 @@ namespace DisenioMurosAyG.Controller
                             {
                                 muroi.BarrasMuros.RemoveAt(index);
                                 muroi.CalcAsTotal();
-                                DespieceView.gvDespieceMuro.Rows[indice].Cells["AsTotal"].Value = muroi.AsTotalAdicional;
+                                DespieceView.gvDespieceMuro.Rows[rowIndex].Cells["AsTotal"].Value = muroi.AsTotalAdicional;
                             }
 
                         }
@@ -400,10 +442,11 @@ namespace DisenioMurosAyG.Controller
                 }
             }
 
-            WarningAs(MuroSeleccionado, indice);
+            DespieceView.gvDespieceMuro.Rows[rowIndex].Cells["AsTotal"].Value = MuroSeleccionado.AsTotalAdicional;
+            WarningAs(MuroSeleccionado, rowIndex);
         }
 
-        private BarraMuro EditBarraMuro(string ColumnName, CapaRefuerzo CapaRefuerzo, int Diametro, Muro muroi, int indice)
+        private void EditBarraMuro(string ColumnName, CapaRefuerzo CapaRefuerzo, int Diametro, Muro muroi, int indice)
         {
             BarraMuro barra;
             if (muroi.BarrasMuros != null)
@@ -427,8 +470,6 @@ namespace DisenioMurosAyG.Controller
                 muroi.BarrasMuros = new List<BarraMuro> { barra };
             }
             muroi.CalcAsTotal();
-            DespieceView.gvDespieceMuro.Rows[indice].Cells["AsTotal"].Value = muroi.AsTotalAdicional;
-            return barra;
         }
 
         private void WarningAs(Muro muro, int indice)
